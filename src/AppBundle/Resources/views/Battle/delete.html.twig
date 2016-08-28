@@ -1,0 +1,28 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block delete %}
+  Supprimée une bataille
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron">
+    {% if is_granted('ROLE_ADMIN') %}
+      <h2 class="text-center">Suppression de la bataille {{ battle.name}}</h2>
+      <form action="{{path('app_battle_delete',{'slugBattle': battle.slugBattle})}}" method="post">
+        <div class="row">
+          <label for="suppression" class="col-sm-4">Voulez-vous supprimer cette bataille</label>
+          <input type="submit" value="Supprimer" class="btn btn-danger btn-sm col-sm-2">
+        </div>
+        {{ form_rest(form)}}
+        <div class="text-right">
+          <a href="{{ path('app_battles')}}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-left"></i>Retour aux batailles</a>
+        </div>
+      </form>
+    {% else %}
+        <p class="alert alert-danger">
+          Cette zone est a accès reservé. Vous ne disposé pas de droit suffisant.<br/>
+          Veuillez retourné sur la liste des <a href="{{ path('app_battles')}}">battles</a>.
+        </p>
+    {% endif %}
+  </div>
+{% endblock %}

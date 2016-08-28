@@ -1,0 +1,150 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Ajout d'une figurine {% endblock %}
+
+{% block body %}
+	<div class="well">
+		<h2 class="text-center">Rajout d'une figurine pour l'armée {{ armyName }}</h2>
+		{{ form_start(form,{'attr':{'class': 'form-horizontal'}}) }}
+		{{ form_errors(form) }}
+
+		<div class="form-group">
+			{{ form_label(form.figurine,'Figurine à ajouter :',{'label_attr':{'class': 'col-sm-2 control-label'}})}}
+			{{ form_errors(form.figurine) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.figurine,{'attr':{'class':'form-control', 'value': 'Choix de la figurine'}}) }}
+			</div>
+		</div>
+		{{ form_row(form.equipements)}}
+
+		<div class="col-sm-12">
+				<ul class="photos" data-prototype="{{ form_widget(form.photos.vars.prototype)|e('html_attr')}}">
+					{% for photo in form.photos %}
+					    <li>{{ form_row(photo.file)}}</li>
+					{% endfor %}
+				</ul>
+		</div>
+
+		<div class="text-center">
+			{{ form_row(form.save,{'attr':{'class': 'btn btn-default btn-sm'}}) }}
+		</div>
+
+		{{ form_rest(form)}}
+		{{ form_end(form)}}
+
+		<div class="text-right">
+			<a class="btn btn-default btn-xs" href="{{ path('app_army_view',{'slugArmy': slugArmy})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à l'armée</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script type="text/javascript">
+	window.onload = function hideOptions()
+	{
+		var collectionHolder;
+
+		// setup an "add a photo" link
+		var $addPhotoLink = $('<a href="#" class="add_photo_link btn btn-default btn-xs">Ajouter une photo</a>');
+		var $newLinkLi = $('<li></li>').append($addPhotoLink);
+
+		jQuery(document).ready(function () {
+			// get the ul that holds the collection of photo
+			$collectionHolder = $('ul.photos');
+
+			// add a delete link to all of the existing photo form li elements
+			$collectionHolder.find('li').each(function()
+			{
+				addPhotoFormDeleteLink($(this));
+			})
+
+			// add the "add a photo" anchor and li to the photos ul
+			$collectionHolder.append($newLinkLi);
+
+			// count the current form inputs we have, use that as the new
+			// index when inserting a new item
+			$collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+			$addPhotoLink.on('click', function(e) {
+				// prevent the link from creating a '#' on the url
+				e.preventDefault();
+
+				// add a new tag form (see next code block)
+				addPhotoForm($collectionHolder, $newLinkLi);
+			})
+
+			function addPhotoForm($collectionHolder, $newLinkLi) {
+				// Get the data-prototype explained earlier
+				var prototype = $collectionHolder.data('prototype');
+
+				// get the new index
+				var index = $collectionHolder.data('index');
+
+				// Replace '__name__' in the prototype's HTML to
+				// instead be a number based on how many items we have
+				var newForm = prototype.replace(/__name__/g,index);
+
+				// increase the index with one for the next items
+				$collectionHolder.data('index', index + 1);
+
+				// display the form in the page in and li, before the "Add a photo" link li
+				var $newFormLi = $('<li></li>').append(newForm);
+				$newLinkLi.before($newFormLi);
+
+				// add a delete link to the new form
+				addPhotoFormDeleteLink($newFormLi);
+			}
+
+			function addPhotoFormDeleteLink($photoFormLi)
+			{
+				var $removeFormA= $('<a href="#" class="btn btn-danger btn-xs">Supprimer cette photo</a>');
+				$photoFormLi.append($removeFormA);
+
+				$removeFormA.on('click', function(e) {
+					// prevent the link from creating a "#" on the url
+					e.preventDefault();
+
+					// remove the li for the photo Form
+					$photoFormLi.remove();
+				})
+			}
+		})
+
+		var labelOptionElt = document.getElementById('options');
+		labelOptionElt.classList.add('col-sm-2');
+
+		var optionElts = document.querySelectorAll('div.checkbox');
+		for (var i = optionElts.length - 1; i >= 0; i--) {
+			optionElts[i].style.display = "none";
+		}
+
+		var choixOptionElt = document.createElement("div");
+		choixOptionElt.id = 'choixOption';
+		choixOptionElt.innerHTML = "Choisisser une figurine pour acceder à ses options !";
+		var divOptionsElt = document.getElementById('figurine_army_equipements')
+		divOptionsElt.appendChild(choixOptionElt);
+		divOptionsElt.classList.add('col-sm-10');
+		divOptionsElt.classList.add('row');
+
+
+		document.getElementById('figurine_army_figurine').onchange = function(){
+			choixOptionElt.remove();
+
+			for (var i = optionElts.length - 1; i >= 0; i--) {
+				optionElts[i].style.display = "none";
+				optionElts[i].querySelector('input').checked = false;
+			}
+
+			var optionsVisiblesElts = document.querySelectorAll('input[data-'+this.value+']');
+			for (var i = optionsVisiblesElts.length - 1; i >= 0; i--) {
+				optionsVisiblesElts[i].parentNode.parentNode.style.display = "inline";
+				optionsVisiblesElts[i].parentNode.parentNode.classList.add('col-sm-4');
+
+			}
+
+		}
+
+	}
+	</script>
+{% endblock %}

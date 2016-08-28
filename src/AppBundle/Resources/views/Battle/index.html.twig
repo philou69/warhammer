@@ -1,0 +1,93 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+  Liste des battles
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron">
+    <div id="lastBattle" class="row" >
+      <h2 class="text-center">Les futures Batailles</h2>
+      <table class="col-sm-12 table">
+        {% for battleFuture in listBattlesFuture if listBattlesFuture|length >= 1 %}
+            <tr class="row">
+              <td class="col-sm-3">
+                <a href="{{ path('app_battle_future_view',{'slugBattle': battleFuture.slugBattle})}}">{{ battleFuture.name }}</a><br>
+                <small>
+                  du {{ battleFuture.date|date('d/m/Y \à h:m')}}<br>
+                  chez {{ battleFuture.lieu }}
+                </small>
+              </td>
+              <td class="col-sm-3">
+                {% if battleFuture.canceled == true %}
+                  Cette bataille a été annulée.
+                {% else %}
+                  {% set nbParticipants = 0 %}
+                  {% for participant in battleFuture.participants if participant.presence.id == 3 %}
+                      {{ participant.participant.username}} au commande de l'armée <a href="{{ path('app_army_view',{'slugArmy': participant.army.slugArmy})}}">{{ participant.army.name}}</a>
+                      {% set nbParticipants = nbParticipants + 1 %}
+                  {% endfor %}
+                  {% if nbParticipants == 0 %}
+                    Personne n'a encore préciser se battre.<br>
+                    Voulez-vous vous <a href="{{ path('app_battle_future_view',{'slugBattle': battleFuture.slugBattle})}}">battre</a> ?
+                  {% elseif nbParticipants ==1 %}
+                    Il n'y a qu'un courageux pret à se battre.<br>
+                    Voulez-vous vous <a href="{{ path('app_battle_future_view',{'slugBattle': battleFuture.slugBattle})}}">battre</a> ?
+
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td class="col-sm-4">
+                {% for participant in battleFuture.participants if app.user == participant.participant and battleFuture.canceled == false %}
+                    Vous {{ participant.presence.presence }}.
+                {% endfor %}
+                {% if battleFuture.createur == app.user and battleFuture.canceled == false %}
+                  <br/>
+                  <a href="{{ path('app_battle_canceled',{'slugBattle': battleFuture.slugBattle})}}" class="btn btn-danger btn-sm">Anulée la bataile</a>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                  <br/>
+                  <a href="{{ path('app_battle_delete', {'slugBattle': battleFuture.slugBattle})}}" class="btn btn-danger btn-sm">Supprimé la bataille</a>
+                {% endif %}
+              </td>
+            </tr>
+        {% endfor %}
+        <tr class="row">
+          <td class="col-sm-12 text-center" colspan="3">
+            {% if listBattlesFuture|length == 0 %}
+                Il n'y a aucunes batailles de prévue pour l'intant.</br>
+            {% endif %}
+            <a href="{{ path('app_battle_add') }}">Proposer</a> une battle.
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div id="listBattles" class="row">
+      <h2 class="text-center">Les anciennes Battailes</h2>
+      <table class="col-sm-12 table">
+        {% for battlePast in listBattlesPast %}
+          <tr class="row">
+            <td class="col-sm-5">
+              Bataille <a href="{{ path('app_battle_view',{'slugBattle': battlePast.slugBattle})}}">{{ battlePast.name }}</a> <small>du {{ battlePast.date|date('d/m/Y')}}</small>
+            </td>
+            <td class="col-sm-5">
+            {% for participant in battlePast.participants if participant.presence.id == 3 %}
+              {% if loop.first %}  A opposé : <br/>{% endif %}
+                {{ participant.participant.username }} général de l'armée <a href="{{ path('app_army_view',{'slugArmy': participant.army.slugArmy})}}">{{ participant.army.name }}</a><br>
+                {% else %}
+                  Il n'y a pas de géneral.
+              {% endfor %}
+            </td>
+            <td class="col-sm-2 text-center">
+              {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_battle_delete', {'slugBattle': battlePast.slugBattle})}}" class="btn btn-danger btn-sm">Supprimé la bataille</a>
+              {% endif %}
+            </td>
+          </tr>
+
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+{% endblock %}

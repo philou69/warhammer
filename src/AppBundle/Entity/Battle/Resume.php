@@ -1,0 +1,93 @@
+<?php
+
+namespace AppBundle\Entity\Battle;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Resume
+ *
+ * @ORM\Table(name="resume")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\ResumeRepository")
+ */
+
+class Resume
+{
+  /**
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+
+  /**
+   * @ORM\Column(name="resume", type="text")
+   */
+  private $resume;
+
+  /**
+   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Battle")
+   * @ORM\JoinColumn(nullable= false)
+   */
+  private $battle;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set resume
+     *
+     * @param string $resume
+     *
+     * @return Resume
+     */
+    public function setResume($resume)
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
+    /**
+     * Get resume
+     *
+     * @return string
+     */
+    public function getResume()
+    {
+        return $this->resume;
+    }
+
+    
+
+    /**
+     * Set battle
+     *
+     * @param \AppBundle\Entity\Battle\Battle $battle
+     *
+     * @return Resume
+     */
+    public function setBattle(\AppBundle\Entity\Battle\Battle $battle)
+    {
+        $this->battle = $battle;
+
+        return $this;
+    }
+
+    /**
+     * Get battle
+     *
+     * @return \AppBundle\Entity\Battle\Battle
+     */
+    public function getBattle()
+    {
+        return $this->battle;
+    }
+}

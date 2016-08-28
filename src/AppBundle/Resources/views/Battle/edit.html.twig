@@ -1,0 +1,18 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+  résume de bataille
+{% endblock %}
+
+{% block body %}
+  <div class="well">
+    {{ form(form)}}
+    <div class="">
+      <ul>
+        {% for photo in photos %}
+            <li>{{ photo.uploadRootDir}}{{photo.url}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}

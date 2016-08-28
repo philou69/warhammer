@@ -1,0 +1,25 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+	Acceuil
+{% endblock %}
+
+{% block body %}
+	{% for label,flashes in app.session.flashbag.all %}
+		{% for flash in flashes %}
+			<div class="alert alert-{{ label }}">
+				{{ flash }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+	<div id="presentation" class="jumbotron">
+		<h2 class="text-center">Bienvenue sur WarhantmilleBattle</h2>
+		<p> Sur le site, tu as la possibilité de créer des armées, voir les armées de tes amis ou proposer des battles.</p>
+	</div>
+	<div id="battles" class="jumbotron">
+		<p>bloc des battles</p>
+	</div>
+	<div id="armies" class="jumbotron">
+		<p>bloc des armées</p>
+	</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+  Bataille {{ battle.name }}
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron">
+    <h2 class="text-center">{{ battle.name }} du {{ battle.date|date('d/m/y')}}</h2>
+    {% if resumeBattle is empty %}
+      Il n'y a pas encore de résumé de cette bataille.
+      {% if app.user == battle.createur %}
+        Vous pouvez créer un résumé <a href="{{ path('app_battle_add_view', {'slugBattle': battle.slugBattle})}}">ici</a>
+      {% endif %}
+    {% else %}
+        {{ resumeBattle.resume|raw  }}
+    {% endif %}
+  </div>
+{% endblock %}

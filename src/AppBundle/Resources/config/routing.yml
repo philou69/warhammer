@@ -1,0 +1,92 @@
+app_home:
+    path: /
+    defaults: { _controller: "AppBundle:App:index"}
+
+app_battles:
+    path: /battles
+    defaults: { _controller: "AppBundle:Battle:index"}
+
+app_battle_add:
+    path: /battle/add
+    defaults: { _controller: "AppBundle:Battle:add"}
+
+app_battle_view:
+    path: /battle/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:view"}
+
+app_battle_future_view:
+    path: /battle/future/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:viewfuture"}
+
+app_battle_add_view:
+    path: /battle/add/view/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:addview"}
+
+app_battle_edit_view:
+    path: /battle/edit/view/{id}
+    defaults: { _controller: "AppBundle:Battle:editView"}
+    requirements:
+      id: \d+
+
+app_battle_canceled:
+    path:  /battle/canceled/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:canceled"}
+
+app_battle_delete:
+    path:  /battle/delete/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:delete"}
+
+app_armies:
+    path: /armies
+    defaults: { _controller: "AppBundle:Army:index"}
+
+app_army_add:
+    path: /armies/add
+    defaults: { _controller: "AppBundle:Army:add"}
+
+app_army_view:
+    path: /armies/army/{slugArmy}
+    defaults: { _controller: "AppBundle:Army:view"}
+
+app_army_edit:
+    path: /armies/edit/{slugArmy}
+    defaults: { _controller: "AppBundle:Army:edit"}
+
+app_army_delete:
+    path: /armies/delete/{slugArmy}
+    defaults: { _controller: "AppBundle:Army:delete"}
+
+
+app_figurine_add:
+    path: /figurines/add/{slugArmy}
+    defaults: { _controller: "AppBundle:Figurine:add"}
+
+app_figurine_edit:
+    path: /figurines/edit/{id}
+    defaults: { _controller: "AppBundle:Figurine:edit"}
+    requirements:
+      id: \d+
+
+app_figurine_delete:
+    path: /figurines/delete/{id}
+    defaults: { _controller: "AppBundle:Figurine:delete"}
+    requirements:
+      id: \d+
+
+app_photo_add:
+    path: /photo/add/{id}
+    defaults: { _controller:"AppBundle:Photo:add"}
+    requirements:
+        id: \d+
+
+app_photo_delete:
+    path:  /photo/delete/{id}
+    defaults: { _controller: "AppBundle:Photo:delete"}
+    requirements:
+        id: \d+
+
+app_user_role:
+    path:  /user/{id}
+    defaults: { _controller: "AppBundle:User:addRole"}
+    requirements:
+      id: \d+

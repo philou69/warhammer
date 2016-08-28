@@ -1,0 +1,188 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+{{ army.name }}
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	.thumbnail img{
+		max-height: 80px;
+	}
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron row">
+		<div id="titre" class="text-center">
+			<h2 >{{ army.name }} créée par {{ army.user.username}}</h2>
+			<small>Race : {{ army.race.name }}, Points d'armée : {{ army.points }} {% if army.user == app.user %}<a href="{{ path('app_army_edit',{'slugArmy': army.slugArmy})}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Modifier</a>{% endif %}</small>
+		</div><br/>
+		{% if army.figurines is empty %}
+			<div class="alert alert-info">
+				<h2>Il n'y a pas de chair à canon dans cette armée.</h2>
+				{% if army.user == app.user %}
+				<a href="{{ path('app_figurine_add',{'slugArmy': army.slugArmy})}}">Rajouté</a> des figurines afin d'affronter vos adversaires
+				{% endif %}
+			</div>
+			{% if army.user == app.user %}
+				<div class="alert alert-danger" data-toggle="tooltip" title="suppresion de l'armée">
+					<h2 class="text-center">Suppresion de l'armée</h2>
+							<p>
+							Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('app_army_delete', {'slugArmy': army.slugArmy}) }}" ici</a>
+						</p>
+
+				</div>
+			{% endif %}
+		{% else %}
+			{% for groupe in listgroupes %}
+				<h3 class="text-center">{{ groupe.name }}</h3>
+				{% set countFigurines = 0 %}
+				{% for figurine in army.figurines if figurine.figurine.groupe == groupe %}
+					{% set countFigurines = countFigurines + 1 %}
+					<div class="row">
+						<div class="col-sm-3">
+							{{ figurine.figurine.name }}<br/>
+							{{ figurine.points }} pts
+						</div>
+						<div class="col-sm-5">
+							{% for equipement in figurine.equipements %}
+								{{ equipement.name }} : {{ equipement.points }} pts<br/>
+							{% endfor %}
+						</div>
+
+						<div class="col-sm-3 col-sm-push-1">
+							{% if app.user == army.user %}
+								{% if figurine.figurine.equipements|length > 0 %}
+									<a class="btn btn-primary btn-xs" href="{{ path('app_figurine_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a>
+								{%endif %}
+								<a  class="btn btn-danger btn-xs"href="{{ path('app_figurine_delete', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a>
+								<br/>
+								<a href="{{ path('app_photo_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="row">
+						{% for photo in figurine.photos %}
+							<div class="col-sm-2 row">
+								<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
+									<img class="img-responsive" src="{{ asset(photo.webPath)}}" alt="{{ photo.alt }}">
+								</a>
+								{% if app.user == army.user %}
+									<a class="col-sm-1" href="{{ path('app_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+					<hr>
+				{% endfor %}
+				{% if countFigurines == 0 %}
+						<div class="row text-center">
+							Il n'y a pas figurines dans ce groupe.<br/>
+							{% if app.user == army.user %}
+							<a href="{{ path('app_figurine_add',{'slugArmy': army.slugArmy}) }}"><i class="glyphicon glyphicon-edit"></i> Rajouté</a> une ou des figurines.
+							{% endif %}
+						</div>
+					{% endif %}
+			<hr>
+
+			{% endfor %}
+		{% endif %}
+	</div>
+	{% if army.user == app.user  and army.figurines is not empty%}
+	<div class="alert alert-info">
+		<h2 class="text-center">Rajouter une figurine</h2>
+		<p>Vous voulez agrandir votre armée pour assoir votre autorité, c'est par <a href="{{ path('app_figurine_add', {'slugArmy': army.slugArmy}) }}">ici</a> </p>
+	</div>
+	<div class="alert alert-danger" data-toggle="tooltip" title="suppresion de l'armée">
+		<h2 class="text-center">Suppresion de l'armée</h2>
+		<p>
+			Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('app_army_delete', {'slugArmy': army.slugArmy}) }}" >ici</a>
+		</p>
+
+	</div>
+{% endif %}
+
+</div>
+<div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" arial-labelledby="myModalLabel" arial-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+				<h4 class="modal-title" id="image-gallery-title"></h4>
+			</div>
+			<div class="modal-body">
+				<img id="image-gallery-image" class="img-responsive" src="">
+			</div>
+			<div class="modal-footer">
+				<div class="col-sm-2">
+					<button type="button" class="btn btn-primary btn-xs" id="show-previous-image"><span class="glyphicon glyphicon-chevron-left"></span> Précedente</button>
+				</div>
+				<div class="col-sm-2 col-sm-push-8">
+					<button type="button" class="btn btn-primary btn-xs" id="show-next-image"><span class="glyphicon glyphicon-chevron-right"></span> Suivante</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script>
+		$(document).ready(function(){
+
+			loadGallery(true, 'a.thumbnail');
+
+    //This function disables buttons when needed
+    function disableButtons(counter_max, counter_current){
+    	$('#show-previous-image, #show-next-image').show();
+    	if(counter_max == counter_current){
+    		$('#show-next-image').hide();
+    	} else if (counter_current == 1){
+    		$('#show-previous-image').hide();
+    	}
+    }
+
+    /**
+     *
+     * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+     * @param setClickAttr  Sets the attribute for the click handler.
+     */
+
+     function loadGallery(setIDs, setClickAttr){
+     	var current_image,
+     	selector,
+     	counter = 0;
+
+     	$('#show-next-image, #show-previous-image').click(function(){
+     		if($(this).attr('id') == 'show-previous-image'){
+     			current_image--;
+     		} else {
+     			current_image++;
+     		}
+
+     		selector = $('[data-image-id="' + current_image + '"]');
+     		updateGallery(selector);
+     	});
+
+     	function updateGallery(selector) {
+     		var $sel = selector;
+     		current_image = $sel.data('image-id');
+     		$('#image-gallery-title').text($sel.data('title'));
+     		$('#image-gallery-image').attr('src', $sel.data('image'));
+     		disableButtons(counter, $sel.data('image-id'));
+     	}
+
+     	if(setIDs == true){
+     		$('[data-image-id]').each(function(){
+     			counter++;
+     			$(this).attr('data-image-id',counter);
+     		});
+     	}
+     	$(setClickAttr).on('click',function(){
+     		updateGallery($(this));
+     	});
+     }
+ });
+	</script>
+{% endblock %}

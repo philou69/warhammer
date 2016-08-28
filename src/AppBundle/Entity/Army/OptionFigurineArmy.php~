@@ -1,0 +1,94 @@
+<?php 
+
+namespace AppBundle\Entity\Army;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+* OptionFigurineArmy
+*
+* @ORM\Table(name="option_figurine_army")
+* @ORM\Entity(repositoryClass="AppBundle\Repository\Army\OptionFigurineArmyRepository")
+*/
+
+class OptionFigurineArmy
+{
+	/**
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	 private $id;
+
+	 /**
+	  * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\FigurineArmy", inversedBy="options")
+	  * @ORM\JoinColumn(nullable=false)
+	  */
+	 private $figurine;
+
+	 /**
+	  * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Option", inversedBy="figurines_army")
+	  * @ORM\JoinColumn(nullable=false)
+	  */
+	 private $option;
+
+   
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set figurine
+     *
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     *
+     * @return OptionFigurineArmy
+     */
+    public function setFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    {
+        $this->figurine = $figurine;
+
+        return $this;
+    }
+
+    /**
+     * Get figurine
+     *
+     * @return \AppBundle\Entity\Army\FigurineArmy
+     */
+    public function getFigurine()
+    {
+        return $this->figurine;
+    }
+
+    /**
+     * Set option
+     *
+     * @param \AppBundle\Entity\Army\Option $option
+     *
+     * @return OptionFigurineArmy
+     */
+    public function setOption(\AppBundle\Entity\Army\Option $option)
+    {
+        $this->option = $option;
+
+        return $this;
+    }
+
+    /**
+     * Get option
+     *
+     * @return \AppBundle\Entity\Army\Option
+     */
+    public function getOption()
+    {
+        return $this->option;
+    }
+}

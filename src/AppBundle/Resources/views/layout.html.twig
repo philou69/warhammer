@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Warhantmille Battle{% endblock %}
+		</title>
+		<!-- appelle des cdn de bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+		{% block link %}{% endblock %}
+		<style type="text/css">
+			{% block stylesheets %}
+				/* Margin haute au body pour descendre le contenu de la page sous la barre de navigation */
+				body{
+					padding-top: 80px;
+				}
+			{% endblock %}
+		</style>
+	</head>
+	<body class="container">
+		<!-- barre de navigation fixe avec un menu déroulant en smallscreen -->
+		<header>
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							Menu
+							<i class="glyphicon glyphicon-hamburger-menu"></i>
+						</button>
+						<a class="navbar-brand visible-sm visible-md visible-xl " href="#">Warhantmille Battle</a>
+						<a class="navbar-brand visible-xs " href="#">WBattle</a>
+					</div>
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav ">
+							<li id="accueil">
+								<a href="{{ path('app_home') }}"><i class="glyphicon glyphicon-home"></i> Accueil</a>
+							</li>
+							<li class="battles">
+								<a href="{{ path('app_battles') }}">Les battles</a>
+							</li>
+							<li class="armies">
+								<a href="{{ path('app_armies') }}"> Les armées</a>
+							</li>
+							{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+								<li>
+									<a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
+								</li>
+								<li>
+									<a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<div class="container">
+			{% for label,flashes in app.session.flashbag.all %}
+				{% for flash in flashes %}
+					<div class="alert alert-{{ label }}">
+						{{ flash }}
+					</div>
+				{% endfor %}
+			{% endfor %}
+			{% block body %}{% endblock %}
+		</div>
+	</body>
+	{% block javascript %}
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		    <!-- Javascript de Bootstrap -->
+		    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.fr.min.js"></script>
+					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+		{% endblock %}
+</html>
+</html>

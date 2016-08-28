@@ -1,0 +1,43 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+modification d'une figurine
+{% endblock %}
+
+{% block body %}
+	<div class="well">
+		<h2 class="text-center">Modification des options de la figurine {{ figurineArmy.figurine.name}}</h2>
+		{{ form_start(form,{'attr':{'class': 'form-horizontal'}}) }}
+		{{ form_errors(form)}}
+
+		<div class="form-group">
+			{{ form_label(form.equipements,'Options :',{'label_attr':{'class':'col-sm-2 control-label'}})}}
+			{{ form_errors(form.equipements) }}
+			<div class="col-sm-10">
+				{{ form_widget(form.equipements,{'attr':{'class':'form-controle'}})}}
+			</div>
+		</div>
+		<div class="text-center">
+			{{ form_row(form.save,{'attr':{'class':'btn btn-default btn-sm '}})}}
+		</div>
+
+		{{ form_rest(form) }}
+		{{ form_end(form) }}
+		<div class="text-right">
+			<a class="btn btn-default btn-xs" href="{{ path('app_army_view',{'slugArmy': slugArmy})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à l'armée</a>
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script type="text/javascript">
+	window.onload = function () {
+		var checkboxElts = document.querySelectorAll('div.checkbox');
+		for (var i = checkboxElts.length - 1; i >= 0; i--) {
+			checkboxElts[i].classList.add('col-sm-4');
+		}
+
+	}
+	</script>
+{% endblock %}

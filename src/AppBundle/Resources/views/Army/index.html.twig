@@ -1,0 +1,57 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Liste des armées{% endblock %}
+
+{% block body %}
+	<div class="jumbotron row">
+		<h2 class="text-center">Liste des armées</h2>
+		<table class="table col-sm-12">
+			<tr class="row">
+				<td class="col-sm-12 text-center" colspan="3">
+					Vos armées
+				</td>
+			</tr>
+			{% for army in listArmies if army.user == app.user %}
+			    <tr class="row">
+			    	<td class="col-sm-4">
+			    		<a href="{{ path('app_army_view',{'slugArmy': army.slugArmy}) }}">{{ army.name }}</a>
+			    	</td>
+						<td class="col-sm-4">
+							de {{ army.points }}
+						</td>
+						<td class="col-sm-4">
+							de race {{ army.race.name }}
+						</td>
+			    </tr>	
+			{% endfor %}
+			<tr class="row">
+                                <td colspan="3" class="col-sm-12 text-center">
+                                  <a href="{{path('app_army_add')}}" class="btn btn-default btn-xs">
+                                        Créer une armée
+                                 </a>
+                                <td>
+                            </tr>
+
+			{% for user in listUsers if user != app.user %}
+				<tr class="row">
+						<td class="col-sm-12 text-center" colspan="3">
+							Les armées de {{ user.username }}
+						</td>
+				</tr>
+				{% for army in listArmies if army.user == user %}
+				    <tr class="row">
+				    	<td class="col-sm-4">
+				    		<a href="{{ path('app_army_view',{'slugArmy': army.slugArmy}) }}">{{ army.name }} de {{ army.points }}</a>
+				    	</td>
+							<td class="col-sm-4">
+								de {{ army.points }}
+							</td>
+							<td class="col-sm-4">
+								de race {{ army.race.name }}
+							</td>
+				    </tr>
+				{% endfor %}
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
