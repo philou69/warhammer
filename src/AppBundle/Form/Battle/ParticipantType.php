@@ -17,10 +17,13 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('participant', EntityType::class, array(
-              'class' => 'AppBundle:User\User',
-              'choice_label' => 'username',
-              'placeholder' => 'Choisisez un invité'
+            ->add('presence', EntityType::class, array(
+              'class' => 'AppBundle:Battle\Presence',
+              'query_builder' => function(PresenceRepository $er){
+                  return $er->findwithoutNonRepondu();
+              },
+                'label' => 'Présence :',
+              'choice_label' => 'presence'
             ))
         ;
     }

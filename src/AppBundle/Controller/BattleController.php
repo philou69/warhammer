@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\Participant;
@@ -38,11 +37,13 @@ class BattleController extends Controller
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
     {
       foreach ($listUsers as $user) {
-        $participant = new participant();
-        $participant->setBattle($battle);
+        $participant = new Participant();
+
+        $battle->addParticipant($participant);
+
         $participant->setPresence($em->getRepository('AppBundle:Battle\Presence')->findOneBy(array('id' => 4)));
         $participant->setParticipant($user);
-        $battle->addParticipant($participant);
+
       }
 
       $em->persist($battle);
@@ -84,18 +85,19 @@ class BattleController extends Controller
 
     $resume = new Resume();
     $resume->setBattle($battle);
-    $photos = $em->getRepository('AppBundle:Army\PhotoFigurine')->findAll();
+    $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findAll();
 
     $form = $this->createForm(ResumeType::class, $resume);
 
-    if($request->isMethod('POST') && $form->handleRequest($request)->isValid());
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid());
     {
       $em->persist($resume);
       $em->flush();
       return $this->redirectToRoute('app_battles');
     }
 
-    return $this->render('AppBundle:Resume:add.html.twig',array('form' => $form->createView(), 'photos' => $photos));
+    return $this->render('AppBundle:Resume:add.html.twig',array('form' => $form->createView(), 'photos' => $listPhotos));
   }
 
   /**

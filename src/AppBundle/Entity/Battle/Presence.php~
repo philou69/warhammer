@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Presence
  * 
  * @ORM\Table(name="presence")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PresenceRepository")
  */
 
 class Presence
@@ -25,4 +25,38 @@ class Presence
 	 */
 	private $presence;
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set presence
+     *
+     * @param string $presence
+     *
+     * @return Presence
+     */
+    public function setPresence($presence)
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    /**
+     * Get presence
+     *
+     * @return string
+     */
+    public function getPresence()
+    {
+        return $this->presence;
+    }
 }

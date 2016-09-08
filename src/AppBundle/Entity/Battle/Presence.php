@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Battle;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Presence
  * 
  * @ORM\Table(name="presence")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PresenceRepository")
  */
 
 class Presence

@@ -29,9 +29,10 @@ class FigurineArmyType extends AbstractType
                     {
                         return $er->findByRace($race);
                     },
+                    'label' => 'Figurine : ',
                     'choice_label' => 'NameAndPoints',
-                    'group_by' =>'groupe.name',
-                    'placeholder'=>'Choisisez une figurine'
+                    'group_by' => 'groupe.name',
+                    'placeholder' => 'Choisisez une figurine',
                     ))
             ->add('equipements', EntityType::class, array(
                     'class' => 'AppBundle:Army\Equipement',
@@ -40,7 +41,7 @@ class FigurineArmyType extends AbstractType
                         return $er->findByRace($race);
                     },
                     'choice_label' =>'NameAndPoints',
-                    'choice_attr' => function($choice, $index, $value){
+                    'choice_attr' => function($choice){
                         $datas = array();
                         foreach ($choice->getFigurines() as $figurine) {
                             $datas['data-'.$figurine->getFigurine()->getId()] = 1;
@@ -49,18 +50,23 @@ class FigurineArmyType extends AbstractType
                         return $datas;
                     },
                     'label_attr' => array('id' => 'options'),
+                    'label' => 'Options de la figurine :',
                     'expanded' =>  true,
                     'multiple' => true,
                     'required' => false,
                     ))
             ->add('photos', CollectionType::class, array(
                     'entry_type' =>PhotoFigurineType::class,
+                    'by_reference' => false,
                     'allow_add' =>true,
                     'allow_delete' =>true,
                     'required' =>false,
-                    'label_attr' => array('id' =>'photo','class' => 'col-sm-2')
+                    'label_attr' => array('id' =>'photo','class' => 'col-sm-2'),
+                    'label' => 'Photos :'
                 ))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, array(
+                    'label' => 'Enregistrer'
+            ));
         ;
     }
 

@@ -1,2 +1,5 @@
 /var
 /vendor
+.idea
+/web/uploads/images/*
+/app/config/parameters.yml

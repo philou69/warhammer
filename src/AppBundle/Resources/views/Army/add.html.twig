@@ -1,5 +1,7 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
+{% form_theme form 'form/fields.html.twig' %}
+
 {% block title %}
   Créer votre armée
 {% endblock %}
@@ -8,20 +10,11 @@
   <div class="well">
     {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
     {{ form_errors(form) }}
-    <div class="form-group">
-      {{ form_label(form.name,'Nom de l\'armée',{'label_attr':{'class':'col-sm-2 control-label'}})}}
-      {{ form_errors(form.name) }}
-      <div class="col-sm-8">
-        {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
-      </div>
-    </div>
-    <div class="form-group">
-      {{ form_label(form.race,'Race : ',{'label_attr':{'class':'col-sm-2'}}) }}
-      {{ form_errors(form.race)}}
-      <div class="col-sm-8">
-        {{ form_widget(form.race,{'attr':{'class':'form-control'}}) }}
-      </div>
-    </div>
+
+    {{ form_row(form.name) }}
+
+    {{ form_row(form.race) }}
+
     <div class="text-center">
       {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-sm'}}) }}
     </div>

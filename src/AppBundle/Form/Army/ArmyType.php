@@ -18,12 +18,19 @@ class ArmyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, array(
+                    'label' => 'Nom de l\'armée :'
+            ))
             ->add('race',EntityType::class, array(
                 'class' => 'AppBundle:Army\Race',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'label' => 'Race de l\'armée :',
+                'label_attr' => array('class' => "col-sm-2 control-label"),
+                'placeholder' => 'Séléctionner une race'
             ))
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, array(
+                'label' => 'Enregistrer'
+    ))
         ;
     }
 

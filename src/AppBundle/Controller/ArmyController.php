@@ -3,7 +3,7 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
 use AppBundle\Form\Army\ArmyType;
@@ -63,7 +63,7 @@ class ArmyController extends Controller
 		if($request->isMethod('POST') && $form->handleRequest($request)->isValid())
 		{
 			$em->flush();
-			$request->getSession()->getFlashBag()->add('info','Votre armée a bien été modifier');
+			$request->getSession()->getFlashbag()->add('info','Votre armée a bien été modifier');
 			return $this->redirectToRoute('app_army_view', array('slugArmy' =>$army->getSlugArmy()));
 		}
 

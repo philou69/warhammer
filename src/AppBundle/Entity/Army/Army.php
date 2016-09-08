@@ -5,7 +5,6 @@ namespace AppBundle\Entity\Army;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
 /**
  * Army
  *
@@ -202,7 +201,7 @@ class Army
     /**
      * Add figurine
      *
-     * @param \AppBundle\Entity\Army\Figurine\Army $figurine
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
      *
      * @return Army
      */
@@ -217,11 +216,11 @@ class Army
     /**
      * Remove figurine
      *
-     * @param \AppBundle\Entity\Army\Figurine\Army $figurine
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
      */
-    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function removeFigurine( \AppBundle\Entity\Army\FigurineArmy $figurine)
     {
-        $this->points -= $figurines->getPoints();
+        $this->points -= $figurine->getPoints();
         $this->figurines->removeElement($figurine);
     }
 

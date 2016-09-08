@@ -25,6 +25,7 @@ class FigurineController extends Controller
 			$request->getSession()->getFlashBag()->add('info','Votre figurine a bien été ajouté!');
 
 			$figurineArmy->getArmy()->setPoints($figurineArmy->getPoints());
+            $figurineArmy->setPhotos($figurineArmy->getPhotos());
 			$em->persist($figurineArmy);
 			$em->flush();
 

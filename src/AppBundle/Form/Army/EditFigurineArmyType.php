@@ -6,12 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use AppBundle\Repository\Army\FigurineRepository;
 use AppBundle\Repository\Army\EquipementRepository;
 use AppBundle\Entity\Army\Figurine;
-use AppBundle\Form\Army\PhotoFigurineType;
 
 class EditFigurineArmyType extends AbstractType
 {
@@ -30,7 +27,7 @@ class EditFigurineArmyType extends AbstractType
                         return $er->findByFigurine($figurineArmy);
                     },
                     'choice_label' =>'NameAndPoints',
-                    'choice_attr' => function($choice, $index, $value){
+                    'choice_attr' => function($choice){
                         $datas = array();
                         foreach ($choice->getFigurines() as $figurine) {
                             $datas['data-'.$figurine->getFigurine()->getId()] = 1;
@@ -39,11 +36,14 @@ class EditFigurineArmyType extends AbstractType
                         return $datas;
                     },
                     'label_attr' => array('id' => 'options'),
+                    'label' => 'Option de la figurine :',
                     'expanded' =>  true,
                     'multiple' => true,
                     'required' => false,
                     ))
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class, array(
+                    'label' => 'Enregistrer'
+            ));
         ;
     }
 

@@ -40,7 +40,7 @@ class FigurineArmy
     private $equipements;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoFigurine", mappedBy="figurine", cascade={"persist","refresh","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoFigurine", mappedBy="figurine", cascade={"all"})
      */
     private $photos;
 
@@ -104,7 +104,7 @@ class FigurineArmy
     public function setArmy(\AppBundle\Entity\Army\Army $army)
     {
         $this->army = $army;
-
+        $army->setPoints($this->points);
         return $this;
     }
 
@@ -118,7 +118,17 @@ class FigurineArmy
         return $this->army;
     }
 
-
+    /**
+     * @param mixed $photos
+     */
+    public function setPhotos($photos)
+    {
+        foreach ($photos as $photo) {
+            $photo->setFigurine($this);
+        }
+        $this->photos = $photos;
+        return $this;
+    }
 
 
 
@@ -212,7 +222,7 @@ class FigurineArmy
     public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
     {
         $this->points = $this->points - $equipement->getPoints();
-        $this->equipements->removeElement($quipement);
+        $this->equipements->removeElement($equipement);
     }
 
     /**
@@ -223,22 +233,6 @@ class FigurineArmy
     public function getEquipements()
     {
         return $this->equipements;
-    }
-
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function persistActio()
-    {
-        $points = $this->figurine->getPoints();
-        foreach ($this->equipements as $equipement) {
-            $points += $equipement->getPoints();
-        }
-
-        $this->points = $points;
-
-
     }
 
 
