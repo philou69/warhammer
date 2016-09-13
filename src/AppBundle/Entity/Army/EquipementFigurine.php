@@ -5,38 +5,35 @@ namespace AppBundle\Entity\Army;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* EquipementFigurine
-*
-* @ORM\Table(name="equipement_figurine")
-* @ORM\Entity(repositoryClass="AppBundle\Repository\Army\EquipementFigurineRepository")
-*/
-
+ * EquipementFigurine.
+ *
+ * @ORM\Table(name="equipement_figurine")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\EquipementFigurineRepository")
+ */
 class EquipementFigurine
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Figurine", inversedBy="equipements")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $figurine;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Equipement", inversedBy="figurines")
-	 */
-	private $equipement;
-
-
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Figurine", inversedBy="equipements")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $figurine;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Equipement", inversedBy="figurines")
+     */
+    private $equipement;
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -44,7 +41,7 @@ class EquipementFigurine
     }
 
     /**
-     * Set figurine
+     * Set figurine.
      *
      * @param \AppBundle\Entity\Army\Figurine $figurine
      *
@@ -58,7 +55,7 @@ class EquipementFigurine
     }
 
     /**
-     * Get figurine
+     * Get figurine.
      *
      * @return \AppBundle\Entity\Army\Figurine
      */
@@ -68,7 +65,7 @@ class EquipementFigurine
     }
 
     /**
-     * Set equipement
+     * Set equipement.
      *
      * @param \AppBundle\Entity\Army\Equipement $equipement
      *
@@ -82,7 +79,7 @@ class EquipementFigurine
     }
 
     /**
-     * Get equipement
+     * Get equipement.
      *
      * @return \AppBundle\Entity\Army\Equipement
      */

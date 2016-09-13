@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Army;
 
@@ -47,16 +47,12 @@ class Figurine
     private $armies;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\OptionFigurine", mappedBy="figurine")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementFigurine", mappedBy="figurine")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $options;
-    
+    private $equipements;
 
-    public function getNameAndPoints()
-    {
-        return $this->name.' '.$this->points.' pts' ;
-    }
+
 
     /**
      * Constructor
@@ -64,7 +60,7 @@ class Figurine
     public function __construct()
     {
         $this->armies = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->options = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -208,36 +204,41 @@ class Figurine
     }
 
     /**
-     * Add option
+     * Add equipement
      *
-     * @param \AppBundle\Entity\Army\OptionFigurine $option
+     * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
      *
      * @return Figurine
      */
-    public function addOption(\AppBundle\Entity\Army\OptionFigurine $option)
+    public function addEquipement(\AppBundle\Entity\Army\EquipementFigurine $equipement)
     {
-        $this->options[] = $option;
+        $this->equipements[] = $equipement;
 
         return $this;
     }
 
     /**
-     * Remove option
+     * Remove equipement
      *
-     * @param \AppBundle\Entity\Army\OptionFigurine $option
+     * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
      */
-    public function removeOption(\AppBundle\Entity\Army\OptionFigurine $option)
+    public function removeEquipement(\AppBundle\Entity\Army\EquipementFigurine $equipement)
     {
-        $this->options->removeElement($option);
+        $this->equipements->removeElement($equipement);
     }
 
     /**
-     * Get options
+     * Get equipements
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOptions()
+    public function getEquipements()
     {
-        return $this->options;
+        return $this->equipements;
+    }
+
+    public function getNameAndPoints()
+    {
+        return $this->name.' '.$this->points.' pts';
     }
 }

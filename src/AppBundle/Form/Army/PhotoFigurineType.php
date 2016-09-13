@@ -11,24 +11,24 @@ class PhotoFigurineType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('file', FileType::class, array(
-                'label' => 'Photo :'
+                'label' => 'Photo :',
             ))
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Army\PhotoFigurine'
+            'data_class' => 'AppBundle\Entity\Army\PhotoFigurine',
         ));
     }
 }

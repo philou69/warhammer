@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Army;
 
@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
 * FigurineArmy
-* 
+*
 * @ORM\Table(name="figurine_army")
 * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\FigurineArmyRepository")
 * @ORM\HasLifecycleCallbacks()
@@ -34,13 +34,13 @@ class FigurineArmy
 	private $army;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Option")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Equipement")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $options;
- 
+    private $equipements;
+
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoFigurine", mappedBy="figurine", cascade={"persist","refresh","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoFigurine", mappedBy="figurine", cascade={"all"})
      */
     private $photos;
 
@@ -55,7 +55,7 @@ class FigurineArmy
      */
     public function __construct()
     {
-        $this->options = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
         $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -79,7 +79,7 @@ class FigurineArmy
     public function setFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurine = $figurine;
-        $this->points += $figurine->getPoints();
+        $this->points = $figurine->getPoints();
 
         return $this;
     }
@@ -104,7 +104,7 @@ class FigurineArmy
     public function setArmy(\AppBundle\Entity\Army\Army $army)
     {
         $this->army = $army;
-
+        $army->setPoints($this->points);
         return $this;
     }
 
@@ -118,9 +118,19 @@ class FigurineArmy
         return $this->army;
     }
 
-    
+    /**
+     * @param mixed $photos
+     */
+    public function setPhotos($photos)
+    {
+        foreach ($photos as $photo) {
+            $photo->setFigurine($this);
+        }
+        $this->photos = $photos;
+        return $this;
+    }
 
-    
+
 
     /**
      * Add photo
@@ -177,64 +187,53 @@ class FigurineArmy
      * @return integer
      */
     public function getPoints()
-    { 
+    {
+		/*	$this->points = $this->figurine->getPoints();
+			foreach ($this->equipements as $equipement)
+			{
+				$this->points += $equipement->getPoints();
+			}*/
         return $this->points;
     }
 
-    
-   
+
+
 
     /**
-     * Add option
+     * Add equipement
      *
-     * @param \AppBundle\Entity\Army\Option $option
+     * @param \AppBundle\Entity\Army\Equipement $equipement
      *
      * @return FigurineArmy
      */
-    public function addOption(\AppBundle\Entity\Army\Option $option)
+    public function addEquipement(\AppBundle\Entity\Army\Equipement $equipement)
     {
-        $this->points = $this->points + $option->getPoints();
-        $this->options[] = $option;;
+        $this->points = $this->points + $equipement->getPoints();
+        $this->equipements[] = $equipement;
 
         return $this;
     }
 
     /**
-     * Remove option
+     * Remove equipement
      *
-     * @param \AppBundle\Entity\Army\Option $option
+     * @param \AppBundle\Entity\Army\Equipement $equipement
      */
-    public function removeOption(\AppBundle\Entity\Army\Option $option)
+    public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
     {
-        $this->points = $this->points - $option->getPoints();
-        $this->options->removeElement($option);
+        $this->points = $this->points - $equipement->getPoints();
+        $this->equipements->removeElement($equipement);
     }
 
     /**
-     * Get options
+     * Get equipements
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getOptions()
+    public function getEquipements()
     {
-        return $this->options;
+        return $this->equipements;
     }
 
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function persistActio()
-    {
-        $points = $this->figurine->getPoints();
-        foreach ($this->options as $option) {
-            $points += $option->getPoints();
-        }
-
-        $this->points = $points;
-
-        
-    }
-    
-    
 }

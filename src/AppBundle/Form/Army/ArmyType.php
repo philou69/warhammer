@@ -13,23 +13,23 @@ class ArmyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, array(
-                    'label' => 'Nom de l\'armée :'
+                    'label' => 'Nom de l\'armée :',
             ))
-            ->add('race',EntityType::class, array(
+            ->add('race', EntityType::class, array(
                 'class' => 'AppBundle:Army\Race',
                 'choice_label' => 'name',
                 'label' => 'Race de l\'armée :',
-                'label_attr' => array('class' => "col-sm-2 control-label"),
-                'placeholder' => 'Séléctionner une race'
+                'label_attr' => array('class' => 'col-sm-2 control-label'),
+                'placeholder' => 'Séléctionner une race',
             ))
             ->add('save', SubmitType::class, array(
-                'label' => 'Enregistrer'
+                'label' => 'Enregistrer',
     ))
         ;
     }
@@ -40,7 +40,7 @@ class ArmyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Army\Army'
+            'data_class' => 'AppBundle\Entity\Army\Army',
         ));
     }
 }

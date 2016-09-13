@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\User\UserRepository")
@@ -28,9 +28,8 @@ class User extends BaseUser
      */
     private $armies;
 
-
     /**
-     * Add army
+     * Add army.
      *
      * @param \AppBundle\Entity\Army\Army $army
      *
@@ -44,7 +43,7 @@ class User extends BaseUser
     }
 
     /**
-     * Remove army
+     * Remove army.
      *
      * @param \AppBundle\Entity\Army\Army $army
      */
@@ -54,7 +53,7 @@ class User extends BaseUser
     }
 
     /**
-     * Get armies
+     * Get armies.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

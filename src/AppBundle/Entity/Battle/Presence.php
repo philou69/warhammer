@@ -5,31 +5,29 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Presence
- * 
+ * Presence.
+ *
  * @ORM\Table(name="presence")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PresenceRepository")
  */
-
 class Presence
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="presence", type="string", length=255)
-	 */
-	private $presence;
-
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @ORM\Column(name="presence", type="string", length=255)
+     */
+    private $presence;
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -37,7 +35,7 @@ class Presence
     }
 
     /**
-     * Set presence
+     * Set presence.
      *
      * @param string $presence
      *
@@ -51,7 +49,7 @@ class Presence
     }
 
     /**
-     * Get presence
+     * Get presence.
      *
      * @return string
      */

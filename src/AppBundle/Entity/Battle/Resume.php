@@ -5,15 +5,14 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Resume
+ * Resume.
  *
  * @ORM\Table(name="resume")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\ResumeRepository")
  */
-
 class Resume
 {
-  /**
+    /**
    * @ORM\Column(name="id", type="integer")
    * @ORM\Id
    * @ORM\GeneratedValue(strategy="AUTO")
@@ -26,15 +25,15 @@ class Resume
   private $resume;
 
   /**
-   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Battle")
+   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="resume")
    * @ORM\JoinColumn(nullable= false)
    */
   private $battle;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -42,7 +41,7 @@ class Resume
     }
 
     /**
-     * Set resume
+     * Set resume.
      *
      * @param string $resume
      *
@@ -56,7 +55,7 @@ class Resume
     }
 
     /**
-     * Get resume
+     * Get resume.
      *
      * @return string
      */
@@ -65,10 +64,8 @@ class Resume
         return $this->resume;
     }
 
-    
-
     /**
-     * Set battle
+     * Set battle.
      *
      * @param \AppBundle\Entity\Battle\Battle $battle
      *
@@ -82,7 +79,7 @@ class Resume
     }
 
     /**
-     * Get battle
+     * Get battle.
      *
      * @return \AppBundle\Entity\Battle\Battle
      */

@@ -26,7 +26,7 @@ class Resume
   private $resume;
 
   /**
-   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Battle")
+   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="resume")
    * @ORM\JoinColumn(nullable= false)
    */
   private $battle;

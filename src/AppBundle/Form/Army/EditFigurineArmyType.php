@@ -14,7 +14,7 @@ class EditFigurineArmyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,29 +22,28 @@ class EditFigurineArmyType extends AbstractType
         $builder
             ->add('equipements', EntityType::class, array(
                     'class' => 'AppBundle:Army\Equipement',
-                    'query_builder' => function(EquipementRepository $er) use ($figurineArmy)
-                    {
+                    'query_builder' => function (EquipementRepository $er) use ($figurineArmy) {
                         return $er->findByFigurine($figurineArmy);
                     },
-                    'choice_label' =>'NameAndPoints',
-                    'choice_attr' => function($choice){
+                    'choice_label' => 'NameAndPoints',
+                    'choice_attr' => function ($choice) {
                         $datas = array();
                         foreach ($choice->getFigurines() as $figurine) {
                             $datas['data-'.$figurine->getFigurine()->getId()] = 1;
                         }
                         $datas['class'] = 'option';
+
                         return $datas;
                     },
                     'label_attr' => array('id' => 'options'),
                     'label' => 'Option de la figurine :',
-                    'expanded' =>  true,
+                    'expanded' => true,
                     'multiple' => true,
                     'required' => false,
                     ))
             ->add('save', SubmitType::class, array(
-                    'label' => 'Enregistrer'
+                    'label' => 'Enregistrer',
             ));
-        ;
     }
 
     /**
@@ -53,7 +52,7 @@ class EditFigurineArmyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Army\FigurineArmy'
+            'data_class' => 'AppBundle\Entity\Army\FigurineArmy',
         ));
 
         $resolver->setRequired('figurine');

@@ -5,58 +5,58 @@ namespace AppBundle\Entity\Army;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
- * Army
+ * Army.
  *
  * @ORM\Table(name="army")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\ArmyRepository")
  * @UniqueEntity("name")
  */
-
 class Army
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="name", type="string", unique=true)
-	 */
-	private $name;
-
-	/**
-	 * @ORM\Column(name="points", type="integer", nullable=true)
-	 */
-	private $points;
-
-	/**
-	 * @Gedmo\Slug(fields={"name"})
-	 * @ORM\Column(name="slug_army", length=128, unique=true)
-	 */
-	private $slugArmy;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $race;
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="armies")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $user;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="army", cascade={"remove"})
-	 * @ORM\JoinColumn(nullable=true)
-	 */
-	private $figurines;
     /**
-     * Constructor
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="name", type="string", unique=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="points", type="integer", nullable=true)
+     */
+    private $points;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(name="slug_army", length=128, unique=true)
+     */
+    private $slugArmy;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $race;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User", inversedBy="armies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="army", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $figurines;
+    /**
+     * Constructor.
      */
     public function __construct()
     {
@@ -65,9 +65,9 @@ class Army
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -75,7 +75,7 @@ class Army
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -89,7 +89,7 @@ class Army
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -99,9 +99,9 @@ class Army
     }
 
     /**
-     * Set points
+     * Set points.
      *
-     * @param integer $points
+     * @param int $points
      *
      * @return Army
      */
@@ -113,9 +113,9 @@ class Army
     }
 
     /**
-     * Get points
+     * Get points.
      *
-     * @return integer
+     * @return int
      */
     public function getPoints()
     {
@@ -123,11 +123,12 @@ class Army
         foreach ($this->figurines as $figurine) {
             $points += $figurine->getPoints();
         }
+
         return $points;
     }
 
     /**
-     * Set slugArmy
+     * Set slugArmy.
      *
      * @param string $slugArmy
      *
@@ -141,7 +142,7 @@ class Army
     }
 
     /**
-     * Get slugArmy
+     * Get slugArmy.
      *
      * @return string
      */
@@ -151,7 +152,7 @@ class Army
     }
 
     /**
-     * Set race
+     * Set race.
      *
      * @param \AppBundle\Entity\Army\Race $race
      *
@@ -165,7 +166,7 @@ class Army
     }
 
     /**
-     * Get race
+     * Get race.
      *
      * @return \AppBundle\Entity\Army\Race
      */
@@ -175,7 +176,7 @@ class Army
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param \AppBundle\Entity\User\User $user
      *
@@ -189,7 +190,7 @@ class Army
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return \AppBundle\Entity\User\User
      */
@@ -199,7 +200,7 @@ class Army
     }
 
     /**
-     * Add figurine
+     * Add figurine.
      *
      * @param \AppBundle\Entity\Army\FigurineArmy $figurine
      *
@@ -214,18 +215,18 @@ class Army
     }
 
     /**
-     * Remove figurine
+     * Remove figurine.
      *
      * @param \AppBundle\Entity\Army\FigurineArmy $figurine
      */
-    public function removeFigurine( \AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
     {
         $this->points -= $figurine->getPoints();
         $this->figurines->removeElement($figurine);
     }
 
     /**
-     * Get figurines
+     * Get figurines.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

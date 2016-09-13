@@ -11,22 +11,20 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Repository\Army\FigurineRepository;
 use AppBundle\Repository\Army\EquipementRepository;
 use AppBundle\Entity\Army\Race;
-use AppBundle\Form\Army\PhotoFigurineType;
 
 class FigurineArmyType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $race = $options['race'];
         $builder
-            ->add('figurine',EntityType::class, array(
+            ->add('figurine', EntityType::class, array(
                     'class' => 'AppBundle:Army\Figurine',
-                    'query_builder' => function(FigurineRepository $er) use ($race)
-                    {
+                    'query_builder' => function (FigurineRepository $er) use ($race) {
                         return $er->findByRace($race);
                     },
                     'label' => 'Figurine : ',
@@ -36,38 +34,37 @@ class FigurineArmyType extends AbstractType
                     ))
             ->add('equipements', EntityType::class, array(
                     'class' => 'AppBundle:Army\Equipement',
-                    'query_builder' => function(EquipementRepository $er) use ($race)
-                    {
+                    'query_builder' => function (EquipementRepository $er) use ($race) {
                         return $er->findByRace($race);
                     },
-                    'choice_label' =>'NameAndPoints',
-                    'choice_attr' => function($choice){
+                    'choice_label' => 'NameAndPoints',
+                    'choice_attr' => function ($choice) {
                         $datas = array();
                         foreach ($choice->getFigurines() as $figurine) {
                             $datas['data-'.$figurine->getFigurine()->getId()] = 1;
                         }
                         $datas['class'] = 'option';
+
                         return $datas;
                     },
                     'label_attr' => array('id' => 'options'),
                     'label' => 'Options de la figurine :',
-                    'expanded' =>  true,
+                    'expanded' => true,
                     'multiple' => true,
                     'required' => false,
                     ))
             ->add('photos', CollectionType::class, array(
-                    'entry_type' =>PhotoFigurineType::class,
+                    'entry_type' => PhotoFigurineType::class,
                     'by_reference' => false,
-                    'allow_add' =>true,
-                    'allow_delete' =>true,
-                    'required' =>false,
-                    'label_attr' => array('id' =>'photo','class' => 'col-sm-2'),
-                    'label' => 'Photos :'
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'required' => false,
+                    'label_attr' => array('id' => 'photo', 'class' => 'col-sm-2'),
+                    'label' => 'Photos :',
                 ))
             ->add('save', SubmitType::class, array(
-                    'label' => 'Enregistrer'
+                    'label' => 'Enregistrer',
             ));
-        ;
     }
 
     /**
@@ -76,7 +73,7 @@ class FigurineArmyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Army\FigurineArmy'
+            'data_class' => 'AppBundle\Entity\Army\FigurineArmy',
         ));
 
         $resolver->setRequired('race');

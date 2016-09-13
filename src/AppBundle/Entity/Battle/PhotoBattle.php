@@ -1,54 +1,42 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Battle;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use AppBundle\Entity\Battle\Battle;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
-* PhotoBattle
-*
-* @ORM\Table(name="photo_battle")
-* @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PhotoBattleRepository")
-* @ORM\HasLifecycleCallbacks
-*/
-
+ * PhotoBattle.
+ *
+ * @ORM\Table(name="photo_battle")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PhotoBattleRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
 class PhotoBattle
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="url", type="string", length=255, unique=true)
-	 */
-	private $url;
-
-	/**
-	 * @ORM\Column(name="alt", type="string", length=255)
-	 */
-	private $alt;
-
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="photos")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $battle;
-
-    
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\LegendPhoto", cascade={"persist","remove"})
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(name="alt", type="string", length=255)
+     */
+    private $alt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="photos")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $legends;
+    private $battle;
+
 
     private $file;
 
@@ -63,8 +51,7 @@ class PhotoBattle
     {
         $this->file = $file;
 
-        if(null !== $this->url)
-        {
+        if (null !== $this->url) {
             $this->tempFilename = $this->url;
 
             $this->url = null;
@@ -78,8 +65,7 @@ class PhotoBattle
      */
     public function preUpload()
     {
-        if(null === $this->file)
-        {
+        if (null === $this->file) {
             return;
         }
 
@@ -94,23 +80,20 @@ class PhotoBattle
      */
     public function upload()
     {
-        if(null === $this->file)
-        {
+        if (null === $this->file) {
             return;
         }
 
-        if(null !== $this->tempFilename)
-        {
+        if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
-            if(file_exists($oldFile))
-            {
+            if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
         $this->file->move(
             $this->getUploadRootDir(),
             $this->url);
-    }    
+    }
 
     /**
      * @ORM\PreRemove()
@@ -118,7 +101,6 @@ class PhotoBattle
     public function preRemoveUpload()
     {
         $this->tempFilename = $this->getUploadRootDir().'/'.$this->url;
-
     }
 
     /**
@@ -126,8 +108,7 @@ class PhotoBattle
      */
     public function removeUpload()
     {
-        if(file_exists($this->tempFilename))
-        {
+        if (file_exists($this->tempFilename)) {
             unlink($this->tempFilename);
         }
     }
@@ -142,16 +123,15 @@ class PhotoBattle
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
-     public function getWebPath()
+    public function getWebPath()
     {
         return $this->getUploadDir().'/'.$this->getUrl();
     }
-   
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -159,7 +139,7 @@ class PhotoBattle
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *
@@ -173,7 +153,7 @@ class PhotoBattle
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -183,7 +163,7 @@ class PhotoBattle
     }
 
     /**
-     * Set alt
+     * Set alt.
      *
      * @param string $alt
      *
@@ -197,7 +177,7 @@ class PhotoBattle
     }
 
     /**
-     * Get alt
+     * Get alt.
      *
      * @return string
      */
@@ -207,7 +187,7 @@ class PhotoBattle
     }
 
     /**
-     * Set battle
+     * Set battle.
      *
      * @param \AppBundle\Entity\Battle\Battle $battle
      *
@@ -221,7 +201,7 @@ class PhotoBattle
     }
 
     /**
-     * Get battle
+     * Get battle.
      *
      * @return \AppBundle\Entity\Battle\Battle
      */
@@ -230,27 +210,4 @@ class PhotoBattle
         return $this->battle;
     }
 
-    /**
-     * Set legends
-     *
-     * @param \AppBundle\Entity\Battle\LegendPhoto $legends
-     *
-     * @return PhotoBattle
-     */
-    public function setLegends(\AppBundle\Entity\Battle\LegendPhoto $legends)
-    {
-        $this->legends = $legends;
-
-        return $this;
-    }
-
-    /**
-     * Get legends
-     *
-     * @return \AppBundle\Entity\Battle\LegendPhoto
-     */
-    public function getLegends()
-    {
-        return $this->legends;
-    }
 }

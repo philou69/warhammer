@@ -12,13 +12,14 @@ class ResumeType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('resume', CKEditorType::class,array(
-              'config_name' =>'my_config_1'
+            ->add('resume', CKEditorType::class, array(
+              'config_name' => 'my_config_1',
+                'label' => 'Resumé de la battle :',
             ))
             ->add('save', SubmitType::class)
         ;
@@ -30,7 +31,7 @@ class ResumeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Battle\Resume'
+            'data_class' => 'AppBundle\Entity\Battle\Resume',
         ));
     }
 }

@@ -5,33 +5,32 @@ namespace AppBundle\Entity\Army;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* FigurineArmy
-*
-* @ORM\Table(name="figurine_army")
-* @ORM\Entity(repositoryClass="AppBundle\Repository\Army\FigurineArmyRepository")
-* @ORM\HasLifecycleCallbacks()
-*/
-
+ * FigurineArmy.
+ *
+ * @ORM\Table(name="figurine_army")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\FigurineArmyRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
 class FigurineArmy
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Figurine", inversedBy="armies")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $figurine;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Figurine", inversedBy="armies")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $figurine;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Army", inversedBy="figurines")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $army;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Army", inversedBy="figurines")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $army;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Equipement")
@@ -49,9 +48,8 @@ class FigurineArmy
      */
     private $points;
 
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -60,9 +58,9 @@ class FigurineArmy
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -70,7 +68,7 @@ class FigurineArmy
     }
 
     /**
-     * Set figurine
+     * Set figurine.
      *
      * @param \AppBundle\Entity\Army\Figurine $figurine
      *
@@ -85,7 +83,7 @@ class FigurineArmy
     }
 
     /**
-     * Get figurine
+     * Get figurine.
      *
      * @return \AppBundle\Entity\Army\Figurine
      */
@@ -95,7 +93,7 @@ class FigurineArmy
     }
 
     /**
-     * Set army
+     * Set army.
      *
      * @param \AppBundle\Entity\Army\Army $army
      *
@@ -105,11 +103,12 @@ class FigurineArmy
     {
         $this->army = $army;
         $army->setPoints($this->points);
+
         return $this;
     }
 
     /**
-     * Get army
+     * Get army.
      *
      * @return \AppBundle\Entity\Army\Army
      */
@@ -127,13 +126,12 @@ class FigurineArmy
             $photo->setFigurine($this);
         }
         $this->photos = $photos;
+
         return $this;
     }
 
-
-
     /**
-     * Add photo
+     * Add photo.
      *
      * @param \AppBundle\Entity\Army\PhotoFigurine $photo
      *
@@ -141,14 +139,14 @@ class FigurineArmy
      */
     public function addPhoto(\AppBundle\Entity\Army\PhotoFigurine $photo)
     {
-
         $photo->getFigurine($this);
         $this->photos[] = $photo;
+
         return $this;
     }
 
     /**
-     * Remove photo
+     * Remove photo.
      *
      * @param \AppBundle\Entity\Army\PhotoFigurine $photo
      */
@@ -158,7 +156,7 @@ class FigurineArmy
     }
 
     /**
-     * Get photos
+     * Get photos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -168,9 +166,9 @@ class FigurineArmy
     }
 
     /**
-     * Set points
+     * Set points.
      *
-     * @param integer $points
+     * @param int $points
      *
      * @return FigurineArmy
      */
@@ -182,25 +180,22 @@ class FigurineArmy
     }
 
     /**
-     * Get points
+     * Get points.
      *
-     * @return integer
+     * @return int
      */
     public function getPoints()
     {
-		/*	$this->points = $this->figurine->getPoints();
-			foreach ($this->equipements as $equipement)
-			{
-				$this->points += $equipement->getPoints();
-			}*/
+        /*	$this->points = $this->figurine->getPoints();
+            foreach ($this->equipements as $equipement)
+            {
+                $this->points += $equipement->getPoints();
+            }*/
         return $this->points;
     }
 
-
-
-
     /**
-     * Add equipement
+     * Add equipement.
      *
      * @param \AppBundle\Entity\Army\Equipement $equipement
      *
@@ -215,7 +210,7 @@ class FigurineArmy
     }
 
     /**
-     * Remove equipement
+     * Remove equipement.
      *
      * @param \AppBundle\Entity\Army\Equipement $equipement
      */
@@ -226,7 +221,7 @@ class FigurineArmy
     }
 
     /**
-     * Get equipements
+     * Get equipements.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -234,6 +229,4 @@ class FigurineArmy
     {
         return $this->equipements;
     }
-
-
 }

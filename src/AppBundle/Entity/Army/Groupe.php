@@ -1,37 +1,33 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Groupe
+ * Groupe.
  *
  * @ORM\Table(name="groupe")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\GroupeRepository")
  */
-
 class Groupe
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="name",type="string", length=255)
-	 */
-	private $name;
-
-    
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @ORM\Column(name="name",type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -39,7 +35,7 @@ class Groupe
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -53,7 +49,7 @@ class Groupe
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

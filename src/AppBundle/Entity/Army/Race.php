@@ -3,35 +3,31 @@
 namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Race
+ * Race.
  *
  * @ORM\Table(name="race")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\RaceRepository")
  */
-
 class Race
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="name", type="string", unique=true)
-	 */
-	private $name;
-
-    
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Get id
+     * @ORM\Column(name="name", type="string", unique=true)
+     */
+    private $name;
+
+    /**
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -39,7 +35,7 @@ class Race
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -53,7 +49,7 @@ class Race
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */

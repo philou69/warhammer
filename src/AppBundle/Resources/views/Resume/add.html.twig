@@ -1,16 +1,18 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-  résume de bataille
+  Créer un résume de bataille
 {% endblock %}
 
 {% block body %}
   <div class="well">
-    {{ form(form)}}
+    {{ form(form) }}
+
+    <a href="{{ path('battle_add_photo',{'id': battle.id}) }}">Ajouter une photo</a>
     <div class="">
       <ul>
         {% for photo in photos %}
-            <li>{{ photo.uploadRootDir}}/{{photo.url}}</li>
+            <li class="row"><img src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}" class="col-sm-2"><div class="col-sm-10">{{ photo.webPath }}</div></li>
         {% endfor %}
       </ul>
     </div>

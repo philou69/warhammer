@@ -6,31 +6,30 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * PhotoFigurine
+ * PhotoFigurine.
  *
  * @ORM\Table(name="photo_figurine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\PhotoFigurineRepository")
  * @ORM\HasLifecycleCallbacks
  */
-
 class PhotoFigurine
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @ORM\Column(name="url", type="string")
-	 */
-	private $url;
+    /**
+     * @ORM\Column(name="url", type="string")
+     */
+    private $url;
 
-	/**
-	 * @ORM\Column(name="alt", type="string")
-	 */
-	private $alt;
+    /**
+     * @ORM\Column(name="alt", type="string")
+     */
+    private $alt;
 
   /**
    * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\FigurineArmy", inversedBy="photos")
@@ -38,29 +37,28 @@ class PhotoFigurine
    */
   private $figurine;
 
-  private $file;
+    private $file;
 
   // On ajoute cet attribut pour y stocker le nom du fichier temporairement
   private $tempFilename;
 
-
-  public function getFile()
-  {
-    return $this->file;
-  }
+    public function getFile()
+    {
+        return $this->file;
+    }
   // On modifie le setter de File, pour prendre en compte l'upload d'un fichier lorsqu'il en existe déjà un autre
   public function setFile(UploadedFile $file)
   {
-    $this->file = $file;
+      $this->file = $file;
 
     // On vérifie si on avait déjà un fichier pour cette entité
     if (null !== $this->url) {
-      // On sauvegarde l'extension du fichier pour le supprimer plus tard
+        // On sauvegarde l'extension du fichier pour le supprimer plus tard
       $this->tempFilename = $this->url;
 
       // On réinitialise les valeurs des attributs url et alt
       $this->url = null;
-      $this->alt = null;
+        $this->alt = null;
     }
   }
 
@@ -70,9 +68,9 @@ class PhotoFigurine
    */
   public function preUpload()
   {
-    // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+      // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
     if (null === $this->file) {
-      return;
+        return;
     }
 
     // Le nom du fichier est son id, on doit juste stocker également son extension
@@ -89,17 +87,17 @@ class PhotoFigurine
    */
   public function upload()
   {
-    // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
+      // Si jamais il n'y a pas de fichier (champ facultatif), on ne fait rien
     if (null === $this->file) {
-      return;
+        return;
     }
 
     // Si on avait un ancien fichier, on le supprime
     if (null !== $this->tempFilename) {
-      $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
-      if (file_exists($oldFile)) {
-        unlink($oldFile);
-      }
+        $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
+        if (file_exists($oldFile)) {
+            unlink($oldFile);
+        }
     }
 
     // On déplace le fichier envoyé dans le répertoire de notre choix
@@ -114,7 +112,7 @@ class PhotoFigurine
    */
   public function preRemoveUpload()
   {
-    // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
+      // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
     $this->tempFilename = $this->getUploadRootDir().'/'.$this->url;
   }
 
@@ -123,38 +121,35 @@ class PhotoFigurine
    */
   public function removeUpload()
   {
-    // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé
+      // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé
     if (file_exists($this->tempFilename)) {
-      // On supprime le fichier
+        // On supprime le fichier
       unlink($this->tempFilename);
     }
-    $this->figurine->removePhoto($this);
+      $this->figurine->removePhoto($this);
   }
 
-  public function getUploadDir()
-  {
-    // On retourne le chemin relatif vers l'image pour un navigateur
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur
     return 'uploads/images';
-  }
+    }
 
-  public function getUploadRootDir()
-  {
-    // On retourne le chemin relatif vers l'image pour notre code PHP
+    public function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP
     return __DIR__.'/../../../../web/'.$this->getUploadDir();
-  }
+    }
 
-  public function getWebPath()
-  {
-    return $this->getUploadDir().'/'.$this->getUrl();
-  }
-
-
-
+    public function getWebPath()
+    {
+        return $this->getUploadDir().'/'.$this->getUrl();
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -162,7 +157,7 @@ class PhotoFigurine
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *
@@ -176,7 +171,7 @@ class PhotoFigurine
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -186,7 +181,7 @@ class PhotoFigurine
     }
 
     /**
-     * Set alt
+     * Set alt.
      *
      * @param string $alt
      *
@@ -200,7 +195,7 @@ class PhotoFigurine
     }
 
     /**
-     * Get alt
+     * Get alt.
      *
      * @return string
      */
@@ -210,7 +205,7 @@ class PhotoFigurine
     }
 
     /**
-     * Set figurine
+     * Set figurine.
      *
      * @param \AppBundle\Entity\Army\FigurineArmy $figurine
      *
@@ -224,7 +219,7 @@ class PhotoFigurine
     }
 
     /**
-     * Get figurine
+     * Get figurine.
      *
      * @return \AppBundle\Entity\Army\FigurineArmy
      */

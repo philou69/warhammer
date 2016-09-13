@@ -5,41 +5,38 @@ namespace AppBundle\Entity\Army;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-* Equipement
-*
-* @ORM\Table(name="equipement")
-* @ORM\Entity(repositoryClass="AppBundle\Repository\Army\EquipementRepository")
-*/
-
+ * Equipement.
+ *
+ * @ORM\Table(name="equipement")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\EquipementRepository")
+ */
 class Equipement
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="name", type="string", length=255)
-	 */
-	private $name;
-
-	/**
-	 * @ORM\Column(name="points", type="integer")
-	 */
-	private $points;
-
-	/**
-	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementFigurine", mappedBy="equipement")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $figurines;
-
-
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
     /**
-     * Constructor
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="points", type="integer")
+     */
+    private $points;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementFigurine", mappedBy="equipement")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $figurines;
+
+    /**
+     * Constructor.
      */
     public function __construct()
     {
@@ -47,9 +44,9 @@ class Equipement
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -57,7 +54,7 @@ class Equipement
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -71,7 +68,7 @@ class Equipement
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -81,9 +78,9 @@ class Equipement
     }
 
     /**
-     * Set points
+     * Set points.
      *
-     * @param integer $points
+     * @param int $points
      *
      * @return Options
      */
@@ -95,9 +92,9 @@ class Equipement
     }
 
     /**
-     * Get points
+     * Get points.
      *
-     * @return integer
+     * @return int
      */
     public function getPoints()
     {
@@ -105,7 +102,7 @@ class Equipement
     }
 
     /**
-     * Add figurine
+     * Add figurine.
      *
      * @param \AppBundle\Entity\Army\EquipementFigurine $figurine
      *
@@ -119,7 +116,7 @@ class Equipement
     }
 
     /**
-     * Remove figurine
+     * Remove figurine.
      *
      * @param \AppBundle\Entity\Army\EquipementFigurine $figurine
      */
@@ -129,7 +126,7 @@ class Equipement
     }
 
     /**
-     * Get figurines
+     * Get figurines.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -137,8 +134,6 @@ class Equipement
     {
         return $this->figurines;
     }
-
-
 
     public function getNameAndPoints()
     {

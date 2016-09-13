@@ -3,38 +3,36 @@
 namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Figurine
+ * Figurine.
  *
  * @ORM\Table(name="figurine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\FigurineRepository")
  */
-
 class Figurine
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @ORM\Column(name="name", type="string", length=255)
-	 */
-	private $name;
+    /**
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
 
-	/**
-	 * @ORM\Column(name="points", type="integer")
-	 */
-	private $points;
+    /**
+     * @ORM\Column(name="points", type="integer")
+     */
+    private $points;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
-	 */
-	private $race;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
+     */
+    private $race;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Groupe")
@@ -52,10 +50,8 @@ class Figurine
      */
     private $equipements;
 
-
-
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -64,9 +60,9 @@ class Figurine
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -74,7 +70,7 @@ class Figurine
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -88,7 +84,7 @@ class Figurine
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -98,9 +94,9 @@ class Figurine
     }
 
     /**
-     * Set points
+     * Set points.
      *
-     * @param integer $points
+     * @param int $points
      *
      * @return Figurine
      */
@@ -112,9 +108,9 @@ class Figurine
     }
 
     /**
-     * Get points
+     * Get points.
      *
-     * @return integer
+     * @return int
      */
     public function getPoints()
     {
@@ -122,7 +118,7 @@ class Figurine
     }
 
     /**
-     * Set race
+     * Set race.
      *
      * @param \AppBundle\Entity\Army\Race $race
      *
@@ -136,7 +132,7 @@ class Figurine
     }
 
     /**
-     * Get race
+     * Get race.
      *
      * @return \AppBundle\Entity\Army\Race
      */
@@ -146,7 +142,7 @@ class Figurine
     }
 
     /**
-     * Set groupe
+     * Set groupe.
      *
      * @param \AppBundle\Entity\Army\Groupe $groupe
      *
@@ -160,7 +156,7 @@ class Figurine
     }
 
     /**
-     * Get groupe
+     * Get groupe.
      *
      * @return \AppBundle\Entity\Army\Groupe
      */
@@ -170,7 +166,7 @@ class Figurine
     }
 
     /**
-     * Add army
+     * Add army.
      *
      * @param \AppBundle\Entity\Army\FigurineArmy $army
      *
@@ -184,7 +180,7 @@ class Figurine
     }
 
     /**
-     * Remove army
+     * Remove army.
      *
      * @param \AppBundle\Entity\Army\FigurineArmy $army
      */
@@ -194,7 +190,7 @@ class Figurine
     }
 
     /**
-     * Get armies
+     * Get armies.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -204,7 +200,7 @@ class Figurine
     }
 
     /**
-     * Add equipement
+     * Add equipement.
      *
      * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
      *
@@ -218,7 +214,7 @@ class Figurine
     }
 
     /**
-     * Remove equipement
+     * Remove equipement.
      *
      * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
      */
@@ -228,7 +224,7 @@ class Figurine
     }
 
     /**
-     * Get equipements
+     * Get equipements.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

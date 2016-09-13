@@ -5,32 +5,31 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Participant
+ * Participant.
  *
  * @ORM\Table(name="participant")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\ParticipantRepository")
  */
-
 class Participant
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="participants")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $battle;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="participants")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $battle;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $participant;
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $participant;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Presence")
@@ -38,17 +37,16 @@ class Participant
      */
     private $presence;
 
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Army")
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Army")
      * @ORM\JoinColumn( nullable=true)
-	 */
-	private $army;
-
+     */
+    private $army;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -56,7 +54,7 @@ class Participant
     }
 
     /**
-     * Set battle
+     * Set battle.
      *
      * @param \AppBundle\Entity\Battle\Battle $battle
      *
@@ -70,7 +68,7 @@ class Participant
     }
 
     /**
-     * Get battle
+     * Get battle.
      *
      * @return \AppBundle\Entity\Battle\Battle
      */
@@ -80,7 +78,7 @@ class Participant
     }
 
     /**
-     * Set participant
+     * Set participant.
      *
      * @param \AppBundle\Entity\User\User $participant
      *
@@ -94,7 +92,7 @@ class Participant
     }
 
     /**
-     * Get participant
+     * Get participant.
      *
      * @return \AppBundle\Entity\User\User
      */
@@ -104,7 +102,7 @@ class Participant
     }
 
     /**
-     * Set presence
+     * Set presence.
      *
      * @param \AppBundle\Entity\Battle\Presence $presence
      *
@@ -118,7 +116,7 @@ class Participant
     }
 
     /**
-     * Get presence
+     * Get presence.
      *
      * @return \AppBundle\Entity\Battle\Presence
      */
@@ -128,7 +126,7 @@ class Participant
     }
 
     /**
-     * Set army
+     * Set army.
      *
      * @param \AppBundle\Entity\Army\Army $army
      *
@@ -142,7 +140,7 @@ class Participant
     }
 
     /**
-     * Get army
+     * Get army.
      *
      * @return \AppBundle\Entity\Army\Army
      */

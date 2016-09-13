@@ -5,8 +5,9 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
- * Battle
+ * Battle.
  *
  * @ORM\Table(name="battle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\BattleRepository")
@@ -56,10 +57,10 @@ class Battle
      */
     private $photos;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
+     /**
+      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+      * @ORM\JoinColumn(nullable=false)
+      */
      private $createur;
 
     /**
@@ -74,7 +75,12 @@ class Battle
     private $canceled;
 
     /**
-     * Constructor
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\Resume", mappedBy="battle", cascade={"remove"})
+     */
+    private $resume;
+
+    /**
+     * Constructor.
      */
     public function __construct()
     {
@@ -84,9 +90,9 @@ class Battle
     }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -94,7 +100,7 @@ class Battle
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -108,7 +114,7 @@ class Battle
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -118,7 +124,7 @@ class Battle
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -132,7 +138,7 @@ class Battle
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -142,7 +148,7 @@ class Battle
     }
 
     /**
-     * Set lieu
+     * Set lieu.
      *
      * @param string $lieu
      *
@@ -156,7 +162,7 @@ class Battle
     }
 
     /**
-     * Get lieu
+     * Get lieu.
      *
      * @return string
      */
@@ -166,7 +172,7 @@ class Battle
     }
 
     /**
-     * Set slugBattle
+     * Set slugBattle.
      *
      * @param string $slugBattle
      *
@@ -180,7 +186,7 @@ class Battle
     }
 
     /**
-     * Get slugBattle
+     * Get slugBattle.
      *
      * @return string
      */
@@ -190,7 +196,7 @@ class Battle
     }
 
     /**
-     * Add photo
+     * Add photo.
      *
      * @param \AppBundle\Entity\Battle\PhotoBattle $photo
      *
@@ -204,7 +210,7 @@ class Battle
     }
 
     /**
-     * Remove photo
+     * Remove photo.
      *
      * @param \AppBundle\Entity\Battle\PhotoBattle $photo
      */
@@ -214,7 +220,7 @@ class Battle
     }
 
     /**
-     * Get photos
+     * Get photos.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -224,7 +230,7 @@ class Battle
     }
 
     /**
-     * Set createur
+     * Set createur.
      *
      * @param \AppBundle\Entity\User\User $createur
      *
@@ -238,7 +244,7 @@ class Battle
     }
 
     /**
-     * Get createur
+     * Get createur.
      *
      * @return \AppBundle\Entity\User\User
      */
@@ -248,7 +254,7 @@ class Battle
     }
 
     /**
-     * Add participant
+     * Add participant.
      *
      * @param \AppBundle\Entity\Battle\Participant $participant
      *
@@ -263,7 +269,7 @@ class Battle
     }
 
     /**
-     * Remove participant
+     * Remove participant.
      *
      * @param \AppBundle\Entity\Battle\Participant $participant
      */
@@ -274,14 +280,14 @@ class Battle
 
     public function setParticipants()
     {
-      foreach ($this->participants as $participant) {
-        $this->add($participant);
-      }
+        foreach ($this->participants as $participant) {
+            $this->add($participant);
+        }
 
-      return $this;
+        return $this;
     }
     /**
-     * Get participants
+     * Get participants.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -291,9 +297,9 @@ class Battle
     }
 
     /**
-     * Set canceld
+     * Set canceld.
      *
-     * @param boolean $canceled
+     * @param bool $canceled
      *
      * @return Battle
      */
@@ -305,12 +311,28 @@ class Battle
     }
 
     /**
-     * Get canceled
+     * Get canceled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCanceled()
     {
         return $this->canceled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResume()
+    {
+        return $this->resume;
+    }
+
+    /**
+     * @param mixed $resume
+     */
+    public function setResume($resume)
+    {
+        $this->resume = $resume;
     }
 }

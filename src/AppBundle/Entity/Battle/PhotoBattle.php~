@@ -126,7 +126,7 @@ class PhotoBattle
      */
     public function removeUpload()
     {
-        if(file_exists($tis->tempFilename))
+        if(file_exists($this->tempFilename))
         {
             unlink($this->tempFilename);
         }

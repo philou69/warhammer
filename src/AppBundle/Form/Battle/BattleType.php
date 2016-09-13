@@ -13,22 +13,22 @@ class BattleType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',TextType::class, array(
-                    'label' => 'Nom de la bataille :'
+            ->add('name', TextType::class, array(
+                    'label' => 'Nom de la bataille :',
             ))
-            ->add('date',DateTimeType::class, array(
+            ->add('date', DateTimeType::class, array(
               'input' => 'datetime',
               'date_format' => 'dd/MM/yyyy',
-              'years'=> range('2000','2030'),
-                'label' =>'date :'
+              'years' => range('2000', '2030'),
+                'label' => 'date :',
             ))
-            ->add('lieu',TextType::class, array(
-                    'label' => 'Lieu de la bataille'
+            ->add('lieu', TextType::class, array(
+                    'label' => 'Lieu de la bataille',
             ))
             ->add('save', SubmitType::class)
         ;
@@ -40,7 +40,7 @@ class BattleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Battle\Battle'
+            'data_class' => 'AppBundle\Entity\Battle\Battle',
         ));
     }
 }
