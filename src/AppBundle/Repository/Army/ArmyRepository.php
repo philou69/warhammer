@@ -27,4 +27,14 @@ class ArmyRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    public function findArmiesOfUser($user)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->where('a.user = :user')
+            ->setParameter('user', $user);
+
+        return $qb;
+    }
 }

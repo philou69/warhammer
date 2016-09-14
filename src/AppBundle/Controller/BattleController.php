@@ -3,14 +3,17 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Battle\PhotoBattle;
+use AppBundle\Form\Battle\ParticipantType;
 use AppBundle\Form\Battle\PhotoBattleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\Participant;
 use AppBundle\Entity\Battle\Resume;
 use AppBundle\Form\Battle\BattleType;
 use AppBundle\Form\Battle\ResumeType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BattleController extends Controller
 {
@@ -33,7 +36,7 @@ class BattleController extends Controller
 
         $visiteur = $this->get('security.token_storage')->getToken()->getUser();
         $battle = new Battle();
-        $battle->setCreateur($this->get('security.token_storage')->getToken()->getUser());
+        $battle->setCreateur($visiteur);
 
         $listUsers = $em->getRepository('AppBundle:User\User')->findAll();
         $form = $this->createForm(BattleType::class, $battle);
@@ -128,7 +131,7 @@ class BattleController extends Controller
           $em->remove($battle);
           $em->flush();
 
-          $request->getSession()->getFlashBag()->add('success', 'La bataille'.$battle->getName().' a bien été supprimer.');
+          $request->getSession()->getFlashBag()->add('success', 'La bataille '.$battle->getName().' a bien été supprimer.');
 
           return $this->redirectToRoute('app_battles');
       }
@@ -165,6 +168,30 @@ class BattleController extends Controller
         $resumeBattle = $em->getRepository('AppBundle:Battle\Resume')->findOneBy(array('battle' => $battle));
 
         return $this->render('AppBundle:Battle:view.html.twig', array('battle' => $battle, 'resumeBattle' => $resumeBattle));
+    }
+
+    public function viewFutureAction(Request $request, Battle $battle)
+    {
+        if($battle === null){
+            throw  new NotFoundHttpException("Cette bataille n'existe pas !");
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $listParticipants = $em->getRepository('AppBundle:Battle\Participant')->findWithoutVisitor($battle, $user);
+        $participant = $em->getRepository('AppBundle:Battle\Participant')->findOneBy(array('battle' => $battle, 'participant' => $user));
+
+        $form = $this->createForm(ParticipantType::class, $participant,array('user' => $user));
+
+        if($request->isMethod("POST") && $form->handleRequest($request)->isValid())
+        {
+            $em->refresh($participant);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('info', 'Votre réponse à bien été pris en compte !');
+        }
+        return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants , 'battle' =>$battle));
     }
 
     public function addPhotoAction(Request $request, Battle $battle)

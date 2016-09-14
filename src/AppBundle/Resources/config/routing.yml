@@ -16,7 +16,7 @@ app_battle_view:
 
 app_battle_future_view:
     path: /battle/future/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:viewfuture"}
+    defaults: { _controller: "AppBundle:Battle:viewFuture"}
 
 app_battle_add_view:
     path: /battle/add/view/{slugBattle}

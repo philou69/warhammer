@@ -3,12 +3,14 @@
 namespace AppBundle\Entity\Battle;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Participant.
  *
  * @ORM\Table(name="participant")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\ParticipantRepository")
+ * @AppAssert\Participant
  */
 class Participant
 {
