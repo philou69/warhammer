@@ -32,8 +32,7 @@
         "friendsofsymfony/user-bundle": "2.0.x-dev",
         "coresphere/console-bundle": "~0.4",
         "egeloen/ckeditor-bundle": "^4.0",
-        "cspoo/swiftmailer-mailgun-bundle": "^0.3.1",
-        "php-http/guzzle5-adapter": "^1.0"
+        "liip/imagine-bundle": "^1.6"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

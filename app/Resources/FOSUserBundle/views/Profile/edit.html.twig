@@ -1,0 +1,40 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <header>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        Menu
+                        <i class="glyphicon glyphicon-hamburger-menu"></i>
+                    </button>
+                    <a class="navbar-brand visible-sm visible-md visible-xl " href="#">Warhantmille Battle</a>
+                    <a class="navbar-brand visible-xs " href="#">WBattle</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav ">
+                        <li id="accueil">
+                            <a href="{{ path('app_home') }}"><i class="glyphicon glyphicon-home"></i> Accueil</a>
+                        </li>
+                        <li class="battles">
+                            <a href="{{ path('app_battles') }}">Les battles</a>
+                        </li>
+                        <li class="armies">
+                            <a href="{{ path('app_armies') }}"> Les armées</a>
+                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li>
+                                <a href="{{ path('app_user') }}">{{ app.user.username }}</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}

@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new cspoo\Swiftmailer\MailgunBundle\cspooSwiftmailerMailgunBundle(),
+            new \Liip\ImagineBundle\LiipImagineBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

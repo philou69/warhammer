@@ -4,7 +4,6 @@ namespace AppBundle\Entity\Battle;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PhotoBattle.
@@ -38,9 +37,7 @@ class PhotoBattle
      */
     private $battle;
 
-    /**
-     * @Assert\File(maxSize="8M")
-     */
+
     private $file;
 
     private $tempFilename;
@@ -118,7 +115,7 @@ class PhotoBattle
 
     public function getUploadDir()
     {
-        return 'uploads/images';
+        return 'uploads/img';
     }
 
     public function getUploadRootDir()

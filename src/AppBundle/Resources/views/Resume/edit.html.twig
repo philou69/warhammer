@@ -7,12 +7,14 @@
 {% block body %}
     <div class="well">
         {{ form(form) }}
-        <div class="">
-            <ul>
-                {% for photo in photos %}
-                    <li>{{ photo.uploadRootDir}}/{{photo.url}}</li>
-                {% endfor %}
-            </ul>
-        </div>
     </div>
+    <div>
+        <a href="{{ path('battle_add_photo',{'id': battle.id}) }}">Ajouter une photo</a>
+        <ul>
+            {% for photo in photos %}
+                <li class="row"><img src="{{ asset(photo.webPath)|imagine_filter('thumb_battle') }}" alt="{{ photo.alt }}"><div class="col-sm-10">http://warhantmillebattle.fr{{ asset(photo.webpath) }}</div></li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endblock %}

@@ -10,7 +10,7 @@
         <p>
             Bataille proposée par {{ battle.createur.username }} qui aura lieu chez {{ battle.lieu }}
         </p>
-        <div class="well">
+        <div id="{{ visiteur.presence.id }}" class="well">
             {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
             {{ form_errors(form) }}
 
@@ -32,11 +32,22 @@
             {{ form_rest(form) }}
             {{  form_end(form) }}
         </div>
+        <div id="participant">
+
+        </div>
         <div id="participants">
+
+
             <ul class="list-unstyled">
+                <li id="participant">Vous {{ visiteur.presence.presence }} {% if visiteur.presence.id == 3 %} au commande de <a href="{{ path('app_army_view', {'slugArmy': visiteur.army.slugArmy}) }}">{{ visiteur.army.name }}</a>{%  endif %} <small><a id="cachePresence" href="#">Modifier votre réponse</a></small></li>
                 {% for participant in listParticipants %}
-                    <li>{{ participant.participant.username }} {{ participant.presence.presence }}{% if participant.presence.id == 3 %} au commande de l'armée
-                    <a href="{{ path('app_army', {'slugArmy': participant.army.slugArmy}) }}">{{ participant.army.name }}</a>{%  endif %}</li>
+                    <li>{{ participant.participant.username }}
+                        {% if participant.presence.id == 1  %} seras présent
+                        {% elseif participant.presence.id == 2 %} ne seras pas présent
+                        {% elseif participant.presence.id== 3  %} sera le général de l'armée {% if participant.presence.id == 3 %}<a href="{{ path('app_army_view', {'slugArmy': participant.army.slugArmy}) }}">{{ participant.army.name }}</a>{%  endif %}
+                        {% elseif participant.presence.id == 4 %} n'a pas encore répondu
+                        {% endif %}
+                        </li>
                     {% endfor %}
             </ul>
         </div>
@@ -46,4 +57,5 @@
 {% block javascript %}
     {{ parent() }}
 <script src="{{ asset('/public/js/cacheArmy.js') }}"></script>
+    <script src="{{ asset('/public/js/cachePresence.js') }}"></script>
 {% endblock %}

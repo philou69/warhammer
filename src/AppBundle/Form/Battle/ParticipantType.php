@@ -27,7 +27,8 @@ class ParticipantType extends AbstractType
               },
                 'label' => 'Présence :',
               'choice_label' => 'presence',
-                'label_attr' => array('class' => 'col-sm-2 control-label')
+                'label_attr' => array('class' => 'col-sm-2 control-label'),
+                'placeholder' => 'Dites nous si vous serez là.'
             ))
             ->add('army', EntityType::class, array(
                 'class' => 'AppBundle:Army\Army',

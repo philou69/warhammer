@@ -1,0 +1,12 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div  class="container jumbotron">
+        <h2 class="text-center">Bienvenue sur le site Warhantmillebattle</h2>
+        <p>
+            Pour acceder au site vous devez vous identifier.
+        </p>
+    </div>
+
+    {{ include('FOSUserBundle:Security:login_content.html.twig') }}
+{% endblock fos_user_content %}

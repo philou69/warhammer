@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PhotoFigurine.
@@ -37,6 +38,9 @@ class PhotoFigurine
    */
   private $figurine;
 
+    /**
+     * @Assert\File(maxSize="2M")
+     */
     private $file;
 
   // On ajoute cet attribut pour y stocker le nom du fichier temporairement

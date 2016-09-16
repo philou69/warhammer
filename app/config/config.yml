@@ -68,9 +68,6 @@ swiftmailer:
     password: "%mailer_password%"
     spool:     { type: memory }
 
-cspoo_swiftmailer_mailgun:
-  key: "key-707fb2855353cabdfb19a9572bc35d24"
-  domain: "mg.warhantmillebattle.fr"
 
 stof_doctrine_extensions:
     default_locale: fr
@@ -91,3 +88,15 @@ ivory_ck_editor:
   toolbars:
     configs:
       my_toolboar_1: [["Cut","-","Copy","-","Paste"],"/",["Bold","-","Italic","-","Underline","-","Strike","-","Subscript","-","Superscript"],"-",["Indent","-","JustifyLeft","-","JustifyCenter","-","JustifyRight"],"/",["Image"],"/",["Style","-","Format","-","Font","-","FontSize"],"/",["TextColor","-","BGColor"]]
+
+liip_imagine:
+  resolvers:
+    default:
+      web_path: ~
+
+  filter_sets:
+    cache: ~
+    thumb_battle:
+      quality: 50
+      filters:
+        thumbnail: { size: [120,95], mode: aoutbond }

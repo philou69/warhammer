@@ -111,11 +111,12 @@ class BattleController extends Controller
         $form = $this->createForm(ResumeType::class, $resume);
         $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findAll();
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->update($resume);
+            $em->persist($resume);
             $em->flush();
+            return $this->redirectToRoute('app_battle_view', array('slugBattle' => $resume->getBattle()->getSlugBattle()));
         }
 
-        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $listPhotos));
+        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $listPhotos, 'battle' => $resume->getBattle()));
     }
 
   /**
@@ -187,11 +188,11 @@ class BattleController extends Controller
 
         if($request->isMethod("POST") && $form->handleRequest($request)->isValid())
         {
-            $em->refresh($participant);
+            $em->persist($participant);
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Votre réponse à bien été pris en compte !');
         }
-        return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants , 'battle' =>$battle));
+        return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants ,'visiteur' => $participant, 'battle' =>$battle));
     }
 
     public function addPhotoAction(Request $request, Battle $battle)

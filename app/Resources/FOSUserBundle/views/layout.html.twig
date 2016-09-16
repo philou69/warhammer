@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}Warhantmille Battle{% endblock %}
+    </title>
+    <!-- appelle des cdn de bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    {% block link %}{% endblock %}
+    <style type="text/css">
+        {% block stylesheets %}
+        /* Margin haute au body pour descendre le contenu de la page sous la barre de navigation */
+        body{
+            padding-top: 80px;
+        }
+        {% endblock %}
+    </style>
+</head>
+<body >
+<!-- barre de navigation fixe avec un menu déroulant en smallscreen -->
+<div>
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+</div>
+</body>
+{% block javascript %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- Javascript de Bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.fr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+{% endblock %}
+</html>
+
