@@ -79,4 +79,18 @@ class BattleRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllOfVisitor($user)
+    {
+        $qb = $this->createQueryBuilder('b');
+
+        $qb->innerJoin('b.participants', 'p')
+            ->where('p.participant = :participant')
+            ->setParameter('participant', $user)
+            ->andWhere('p.presence = :presence')
+            ->setParameter('presence', 3)
+            ->orderBy('b.date', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

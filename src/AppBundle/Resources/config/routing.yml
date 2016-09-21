@@ -98,5 +98,11 @@ battle_add_photo:
       id: \d+
 
 app_user:
-    path: /user/shox
-    defaults: { _controller: "AppBundle:User:show"}
+    path: /user/view
+    defaults: { _controller: "AppBundle:User:view"}
+
+app_user_edit:
+    path: /user/edit/{id}
+    defaults: { _controller: "AppBundle:User:edit" }
+    requirements:
+      id: \d+

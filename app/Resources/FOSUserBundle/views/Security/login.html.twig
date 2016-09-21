@@ -6,7 +6,8 @@
         <p>
             Pour acceder au site vous devez vous identifier.
         </p>
+        {{ include('FOSUserBundle:Security:login_content.html.twig') }}
     </div>
 
-    {{ include('FOSUserBundle:Security:login_content.html.twig') }}
+
 {% endblock fos_user_content %}
