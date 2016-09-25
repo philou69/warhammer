@@ -32,11 +32,6 @@ class PhotoBattle
      */
     private $alt;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="photos")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $battle;
 
     /**
      * @Assert\File(maxSize="8M")
@@ -187,30 +182,6 @@ class PhotoBattle
     public function getAlt()
     {
         return $this->alt;
-    }
-
-    /**
-     * Set battle.
-     *
-     * @param \AppBundle\Entity\Battle\Battle $battle
-     *
-     * @return PhotoBattle
-     */
-    public function setBattle(\AppBundle\Entity\Battle\Battle $battle)
-    {
-        $this->battle = $battle;
-
-        return $this;
-    }
-
-    /**
-     * Get battle.
-     *
-     * @return \AppBundle\Entity\Battle\Battle
-     */
-    public function getBattle()
-    {
-        return $this->battle;
     }
 
 }

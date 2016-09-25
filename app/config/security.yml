@@ -19,6 +19,10 @@ security:
             pattern: ^/login$
             anonymous: true
 
+        main_reset:
+            pattern: ^/resetting
+            anonymous: true
+
         main:
             pattern: ^/
             anonymous: false
@@ -30,7 +34,7 @@ security:
                 path: fos_user_security_logout
                 target: /login
             remember_me:
-                secret: %secret%
+                secret: "%secret%"
             # activate different ways to authenticate
 
             # http_basic: ~

@@ -8,17 +8,25 @@
     <div class="well">
         {{ form(form) }}
         <small>
-      Pour inserer une image dans le texte, copier l'addresse dans la liste ci-dessous de l'image vous interressant. Puis cliquer sur le bouton image dans l'editeur de texte. <br>
-      Dans la fenêtre qui s'ouvre, copier  l'adresse dans le champ URL. <br>
-      Si l'image est trop grande ou trop petite adapté la largeur ou la hauteur. <br>
-      <i class="glyphicon glyphicon-warning-sign"></i> Ne modifier qu'une seule donnée pour ne pas modifier le ratio de l'image 
-    </small>
+            Pour inserer une image dans le texte, copier l'addresse dans la liste ci-dessous de l'image vous interressant. Puis cliquer sur le bouton image dans l'editeur de texte. <br>
+            Dans la fenêtre qui s'ouvre, copier  l'adresse dans le champ URL. <br>
+            Si l'image est trop grande ou trop petite adapté la largeur ou la hauteur. <br>
+            <i class="glyphicon glyphicon-warning-sign"></i> Ne modifier qu'une seule donnée pour ne pas modifier le ratio de l'image
+        </small>
     </div>
     <div>
-        <a href="{{ path('battle_add_photo',{'id': battle.id}) }}">Ajouter une photo</a>
+        <a href="{{ path('battle_photo_add',{'id': battle.id}) }}">Ajouter une photo</a>
         <ul>
             {% for photo in photos %}
-                <li class="row"><img src="{{ asset(photo.webPath)}}" alt="{{ photo.alt }}" class="col-sm-2"><div class="col-sm-10">http://warhantmillebattle.fr{{ asset(photo.webpath) }}</div></li>
+                <li class="row">
+                    <img src="{{ asset(photo.webPath)| imagine_filter('thumb')}}" alt="{{ photo.alt }}" class="col-sm-2">
+                    <div class="col-sm-10">
+                        http://warhantmillebattle.fr{{ asset(photo.webpath) }}
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="{{ path("battle_photo_delete", {'id': photo.id, 'slugBattle': battle.slugBattle}) }}" class="bnt btn-danger btn-xs">Supprimmer la photo</a>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </div>

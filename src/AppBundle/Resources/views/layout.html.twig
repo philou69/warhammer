@@ -39,14 +39,14 @@
 								<a href="{{ path('app_home') }}"><i class="glyphicon glyphicon-home"></i> Accueil</a>
 							</li>
 							<li class="battles">
-								<a href="{{ path('app_battles') }}">Les battles</a>
+								<a href="{{ path('battles') }}">Les battles</a>
 							</li>
 							<li class="armies">
-								<a href="{{ path('app_armies') }}"> Les armées</a>
+								<a href="{{ path('armies') }}"> Les armées</a>
 							</li>
 							{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 								<li>
-									<a href="{{ path('app_user') }}">{{ app.user.username }}</a>
+									<a href="{{ path('user') }}">{{ app.user.username }}</a>
 								</li>
 								<li>
 									<a href="{{ path('fos_user_security_logout') }}">Se déconnecter</a>

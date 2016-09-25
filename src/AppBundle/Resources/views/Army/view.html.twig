@@ -15,20 +15,20 @@
 	<div class="jumbotron row">
 		<div id="titre" class="text-center">
 			<h2 >{{ army.name }} créée par {{ army.user.username}}</h2>
-			<small>Race : {{ army.race.name }}, Points d'armée : {{ army.points }} {% if army.user == app.user %}<a href="{{ path('app_army_edit',{'slugArmy': army.slugArmy})}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Modifier</a>{% endif %}</small>
+			<small>Race : {{ army.race.name }}, Points d'armée : {{ army.points }} {% if army.user == app.user %}<a href="{{ path('army_edit',{'slugArmy': army.slugArmy})}}" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-edit"></i> Modifier</a>{% endif %}</small>
 		</div><br/>
 		{% if army.figurines is empty %}
 			<div class="alert alert-info">
 				<h2>Il n'y a pas de chair à canon dans cette armée.</h2>
 				{% if army.user == app.user %}
-				<a href="{{ path('app_figurine_add',{'slugArmy': army.slugArmy})}}">Rajouté</a> des figurines afin d'affronter vos adversaires
+				<a href="{{ path('army_figurine_add',{'slugArmy': army.slugArmy})}}">Rajouté</a> des figurines afin d'affronter vos adversaires
 				{% endif %}
 			</div>
 			{% if army.user == app.user %}
 				<div class="alert alert-danger" data-toggle="tooltip" title="suppresion de l'armée">
 					<h2 class="text-center">Suppresion de l'armée</h2>
 							<p>
-							Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('app_army_delete', {'slugArmy': army.slugArmy}) }}" ici</a>
+							Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('army_delete', {'slugArmy': army.slugArmy}) }}" ici</a>
 						</p>
 
 				</div>
@@ -53,11 +53,11 @@
 						<div class="col-sm-3 col-sm-push-1">
 							{% if app.user == army.user %}
 								{% if figurine.figurine.equipements|length > 0 %}
-									<a class="btn btn-primary btn-xs" href="{{ path('app_figurine_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a>
+									<a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a>
 								{%endif %}
-								<a  class="btn btn-danger btn-xs"href="{{ path('app_figurine_delete', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a>
+								<a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a>
 								<br/>
-								<a href="{{ path('app_photo_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a>
+								<a href="{{ path('figurine_photo_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a>
 							{% endif %}
 						</div>
 					</div>
@@ -65,10 +65,10 @@
 						{% for photo in figurine.photos %}
 							<div class="col-sm-2 row">
 								<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-									<img class="img-responsive" src="{{ asset(photo.webPath)}}" alt="{{ photo.alt }}">
+									<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 								</a>
 								{% if app.user == army.user %}
-									<a class="col-sm-1" href="{{ path('app_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+									<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 								{% endif %}
 							</div>
 						{% endfor %}
@@ -79,7 +79,7 @@
 						<div class="row text-center">
 							Il n'y a pas figurines dans ce groupe.<br/>
 							{% if app.user == army.user %}
-							<a href="{{ path('app_figurine_add',{'slugArmy': army.slugArmy}) }}"><i class="glyphicon glyphicon-edit"></i> Rajouté</a> une ou des figurines.
+							<a href="{{ path('army_figurine_add',{'slugArmy': army.slugArmy}) }}"><i class="glyphicon glyphicon-edit"></i> Rajouté</a> une ou des figurines.
 							{% endif %}
 						</div>
 					{% endif %}
@@ -91,12 +91,12 @@
 	{% if army.user == app.user  and army.figurines is not empty%}
 	<div class="alert alert-info">
 		<h2 class="text-center">Rajouter une figurine</h2>
-		<p>Vous voulez agrandir votre armée pour assoir votre autorité, c'est par <a href="{{ path('app_figurine_add', {'slugArmy': army.slugArmy}) }}">ici</a> </p>
+		<p>Vous voulez agrandir votre armée pour assoir votre autorité, c'est par <a href="{{ path('army_figurine_add', {'slugArmy': army.slugArmy}) }}">ici</a> </p>
 	</div>
 	<div class="alert alert-danger" data-toggle="tooltip" title="suppresion de l'armée">
 		<h2 class="text-center">Suppresion de l'armée</h2>
 		<p>
-			Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('app_army_delete', {'slugArmy': army.slugArmy}) }}" >ici</a>
+			Si vos hommes vous ont fait honte lors du dernier affrontement, la cours martial est par <a href="{{ path('army_delete', {'slugArmy': army.slugArmy}) }}" >ici</a>
 		</p>
 
 	</div>

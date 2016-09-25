@@ -40,7 +40,7 @@ class UserController extends Controller
         if($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
             $em->persist($user);
             $em->flush();
-            return $this->redirectToRoute('app_user');
+            return $this->redirectToRoute('user');
         }
 
         return $this->render("AppBundle:User:edit.html.twig", array('form' => $form->createView()));

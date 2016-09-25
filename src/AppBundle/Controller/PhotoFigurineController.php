@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Army\PhotoFigurine;
 use AppBundle\Form\Army\PhotoFigurineType;
 
-class PhotoController extends Controller
+class PhotoFigurineController extends Controller
 {
     public function addAction(Request $request, FigurineArmy $figurineArmy)
     {
@@ -26,10 +26,10 @@ class PhotoController extends Controller
             $em->persist($photo);
             $em->flush();
 
-            return $this->redirectToRoute('app_army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
         }
 
-        return $this->render('AppBundle:Photo:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
     }
 
     public function deleteAction(Request $request, PhotoFigurine $photoFigurine)
@@ -45,9 +45,9 @@ class PhotoController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
 
-            return $this->redirectToRoute('app_army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
-        return $this->render('AppBundle:Photo:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slugArmy' => $army->getSlugArmy()));
+        return $this->render('AppBundle:PhotoFigurine:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slugArmy' => $army->getSlugArmy()));
     }
 }

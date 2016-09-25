@@ -19,21 +19,25 @@ class ArmyController extends Controller
 
         return $this->render('AppBundle:Army:index.html.twig', array('listArmies' => $listArmies, 'listUsers' => $listUsers));
     }
+
     public function viewAction($slugArmy)
     {
         $em = $this->getDoctrine()->getManager();
 
         $army = $em->getRepository('AppBundle:Army\Army')->FindOneWithAll($slugArmy);
+
         if ($army === null) {
             throw new NotFoundHttpException('Armée inexistante');
         }
+
         $listGroupes = $this->getDoctrine()
-                            ->getManager()
-                            ->getRepository('AppBundle:Army\Groupe')->findAll();
+            ->getManager()
+            ->getRepository('AppBundle:Army\Groupe')->findAll();
 
         return $this->render('AppBundle:Army:view.html.twig', array('army' => $army,
             'listgroupes' => $listGroupes, ));
     }
+
     public function addAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -47,7 +51,9 @@ class ArmyController extends Controller
             $em->persist($army);
             $em->flush();
 
-            return $this->redirectToRoute('app_armies');
+            $request->getSession()->getFlashBag()->add('info', 'Votre armée a été créé avec succès.');
+
+            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
         return $this->render('AppBundle:Army:add.html.twig', array('form' => $form->createView()));
@@ -61,10 +67,11 @@ class ArmyController extends Controller
         $form->remove('race');
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->flush();
-            $request->getSession()->getFlashbag()->add('info', 'Votre armée a bien été modifier');
 
-            return $this->redirectToRoute('app_army_view', array('slugArmy' => $army->getSlugArmy()));
+            $em->flush();
+            $request->getSession()->getFlashbag()->add('info', 'Votre armée a été modifié avec succès.');
+
+            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
         return $this->render('AppBundle:Army:edit.html.twig', array('form' => $form->createView(), 'army' => $army));
@@ -80,9 +87,9 @@ class ArmyController extends Controller
             $em->remove($army);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre armée a bien été supprimé !');
+            $request->getSession()->getFlashBag()->add('info', 'Votre armée a été supprimé avec succès.');
 
-            return $this->redirectToRoute('app_armies');
+            return $this->redirectToRoute('armies');
         }
 
         return $this->render('AppBundle:Army:delete.html.twig', array('form' => $form->createView(), 'army' => $army));

@@ -1,0 +1,4 @@
+services:
+  battle.send_mail:
+    class: AppBundle\Mailler\SendMailer
+    arguments: ['@mailer']

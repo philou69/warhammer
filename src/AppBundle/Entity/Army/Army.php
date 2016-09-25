@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="army")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\ArmyRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(fields="name", message="Une armée porte déjà ce nom")
  */
 class Army
 {

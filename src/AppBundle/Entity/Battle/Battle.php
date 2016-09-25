@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="battle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\BattleRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(fields="name", message="une bataille porte déjà ce nom")
  */
 class Battle
 {
@@ -50,12 +50,6 @@ class Battle
      * @ORM\Column(name="slug_battle", length=128, unique=true)
      */
     private $slugBattle;
-
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\PhotoBattle", mappedBy="battle", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $photos;
 
      /**
       * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
@@ -195,39 +189,7 @@ class Battle
         return $this->slugBattle;
     }
 
-    /**
-     * Add photo.
-     *
-     * @param \AppBundle\Entity\Battle\PhotoBattle $photo
-     *
-     * @return Battle
-     */
-    public function addPhoto(\AppBundle\Entity\Battle\PhotoBattle $photo)
-    {
-        $this->photos[] = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Remove photo.
-     *
-     * @param \AppBundle\Entity\Battle\PhotoBattle $photo
-     */
-    public function removePhoto(\AppBundle\Entity\Battle\PhotoBattle $photo)
-    {
-        $this->photos->removeElement($photo);
-    }
-
-    /**
-     * Get photos.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
+    
 
     /**
      * Set createur.

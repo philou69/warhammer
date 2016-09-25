@@ -27,7 +27,7 @@ class FigurineController extends Controller
             $em->persist($figurineArmy);
             $em->flush();
 
-            return $this->redirectToRoute('app_army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
         return $this->render('AppBundle:Figurine:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $army->getSlugArmy(), 'armyName' => $army->getName()));
@@ -57,7 +57,7 @@ class FigurineController extends Controller
                 $figurineArmy->setPoints($points);
                 $em->flush();
 
-                return $this->redirectToRoute('app_army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+                return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
             }
 
             return $this->render('AppBundle:Figurine:edit.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy(), 'figurineArmy' => $figurineArmy));
@@ -77,7 +77,7 @@ class FigurineController extends Controller
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'La figurine '.$figurine->getFigurine()->getName().' a bien été retirée de la liste de l\'armée.');
 
-            return $this->redirectToRoute('app_army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
         return $this->render('AppBundle:Figurine:delete.html.twig', array('form' => $form->createView(), 'figurine' => $figurine, 'slugArmy' => $army->getSlugArmy()));

@@ -58,23 +58,16 @@ class BattleController extends Controller
             $now = new \DateTime();
 
             if ($battle->getDate() > $now) {
-                foreach ($battle->getParticipants() as $participant) {
-                    $message = \Swift_Message::newInstance()
-                ->setSubject('Invitation à une battle')
-                ->setFrom('site.projet.oc@gmail.com')
-                ->setTo($participant->getParticipant()->getEmail())
-                ->setBody($this->renderView('AppBundle:Email:battle.html.twig', array('battle' => $battle)), 'text/html')
-                ->addPart($this->renderView('AppBundle:Email:battle.txt.twig', array('battle' => $battle)), 'text/plain');
+                $mailer = $this->get('battle.send_mail');
 
-                    $this->get('mailer')->send($message);
-                }
+                $mailer->sendMailsBattle($battle);
                 $request->getSession()->getFlashBag()->add('info', 'La bataille a bien été créée et les invitations ont bien été envoyées.');
 
                 return $this->redirectToRoute('app_battles');
             } else {
                 $request->getSession()->getFlashBag()->add('info', 'Votre battle a bien été enregistrer.');
 
-                return $this->redirectToRoute('app_battles');
+                return $this->redirectToRoute('battles');
             }
         }
 
@@ -99,7 +92,7 @@ class BattleController extends Controller
               $em->persist($resume);
               $em->flush();
 
-            return $this->redirectToRoute('app_battle_view', array('slugBattle' => $battle->getSlugBattle()));
+            return $this->redirectToRoute('battle_view', array('slugBattle' => $battle->getSlugBattle()));
         }
         return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(),'photos' => $listPhotos,'battle' => $battle));
     }
@@ -113,7 +106,7 @@ class BattleController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($resume);
             $em->flush();
-            return $this->redirectToRoute('app_battle_view', array('slugBattle' => $resume->getBattle()->getSlugBattle()));
+            return $this->redirectToRoute('battle_view', array('slugBattle' => $resume->getBattle()->getSlugBattle()));
         }
 
         return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $listPhotos, 'battle' => $resume->getBattle()));
@@ -134,7 +127,7 @@ class BattleController extends Controller
 
           $request->getSession()->getFlashBag()->add('success', 'La bataille '.$battle->getName().' a bien été supprimer.');
 
-          return $this->redirectToRoute('app_battles');
+          return $this->redirectToRoute('battles');
       }
 
       return $this->render('AppBundle:Battle:delete.html.twig', array('form' => $form->createView(), 'battle' => $battle));
@@ -155,7 +148,7 @@ class BattleController extends Controller
 
                 $request->getSession()->getFlashBag()->add('success', 'La bataille '.$battle->getName().' a bien été annulée');
 
-                return $this->redirectToRoute('app_battles');
+                return $this->redirectToRoute('battles');
             }
 
             return $this->render('AppBundle:Battle:canceled.html.twig', array('form' => $form->createView(), 'battle' => $battle));
@@ -195,25 +188,5 @@ class BattleController extends Controller
         return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants ,'visiteur' => $participant, 'battle' =>$battle));
     }
 
-    public function addPhotoAction(Request $request, Battle $battle)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $photo = new PhotoBattle();
-        $photo->setBattle($battle);
-        $form = $this->createForm(PhotoBattleType::class, $photo);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($photo);
-            $em->flush();
-            if($battle->getResume() === null )
-            {
-                return $this->redirectToRoute('app_battle_add_view', array('slugBattle' => $battle->getSlugBattle()));
-            }else{
-                return $this->redirectToRoute('app_battle_edit_view', array('id' => $battle->getResume()->getId()));
-            }
-
-
-        }
-        return $this->render('AppBundle:PhotoBattle:add.html.twig', array('form' => $form->createView()));
-    }
 }

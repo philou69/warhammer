@@ -10,12 +10,12 @@
     {% if resumeBattle is empty %}
       Il n'y a pas encore de résumé de cette bataille.
       {% if app.user == battle.createur %}
-        Vous pouvez créer un résumé <a href="{{ path('app_battle_add_view', {'slugBattle': battle.slugBattle})}}">ici</a>
+        Vous pouvez créer un résumé <a href="{{ path('battle_view_add', {'slugBattle': battle.slugBattle})}}">ici</a>
       {% endif %}
     {% else %}
         {{ resumeBattle.resume|raw  }}
       {% if app.user == battle.createur %}
-        Vous pouvez Modifier un résumé <a href="{{ path('app_battle_edit_view', {'id': battle.resume.id})}}">ici</a>
+        Vous pouvez Modifier un résumé <a href="{{ path('battle_view_edit', {'id': battle.resume.id})}}">ici</a>
       {% endif %}
     {% endif %}
   </div>

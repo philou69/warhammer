@@ -2,106 +2,110 @@ app_home:
     path: /
     defaults: { _controller: "AppBundle:App:index"}
 
-app_battles:
+battles:
     path: /battles
     defaults: { _controller: "AppBundle:Battle:index"}
 
-app_battle_add:
+battle_add:
     path: /battle/add
     defaults: { _controller: "AppBundle:Battle:add"}
 
-app_battle_view:
+battle_view:
     path: /battle/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:view"}
 
-app_battle_future_view:
+battle_future_view:
     path: /battle/future/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:viewFuture"}
 
-app_battle_add_view:
+battle_view_add:
     path: /battle/add/view/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:addview"}
 
-app_battle_edit_view:
+battle_view_edit:
     path: /battle/edit/view/{id}
     defaults: { _controller: "AppBundle:Battle:editView"}
     requirements:
       id: \d+
 
-app_battle_canceled:
+battle_canceled:
     path:  /battle/canceled/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:canceled"}
 
-app_battle_delete:
+battle_delete:
     path:  /battle/delete/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:delete"}
 
-app_armies:
+armies:
     path: /armies
     defaults: { _controller: "AppBundle:Army:index"}
 
-app_army_add:
+army_add:
     path: /armies/add
     defaults: { _controller: "AppBundle:Army:add"}
 
-app_army_view:
+army_view:
     path: /armies/army/{slugArmy}
     defaults: { _controller: "AppBundle:Army:view"}
 
-app_army_edit:
+army_edit:
     path: /armies/edit/{slugArmy}
     defaults: { _controller: "AppBundle:Army:edit"}
 
-app_army_delete:
+army_delete:
     path: /armies/delete/{slugArmy}
     defaults: { _controller: "AppBundle:Army:delete"}
 
-
-app_figurine_add:
+army_figurine_add:
     path: /figurines/add/{slugArmy}
     defaults: { _controller: "AppBundle:Figurine:add"}
 
-app_figurine_edit:
+army_figurine_edit:
     path: /figurines/edit/{id}
     defaults: { _controller: "AppBundle:Figurine:edit"}
     requirements:
       id: \d+
 
-app_figurine_delete:
+army_figurine_delete:
     path: /figurines/delete/{id}
     defaults: { _controller: "AppBundle:Figurine:delete"}
     requirements:
       id: \d+
 
-app_photo_add:
+figurine_photo_add:
     path: /photo/add/{id}
-    defaults: { _controller:"AppBundle:Photo:add"}
+    defaults: { _controller: "AppBundle:PhotoFigurine:add"}
     requirements:
         id: \d+
 
-app_photo_delete:
+figurine_photo_delete:
     path:  /photo/delete/{id}
-    defaults: { _controller: "AppBundle:Photo:delete"}
+    defaults: { _controller: "AppBundle:PhotoFigurine:delete"}
     requirements:
         id: \d+
 
-app_user_role:
+user_role:
     path:  /user/{id}
     defaults: { _controller: "AppBundle:User:addRole"}
     requirements:
       id: \d+
 
-battle_add_photo:
+battle_photo_add:
     path: /battle/photo/add/{id}
-    defaults: { _controller: "AppBundle:Battle:addPhoto" }
+    defaults: { _controller: "AppBundle:PhotoBattle:add" }
     requirements:
       id: \d+
 
-app_user:
+battle_photo_delete:
+    path: /battle/photo/delete/{id}/{slugBattle}
+    defaults: { _controller : "AppBundle:PhotoBattle:delete" }
+    requirements:
+      id: \d+
+user:
     path: /user/view
     defaults: { _controller: "AppBundle:User:view"}
 
-app_user_edit:
+user_edit:
     path: /user/edit/{id}
     defaults: { _controller: "AppBundle:User:edit" }
     requirements:
