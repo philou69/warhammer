@@ -27,7 +27,7 @@ class UserController extends Controller
         ));
     }
 
-    // Gestion d'edition d'utilisateur
+    // Gestion d'edition d'utilisateurf
     public function editAction(Request $request, User $user)
     {
         if(null === $user || $user != $this->get('security.token_storage')->getToken()->getUser() )

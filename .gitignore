@@ -1,25 +1,15 @@
-<<<<<<< HEAD
-# Cache, session files and logs (Symfony3)
-/var/cache/*
-/var/logs/*
-/var/sessions/*
-!var/cache/.gitkeep
-!var/logs/.gitkeep
-!var/sessions/.gitkeep
-=======
+
 # cache, session files and logs
 /var/*
 /vendor/*
 .idea
 /web/uploads/images/*
 /web/media/*
->>>>>>> photob
 
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
 
-<<<<<<< HEAD
 # Managed by Composer
 /app/bootstrap.php.cache
 /var/bootstrap.php.cache
@@ -33,6 +23,4 @@
 /web/bundles/
 /web/uploads/
 /web/media/
-=======
 
->>>>>>> photob
