@@ -10,4 +10,15 @@ namespace AppBundle\Repository\Battle;
  */
 class PhotoBattleRepository extends \Doctrine\ORM\EntityRepository
 {
+    // Requete affichant les photos battle d'un visiteur par date et id descendant
+    public function findByDesc($user){
+        $qb = $this->createQueryBuilder('ph');
+
+        $qb->where('ph.user = :user')
+            ->setParameter(':user', $user)
+            ->addOrderBy('ph.date_upload', 'DESC')
+            ->addOrderBy('ph.id', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

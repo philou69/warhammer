@@ -37,6 +37,10 @@ class PhotoBattle
      */
     private $user;
 
+    /**
+     * @ORM\Column(name="date_upload" , type="datetime", nullable=true)
+     */
+    private $date_upload;
 
     /**
      * @Assert\File(maxSize="8M")
@@ -201,6 +205,22 @@ class PhotoBattle
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateUpload()
+    {
+        return $this->date_upload;
+    }
+
+    /**
+     * @param mixed $date_upload
+     */
+    public function setDateUpload($date_upload)
+    {
+        $this->date_upload = $date_upload;
     }
 
 

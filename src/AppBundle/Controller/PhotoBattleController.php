@@ -20,9 +20,11 @@ class PhotoBattleController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
+        $now = new \DateTime();
         // On crée une instance photoBattle qu'on lie au visiteur
         $photo = new PhotoBattle();
         $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
+        $photo->setDateUpload($now);
 
         $form = $this->createForm(PhotoBattleType::class, $photo);
 

@@ -16,7 +16,7 @@ class ResumeController extends Controller
         if(null === $battle){
             throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
         }
-        if($battle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
+        if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter unrésumé à cette bataille !');
         }
         $em = $this->getDoctrine()->getManager();
@@ -26,7 +26,7 @@ class ResumeController extends Controller
         $resume->setBattle($battle);
 
         // On liste les photos de battle
-        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findAll();
+        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($battle->getCreateur());
 
         $form = $this->createForm(ResumeType::class, $resume);
 
@@ -50,13 +50,13 @@ class ResumeController extends Controller
         if(null === $resume){
             throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
         }
-        if($resume->getBattle()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
+        if($resume->getBattle()->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour modifier le résumé de cette bataille !');
         }
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ResumeType::class, $resume);
-        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findAll();
+        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($resume->getBattle()->getCreateur());
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($resume);
             $em->flush();
