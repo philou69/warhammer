@@ -19,7 +19,7 @@ class FigurineController extends Controller
         if(null === $army){
             throw new NotFoundHttpException('Cette armée n\'existe pas');
         }
-        if($army->getUser() !== $this->get('security.token_storage')-getToken()->getUser()){
+        if($army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
@@ -51,7 +51,7 @@ class FigurineController extends Controller
         if(null === $figurineArmy){
             throw new NotFoundHttpException('Cette armée n\'existe pas');
         }
-        if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')-getToken()->getUser()){
+        if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
@@ -77,7 +77,7 @@ class FigurineController extends Controller
         if(null === $figurineArmy){
             throw new NotFoundHttpException('Cette armée n\'existe pas');
         }
-        if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')-getToken()->getUser()){
+        if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
