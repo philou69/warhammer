@@ -32,6 +32,11 @@ class PhotoBattle
      */
     private $alt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+     */
+    private $user;
+
 
     /**
      * @Assert\File(maxSize="8M")
@@ -183,5 +188,20 @@ class PhotoBattle
     {
         return $this->alt;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }/**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
 
 }

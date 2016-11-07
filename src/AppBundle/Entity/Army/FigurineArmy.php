@@ -229,4 +229,35 @@ class FigurineArmy
     {
         return $this->equipements;
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function countPoints()
+    {
+
+        // On créer une vartiable points valnt les points de la figurine + les points d'équipements
+        $points = $this->figurine->getPoints();
+        foreach ($this->equipements as $equipement) {
+            $points = $points + $equipement->getPoints();
+        }
+
+        // On calcule les nouveaux points de l'armée en lui ajoutant la difference des points - les points de la figurinearmée
+        $armyPoints = $this->army->getPoints() + ($points - $this->points);
+        $this->army->setPoints($armyPoints);
+
+        $this->points = $points;
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function countArmy()
+    {
+        // On compte les points de l'armée sans ceux de la figurine armé
+        $armyPoints = $this->army->getPoints() - $this->points;
+
+        $this->army->setPoints($armyPoints);
+    }
 }

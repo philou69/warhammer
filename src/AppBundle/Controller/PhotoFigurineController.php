@@ -8,13 +8,23 @@ use AppBundle\Entity\Army\FigurineArmy;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Entity\Army\PhotoFigurine;
 use AppBundle\Form\Army\PhotoFigurineType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PhotoFigurineController extends Controller
+class PhotoController extends Controller
 {
+    // Gestion d'ajout d'une photo Figurine
     public function addAction(Request $request, FigurineArmy $figurineArmy)
     {
+        // On vérifie l'existance de la figurine et si le visiteur est le proprio de la figurine
+        if(null === $figurineArmy){
+            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
+        }
+        if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
+            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter une photo à cette figurine !');
+        }
         $em = $this->getDoctrine()->getManager();
 
+        // On crée une instance de photoFigurine lié à la figurine
         $photo = new PhotoFigurine();
         $photo->setFigurine($figurineArmy);
 
@@ -29,11 +39,19 @@ class PhotoFigurineController extends Controller
             return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
         }
 
-        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+        return $this->render('AppBundle:Photo:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
     }
 
+    // Gestion de suppresion des photos de figurine
     public function deleteAction(Request $request, PhotoFigurine $photoFigurine)
     {
+        // On vérifie l'existance de la figurine et si le visiteur est le proprio de la figurine
+        if(null === $photoFigurine){
+            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
+        }
+        if($photoFigurine->getFigurineArmy()->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
+            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter une photo à cette figurine !');
+        }
         $em = $this->getDoctrine()->getManager();
 
         $army = $photoFigurine->getFigurine()->getArmy();
@@ -48,6 +66,6 @@ class PhotoFigurineController extends Controller
             return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
         }
 
-        return $this->render('AppBundle:PhotoFigurine:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slugArmy' => $army->getSlugArmy()));
+        return $this->render('AppBundle:Photo:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slugArmy' => $army->getSlugArmy()));
     }
 }

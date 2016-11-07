@@ -107,7 +107,7 @@ class Army
      */
     public function setPoints($points)
     {
-        $this->points = $this->points + $points;
+        $this->points = $points;
 
         return $this;
     }

@@ -1,4 +1,8 @@
 services:
-  battle.send_mail:
-    class: AppBundle\Mailler\SendMailer
-    arguments: ['@mailer']
+   battle.send_mail:
+       class: AppBundle\Mail\SendMail
+       arguments: ['@mailer', '@twig']
+
+   battle.add_participants:
+       class: AppBundle\Battle\ParticipantsBattle
+       arguments: ['@doctrine.orm.entity_manager']

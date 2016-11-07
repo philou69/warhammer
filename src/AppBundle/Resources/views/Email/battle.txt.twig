@@ -1,5 +1,5 @@
     Bataille {{ battle.name }}
 
 {{ battle.createur.username }} a proposé une bataille le {{ battle.date|date('d/m/Y') }}.
-Rendez vous sur la page {{ battle.name}}
+Rendez vous sur la page {{ url('battle_future_view',{'slugBattle': battle.slugBattle})}}
 pour signalez votre présence et peut être un jour vous voir combattre.

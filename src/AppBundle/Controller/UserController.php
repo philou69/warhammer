@@ -8,12 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
+    // Gestion de l'affichage de l'utilisateur
     public function viewAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
+        // Liste des armées et des battles ou le visiteur à participer
         $listArmies = $em->getRepository("AppBundle:Army\Army")->findBy(array('user' => $user));
 
         $listBattles = $em->getRepository("AppBundle:Battle\Battle")->findAllOfVisitor($user);
@@ -25,6 +27,7 @@ class UserController extends Controller
         ));
     }
 
+    // Gestion d'edition d'utilisateur
     public function editAction(Request $request, User $user)
     {
         if(null === $user || $user != $this->get('security.token_storage')->getToken()->getUser() )

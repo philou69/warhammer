@@ -18,13 +18,13 @@ battle_future_view:
     path: /battle/future/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:viewFuture"}
 
-battle_view_add:
+resume_add:
     path: /battle/add/view/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:addview"}
+    defaults: { _controller: "AppBundle:Resume:add"}
 
-battle_view_edit:
+resume_edit:
     path: /battle/edit/view/{id}
-    defaults: { _controller: "AppBundle:Battle:editView"}
+    defaults: { _controller: "AppBundle:Resume:edit"}
     requirements:
       id: \d+
 

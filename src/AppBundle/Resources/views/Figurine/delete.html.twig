@@ -6,9 +6,9 @@
 
 {% block body %}
 	<div class="jumbotron">
-		<h2 class="text-center">Suppresion de la figurine {{ figurine.figurine.name }}</h2>
+		<h2 class="text-center">Suppresion de la figurine {{ figurineArmy.figurine.name }}</h2>
 
-		<form action="{{ path('army_figurine_delete',{'id': figurine.id})}}" method="post">
+		<form action="{{ path('army_figurine_delete',{'id': figurineArmy.id})}}" method="post">
 			<div class="row">
 				<label class="col-sm-6" for="supression">Etes-vous sur de vouloir supprimer cette figurine</label>
 				<input type="submit" value="Supprimer" class="btn btn-danger btn-sm col-sm-2">
