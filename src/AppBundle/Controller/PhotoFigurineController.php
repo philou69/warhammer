@@ -10,7 +10,7 @@ use AppBundle\Entity\Army\PhotoFigurine;
 use AppBundle\Form\Army\PhotoFigurineType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PhotoController extends Controller
+class PhotoFigurineController extends Controller
 {
     // Gestion d'ajout d'une photo Figurine
     public function addAction(Request $request, FigurineArmy $figurineArmy)

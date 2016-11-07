@@ -1,5 +1,12 @@
-/var
-/vendor
+# cache, session files and logs
+/var/*
+/vendor/*
 .idea
 /web/uploads/images/*
+/web/media/*
+
+# Parameters
 /app/config/parameters.yml
+/app/config/parameters.ini
+
+
