@@ -1,10 +1,11 @@
-
-# cache, session files and logs
-/var/*
-/vendor/*
+# Cache, session files and logs (Symfony3)
+/var/cache/*
+/var/logs/*
+/var/sessions/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+!var/sessions/.gitkeep
 .idea
-/web/uploads/images/*
-/web/media/*
 
 # Parameters
 /app/config/parameters.yml
@@ -18,9 +19,7 @@
 !bin/symfony_requirements
 /vendor/
 
-
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
 /web/media/
-
