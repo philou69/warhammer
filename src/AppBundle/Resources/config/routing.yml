@@ -101,6 +101,14 @@ battle_photo_delete:
     defaults: { _controller : "AppBundle:PhotoBattle:delete" }
     requirements:
       id: \d+
+
+battle_photo_page:
+    path: /battle/photo/view/{page}
+    defaults:
+      _controller: "AppBundle:PhotoBattle:index"
+      page:   1
+    requirements:
+      page: \d+
 user:
     path: /user/view
     defaults: { _controller: "AppBundle:User:view"}

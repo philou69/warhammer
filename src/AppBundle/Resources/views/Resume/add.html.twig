@@ -16,17 +16,11 @@
   </div>
   <a href="{{ path('battle_photo_add',{'id': battle.id}) }}">Ajouter une photo</a>
   <div>
-    <ul>
-      {% for photo in photos %}
-        <li class="row"><img src="{{ asset(photo.webPath) | imagine_filter('thumb') }}" alt="{{ photo.alt }}" class="col-sm-2">
-          <div class="col-sm-8">
-            http://warhantmillebattle.fr{{ asset(photo.webpath)}}
-          </div>
-          <div class="col-sm-2">
-            <a href="{{ path("battle_photo_delete", {'id': photo.id, 'slugBattle': battle.slugBattle}) }}" class="bnt btn-danger btn-xs">Supprimmer la photo</a>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
+    {{ render(controller("AppBundle:PhotoBattle:index", {'page':1})) }}
   </div>
+{% endblock %}
+
+{% block javascript %}
+  {{ parent() }}
+  <script type="text/javascript" src="{{ asset('/public/js/pagination.js') }}"></script>
 {% endblock %}
