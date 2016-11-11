@@ -1,6 +1,7 @@
 <?php
 
 namespace AppBundle\Repository\Battle;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * PhotoBattleRepository.
@@ -20,5 +21,21 @@ class PhotoBattleRepository extends \Doctrine\ORM\EntityRepository
             ->addOrderBy('ph.id', 'DESC');
 
         return $qb->getQuery()->getResult();
+    }
+
+    public function getPhotos($page, $nbPerPage, $user)
+    {
+        // On récupere toutes les photos du visiteur
+        $query = $this->createQueryBuilder('ph')
+                ->where('ph.user = :user')
+                ->setParameter('user', $user)
+                ->getQuery();
+
+        // Puis on définit à quelle photo doit commencer la page
+        $query->setFirstResult(($page-1)*$nbPerPage)
+                ->setMaxResults($nbPerPage);
+
+        // On retourne l'objet Paginator correspondant à la requête construite
+        return new  Paginator($query, true);
     }
 }

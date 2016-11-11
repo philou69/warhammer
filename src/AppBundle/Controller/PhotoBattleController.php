@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\PhotoBattle;
 use AppBundle\Form\Battle\PhotoBattleType;
@@ -70,5 +71,37 @@ class PhotoBattleController extends Controller
         }
 
         return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle, 'slugBattle' => $slugBattle));
+    }
+
+    // Gestion d'affichage des photos battles du visiteur
+    public  function indexAction($page)
+    {
+        // On vérifie de ne pas être sur la page 0 ou moins
+        if($page < 1 ) {
+            throw $this->createNotFoundException("La page ". $page ." n'existe pas");
+        }
+        // On fixe le nombre de page
+        $nbPerPage = 20;
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        // On récupere notre objet Paginator
+        $listPhotos = $this->getDoctrine()
+                            ->getManager()
+                            ->getRepository("AppBundle:Battle\PhotoBattle")
+                            ->getPhotos($page, $nbPerPage, $user);
+
+        // On calcul le nombre total de page
+        $nbPages= ceil(count($listPhotos)/$nbPerPage);
+
+        // Si la page n'existe pas, on retourne une erreur 404
+        if($page > $nbPages){
+            return $this->createNotFoundException('La page '. $page . ' n\'exciste pas.');
+        }
+
+        return $this->render('AppBundle:PhotoBattle:page.html.twig', array(
+                'listPhotos' => $listPhotos,
+                'nbPages' => $nbPages,
+                'page' => $page
+        ));
     }
 }
