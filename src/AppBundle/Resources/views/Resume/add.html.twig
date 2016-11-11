@@ -15,7 +15,7 @@
     </small>
   </div>
   <a href="{{ path('battle_photo_add',{'id': battle.id}) }}">Ajouter une photo</a>
-  <div>
+  <div id="contenu">
     {{ render(controller("AppBundle:PhotoBattle:index", {'page':1})) }}
   </div>
 {% endblock %}

@@ -103,7 +103,7 @@ battle_photo_delete:
       id: \d+
 
 battle_photo_page:
-    path: /battle/photo/view/{page}
+    path: /battle/photos/{page}
     defaults:
       _controller: "AppBundle:PhotoBattle:index"
       page:   1
