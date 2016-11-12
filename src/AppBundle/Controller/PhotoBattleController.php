@@ -94,7 +94,7 @@ class PhotoBattleController extends Controller
         $nbPages= ceil(count($listPhotos)/$nbPerPage);
 
         // Si la page n'existe pas, on retourne une erreur 404
-        if($page > $nbPages){
+        if($page > $nbPages && count($listPhotos)> 0){
             return $this->createNotFoundException('La page '. $page . ' n\'exciste pas.');
         }
 
