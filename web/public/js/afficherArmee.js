@@ -1,0 +1,1 @@
+var participantElts = document.querySelector('')

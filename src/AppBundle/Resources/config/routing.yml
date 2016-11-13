@@ -10,6 +10,9 @@ battle_add:
     path: /battle/add
     defaults: { _controller: "AppBundle:Battle:add"}
 
+battle_edit:
+    path: /battle/edit/{slugBattle}
+    defaults: { _controller: "AppBundle:Battle:edit" }
 battle_view:
     path: /battle/{slugBattle}
     defaults: { _controller: "AppBundle:Battle:view"}

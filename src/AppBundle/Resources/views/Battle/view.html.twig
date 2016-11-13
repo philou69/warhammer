@@ -18,5 +18,6 @@
         Vous pouvez Modifier un résumé <a href="{{ path('resume_edit', {'id': battle.resume.id})}}">ici</a>
       {% endif %}
     {% endif %}
+    <a href="{{ path('battle_edit', {'slugBattle': battle.slugBattle}) }}">Modifier la battle</a>
   </div>
 {% endblock %}

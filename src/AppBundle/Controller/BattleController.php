@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Battle\PhotoBattle;
+use AppBundle\Form\Battle\EditBattleType;
 use AppBundle\Form\Battle\ParticipantType;
 use AppBundle\Form\Battle\PhotoBattleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,6 +46,7 @@ class BattleController extends Controller
         $form = $this->createForm(BattleType::class, $battle);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
             // On appelle et utilise le service qui lie les gens à la battle
             $adder = $this->get('battle.add_participants');
             $adder->addParticipants($battle);
@@ -167,5 +169,44 @@ class BattleController extends Controller
         return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants ,'visiteur' => $participant, 'battle' =>$battle));
     }
 
+    public function editAction(Request $request, Battle $battle)
+    {
+        if(null === $battle){
+            throw new NotFoundHttpException("Cette battle n'existe pas !");
+        }
+        if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
+            throw new NotFoundHttpException('Vous n\'avez pas les droits sur cette battle !');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        if($battle->getParticipants()->count() === 0){
+            $participant = new Participant();
+
+            $battle->addParticipant($participant);
+        }else{
+            foreach ($battle->getParticipants() as $participant){
+                if($participant->getPresence()->getId() !== 3 ){
+                    $battle->removeParticipant($participant);
+                }
+            }
+        }
+
+        $form = $this->createForm(EditBattleType::class, $battle);
+        $now = new \DateTime();
+
+        if($battle->getDate() < $now){
+            $form->remove('date');
+        }else{
+            $form->remove('participants');
+        }
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            $em->persist($battle);
+            $em->flush();
+
+            return $this->redirectToRoute('battles');
+        }
+
+        return $this->render('AppBundle:Battle:edit.html.twig',array('form' => $form->createView(), 'battle' => $battle));
+    }
 
 }
