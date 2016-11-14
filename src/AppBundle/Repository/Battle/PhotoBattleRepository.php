@@ -29,6 +29,8 @@ class PhotoBattleRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder('ph')
                 ->where('ph.user = :user')
                 ->setParameter('user', $user)
+                ->addOrderBy('ph.date_upload', 'DESC')
+                ->addOrderBy('ph.id', 'DESC')
                 ->getQuery();
 
         // Puis on définit à quelle photo doit commencer la page
