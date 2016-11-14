@@ -14,11 +14,15 @@ class ParticipantValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if($value->getPresence()->getId() == 3 && $value->getArmy() === null)
+        if( $value->getPresence()->getId() == 3)
+        {
+            if( $value->getArmy()->getUser() !== $value->getParticipant() || $value->getArmy() === null)
         {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
+        }
+
     }
 }
 

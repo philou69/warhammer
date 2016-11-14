@@ -200,6 +200,12 @@ class BattleController extends Controller
             $form->remove('participants');
         }
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+            foreach ($battle->getParticipants() as $participant){
+                $combatta = $em->getRepository('AppBundle:Battle\Presence')->findOneBy(array('id' => 3));
+                if($participant->getPresence() === null){
+                    $participant->setPresence($combatta);
+                }
+            }
             $em->persist($battle);
             $em->flush();
 

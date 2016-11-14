@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class Participant extends Constraint
 {
-    public $message = "Vous devez séléctionnez une armée si vous combattez";
+    public $message = "Les combattant doivent séléctionner une armée leur appartenant !";
 
     public function validatedBy()
     {
