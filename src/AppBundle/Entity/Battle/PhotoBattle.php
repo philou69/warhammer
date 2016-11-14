@@ -208,7 +208,9 @@ class PhotoBattle
     }
 
     /**
-     * @return mixed
+     * Get date.
+     *
+     * @return \DateTime
      */
     public function getDateUpload()
     {
@@ -216,7 +218,11 @@ class PhotoBattle
     }
 
     /**
-     * @param mixed $date_upload
+     * Set date.
+     *
+     * @param \DateTime $date
+     *
+     * @return Battle
      */
     public function setDateUpload($date_upload)
     {
