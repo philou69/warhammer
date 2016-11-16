@@ -23,7 +23,7 @@ class SendMail
             if($participant !== $battle->getCreateur()){
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Invitation à une battle')
-                    ->setFrom('site.projet.oc@gmail.com')
+                    ->setFrom('administrateur@warhantmillebattle.fr')
                     ->setTo($participant->getParticipant()->getEmail())
                     ->setBody($this->twig->render('AppBundle:Email:battle.html.twig', array('battle' => $battle)), 'text/html')
                     ->addPart($this->twig->render('AppBundle:Email:battle.txt.twig', array('battle' => $battle)), 'text/plain');
@@ -42,7 +42,7 @@ class SendMail
             if($participant !== $battle->getCreateur()){
                 $message = \Swift_Message::newInstance()
                     ->setSubject('Bataille annullée')
-                    ->setFrom('site.projet.oc@gmail.com')
+                    ->setFrom('administrateur@warhantmillebattle.fr')
                     ->setTo($participant->getParticipant()->getEmail())
                     ->setBody($this->twig->render('AppBundle:Email:cancel.html.twig', array('battle' => $battle)), 'text/html')
                     ->addPart($this->twig->render('AppBundle:Email:cancel.txt.twig', array('battle' => $battle)), 'text/plain');
@@ -61,7 +61,7 @@ class SendMail
             if($participant !== $battle->getCreateur()){
                 $message = \Swift_Message::newInstance()
                     ->setSubject($battle->getName().' a été modifié')
-                    ->setFrom('site.projet.oc@gmail.com')
+                    ->setFrom('administrateur@warhantmillebattle.fr')
                     ->setTo($participant->getParticipant()->getEmail())
                     ->setBody($this->twig->render('AppBundle:Email:update.html.twig', array('battle' => $battle)), 'text/html')
                     ->addPart($this->twig->render('AppBundle:Email:update.txt.twig', array('battle' => $battle)), 'text/plain');
