@@ -3,9 +3,11 @@ var $container = $('div#battle_participants');
 
 // On recupere les enfant de $container avec .children() et on  recupere la 26ième lettres pour la passer comme index à la fonction cacheArmee()
 $container.children().each(function () {
-    var id = this.getAttribute('id');
+
+    var index = this.getAttribute('id').match(/[0-9]{1,2}/);
     // On appelle la fonction cachant les armées étrangères
-    cacheArmee(id.substr(25));
+    console.log(index);
+    cacheArmee(index);
 })
 
 // On definit le compteur de participant en comptant le nombre d'enfants de container

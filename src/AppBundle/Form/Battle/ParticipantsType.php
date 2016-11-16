@@ -5,6 +5,7 @@ namespace AppBundle\Form\Battle;
 use AppBundle\Entity\User\User;
 use AppBundle\Repository\Army\ArmyRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,7 +29,6 @@ class ParticipantsType extends AbstractType
                 'choice_attr' => function () {
                     return ['class' => 'participant'];
                 }
-
             ))
             ->add('army', EntityType::class, array(
                 'class' => 'AppBundle:Army\Army',
@@ -44,6 +44,15 @@ class ParticipantsType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'required' => false
+            ))
+            ->add('presence', EntityType::class, array(
+                'class' => 'AppBundle:Battle\Presence',
+                'query_builder' => function (PresenceRepository $er) {
+                    return $er->findCombat();
+                },
+                'label_attr' => array('style' => 'display:none'),
+                'attr' => array('style' => 'display:none'),
+                'choice_label' => 'id'
             ))
         ;
     }

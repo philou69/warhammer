@@ -1,0 +1,15 @@
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+<div class="container">
+    <div class="jumbotron">
+        <h2>Bataille {{ battle.name }}</h2>
+        <p>
+            {{ battle.createur.username }} a modifié la bataille {{ battle.name }}.<br>
+            Elle aura lieu le {{ battle.date|date('d/m/Y H:m') }}.<br>
+            Rendez vous sur la <a href="{{ url('battle_future_view',{'slugBattle': battle.slugBattle}) }}">battle</a> pour signifier votre présence.
+        </p>
+    </div>
+
+</div>

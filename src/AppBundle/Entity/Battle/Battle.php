@@ -5,6 +5,7 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Battle.
@@ -12,6 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="battle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\BattleRepository")
  * @UniqueEntity(fields="name", message="une bataille porte déjà ce nom")
+ * @AppAssert\Battle
  */
 class Battle
 {
@@ -58,7 +60,7 @@ class Battle
      private $createur;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\Participant", mappedBy="battle", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\Participant", mappedBy="battle", cascade={"persist","refresh","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $participants;

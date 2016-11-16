@@ -171,6 +171,7 @@ class BattleController extends Controller
 
     public function editAction(Request $request, Battle $battle)
     {
+        // On vérifie si la battle existe ou si le visiteur est le créateur de la battle
         if(null === $battle){
             throw new NotFoundHttpException("Cette battle n'existe pas !");
         }
@@ -179,35 +180,46 @@ class BattleController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        if($battle->getParticipants()->count() === 0){
-            $participant = new Participant();
-
-            $battle->addParticipant($participant);
-        }else{
-            foreach ($battle->getParticipants() as $participant){
-                if($participant->getPresence()->getId() !== 3 ){
-                    $battle->removeParticipant($participant);
-                }
-            }
-        }
 
         $form = $this->createForm(EditBattleType::class, $battle);
+
         $now = new \DateTime();
 
+        // On vérifie la date de labattle
         if($battle->getDate() < $now){
+            // s'il s'agit d'une battle future, on compte le nombre de participant et on garde uniquement les combattants
+            if($battle->getParticipants()->count() > 0){
+                foreach ($battle->getParticipants() as $participant){
+                    if($participant->getPresence()->getId() !== 3 ){
+                        $battle->removeParticipant($participant);
+                        $em->remove($participant);
+                    }
+                }
+                $em->flush();
+
+            }
+            // S'il n'y a pas de participant, on en ajoute un
+            if($battle->getParticipants()->count() === 0){
+                $participant = new Participant();
+
+                $battle->addParticipant($participant);
+            }
+            // Puis on retire le champ date
             $form->remove('date');
         }else{
+            // S'il s'agit d'une battle futur on retire le champs participant
             $form->remove('participants');
         }
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
-            foreach ($battle->getParticipants() as $participant){
-                $combatta = $em->getRepository('AppBundle:Battle\Presence')->findOneBy(array('id' => 3));
-                if($participant->getPresence() === null){
-                    $participant->setPresence($combatta);
-                }
-            }
+
             $em->persist($battle);
             $em->flush();
+            if($battle->getDate() > $now)
+            {
+                $mailer = $this->get('battle.send_mail');
+                $mailer->sendModifiedBattle($battle);
+            }
+
 
             return $this->redirectToRoute('battles');
         }

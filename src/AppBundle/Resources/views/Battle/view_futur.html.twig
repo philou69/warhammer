@@ -9,7 +9,6 @@
         <h2>{{ battle.name }} du {{ battle.date|date('d/m/Y à h-m') }}</h2>
         <p>
             Bataille proposée par {{ battle.createur.username }} qui aura lieu chez {{ battle.lieu }}
-            <a href="{{ path('battle_edit', {'slugBattle': battle.slugBattle}) }}">Modifier la battle</a>
         </p>
         <div id="{{ visiteur.presence.id }}" class="well">
             {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}

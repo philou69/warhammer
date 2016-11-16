@@ -41,11 +41,30 @@ class SendMail
             // On vérifie qu'on envoie pas de mail au créateur de la battle
             if($participant !== $battle->getCreateur()){
                 $message = \Swift_Message::newInstance()
-                    ->setSubject('Invitation à une battle')
+                    ->setSubject('Bataille annullée')
                     ->setFrom('site.projet.oc@gmail.com')
                     ->setTo($participant->getParticipant()->getEmail())
                     ->setBody($this->twig->render('AppBundle:Email:cancel.html.twig', array('battle' => $battle)), 'text/html')
                     ->addPart($this->twig->render('AppBundle:Email:cancel.txt.twig', array('battle' => $battle)), 'text/plain');
+
+                $this->mailer->send($message);
+            }
+
+        }
+    }
+
+    public function sendModifiedBattle(Battle $battle)
+    {
+        // On boucle sur les invités de la battle
+        foreach ($battle->getParticipants() as $participant) {
+            // On vérifie qu'on envoie pas de mail au créateur de la battle
+            if($participant !== $battle->getCreateur()){
+                $message = \Swift_Message::newInstance()
+                    ->setSubject($battle->getName().' a été modifié')
+                    ->setFrom('site.projet.oc@gmail.com')
+                    ->setTo($participant->getParticipant()->getEmail())
+                    ->setBody($this->twig->render('AppBundle:Email:update.html.twig', array('battle' => $battle)), 'text/html')
+                    ->addPart($this->twig->render('AppBundle:Email:update.txt.twig', array('battle' => $battle)), 'text/plain');
 
                 $this->mailer->send($message);
             }

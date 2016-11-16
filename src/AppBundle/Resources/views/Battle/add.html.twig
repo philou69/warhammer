@@ -14,9 +14,9 @@
     {{ form_row(form.name) }}
 
     <div class="form-group">
-          {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 col-xs-5 control-label'}})}}
+          {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 control-label'}})}}
           {{ form_errors(form.date)}}
-          <div class="col-xs-6 col-sm-5">
+          <div class="col-sm-5">
             {{ form_widget(form.date,{'attr':{'class':'form-controle '}})}}
             <br/>
               <small><i class="glyphicon glyphicon-warning-sign"></i> Format jj/mm/aaaa   hh:mm attendu</small>

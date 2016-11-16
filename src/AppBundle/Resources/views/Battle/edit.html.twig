@@ -1,6 +1,6 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
-{% form_theme form 'form/fieldsFigurine.html.twig' %}
+{% form_theme form 'form/fields.html.twig' %}
 
 {% block title %}
  Modification de bataille
@@ -15,9 +15,9 @@
 
         {% if form.date is defined %}
             <div class="form-group">
-                {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 col-xs-5 control-label'}})}}
+                {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 control-label'}})}}
                 {{ form_errors(form.date)}}
-                <div class="col-xs-6 col-sm-5">
+                <div class="col-sm-5">
                     {{ form_widget(form.date,{'attr':{'class':'form-controle '}})}}
                     <br/>
                     <small><i class="glyphicon glyphicon-warning-sign"></i> Format jj/mm/aaaa   hh:mm attendu</small>
@@ -45,6 +45,10 @@
 
 {% block javascript %}
     {{ parent() }}
-    <script type="text/javascript" src="{{ asset('/public/js/ajoutParticipant.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/public/js/dateBattle.js') }}"></script>
+    {% if form.participants is defined %}
+        <script type="text/javascript" src="{{ asset('/public/js/ajoutParticipant.js') }}"></script>
+    {% endif %}
+    {% if form.date is defined %}
+        <script type="text/javascript" src="{{ asset('/public/js/dateBattle.js') }}"></script>
+    {% endif %}
 {% endblock %}
