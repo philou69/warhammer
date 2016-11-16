@@ -12,4 +12,13 @@ class PresenceRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb;
     }
+
+    public function findCombat()
+    {
+        $qb = $this->createQueryBuilder('p');
+
+        $qb->where('p.id = 3');
+
+        return $qb;
+    }
 }

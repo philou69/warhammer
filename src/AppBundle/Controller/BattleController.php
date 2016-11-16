@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Battle\PhotoBattle;
+use AppBundle\Form\Battle\EditBattleType;
 use AppBundle\Form\Battle\ParticipantType;
 use AppBundle\Form\Battle\PhotoBattleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,6 +46,7 @@ class BattleController extends Controller
         $form = $this->createForm(BattleType::class, $battle);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
             // On appelle et utilise le service qui lie les gens à la battle
             $adder = $this->get('battle.add_participants');
             $adder->addParticipants($battle);
@@ -167,5 +169,62 @@ class BattleController extends Controller
         return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants ,'visiteur' => $participant, 'battle' =>$battle));
     }
 
+    public function editAction(Request $request, Battle $battle)
+    {
+        // On vérifie si la battle existe ou si le visiteur est le créateur de la battle
+        if(null === $battle){
+            throw new NotFoundHttpException("Cette battle n'existe pas !");
+        }
+        if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
+            throw new NotFoundHttpException('Vous n\'avez pas les droits sur cette battle !');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(EditBattleType::class, $battle);
+
+        $now = new \DateTime();
+
+        // On vérifie la date de labattle
+        if($battle->getDate() < $now){
+            // s'il s'agit d'une battle future, on compte le nombre de participant et on garde uniquement les combattants
+            if($battle->getParticipants()->count() > 0){
+                foreach ($battle->getParticipants() as $participant){
+                    if($participant->getPresence()->getId() !== 3 ){
+                        $battle->removeParticipant($participant);
+                        $em->remove($participant);
+                    }
+                }
+                $em->flush();
+
+            }
+            // S'il n'y a pas de participant, on en ajoute un
+            if($battle->getParticipants()->count() === 0){
+                $participant = new Participant();
+
+                $battle->addParticipant($participant);
+            }
+            // Puis on retire le champ date
+            $form->remove('date');
+        }else{
+            // S'il s'agit d'une battle futur on retire le champs participant
+            $form->remove('participants');
+        }
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+
+            $em->persist($battle);
+            $em->flush();
+            if($battle->getDate() > $now)
+            {
+                $mailer = $this->get('battle.send_mail');
+                $mailer->sendModifiedBattle($battle);
+            }
+
+
+            return $this->redirectToRoute('battles');
+        }
+
+        return $this->render('AppBundle:Battle:edit.html.twig',array('form' => $form->createView(), 'battle' => $battle));
+    }
 
 }

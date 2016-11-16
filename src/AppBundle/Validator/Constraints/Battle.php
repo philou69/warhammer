@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class Participant extends Constraint
+class Battle extends Constraint
 {
     public $message = "Les combattant doivent séléctionner une armée leur appartenant !";
 

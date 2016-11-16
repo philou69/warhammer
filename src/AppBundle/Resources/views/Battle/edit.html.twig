@@ -1,18 +1,54 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
+{% form_theme form 'form/fields.html.twig' %}
+
 {% block title %}
-  résume de bataille
+ Modification de bataille
 {% endblock %}
 
 {% block body %}
-  <div class="well">
-    {{ form(form)}}
-    <div class="">
-      <ul>
-        {% for photo in photos %}
-            <li>{{ photo.uploadRootDir}}{{photo.url}}</li>
-        {% endfor %}
-      </ul>
+    <div class="well">
+        {{ form_start(form,{'attr':{'class': 'form-horizontal'}})}}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+
+        {% if form.date is defined %}
+            <div class="form-group">
+                {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 control-label'}})}}
+                {{ form_errors(form.date)}}
+                <div class="col-sm-5">
+                    {{ form_widget(form.date,{'attr':{'class':'form-controle '}})}}
+                    <br/>
+                    <small><i class="glyphicon glyphicon-warning-sign"></i> Format jj/mm/aaaa   hh:mm attendu</small>
+                </div>
+            </div>
+        {% endif %}
+        {{ form_row(form.lieu) }}
+        {% if form.participants is defined %}
+            <div id="battle_participants" data-prototype="{{ form_widget(form.participants.vars.prototype)|e}}">
+                {% for participant in form.participants %}
+                    {{ form_widget(participant)}}
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                <a href="#" id="ajout_participant" class="btn btn-default btn-xs">Rajouter un Participant</a><br/>
+            </div>
+        {% endif %}
+        <div class="text-center">
+            {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-xs'}})}}
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
     </div>
-  </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    {% if form.participants is defined %}
+        <script type="text/javascript" src="{{ asset('/public/js/ajoutParticipant.js') }}"></script>
+    {% endif %}
+    {% if form.date is defined %}
+        <script type="text/javascript" src="{{ asset('/public/js/dateBattle.js') }}"></script>
+    {% endif %}
 {% endblock %}
