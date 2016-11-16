@@ -61,7 +61,7 @@ class BattleController extends Controller
                 $mailer->sendMailBattle($battle);
                 $request->getSession()->getFlashBag()->add('info', 'La bataille a bien été créée et les invitations ont bien été envoyées.');
 
-                return $this->redirectToRoute('app_battles');
+                return $this->redirectToRoute('battles');
             } else {
                 $request->getSession()->getFlashBag()->add('info', 'Votre battle a bien été enregistrer.');
 
