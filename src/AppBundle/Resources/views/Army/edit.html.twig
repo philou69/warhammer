@@ -10,9 +10,12 @@
 
   <div class="well">
     <h2 class="text-center">Modification de l'arméee {{ army.name}} de race {{ army.race.name}}</h2>
+
     {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
     {{ form_errors(form)}}
-      {{ form_row(form.name) }}
+
+    {{ form_row(form.name) }}
+
     <div class="text-center">
       {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-sm'}}) }}
     </div>

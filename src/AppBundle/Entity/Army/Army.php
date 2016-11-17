@@ -4,6 +4,7 @@ namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -24,6 +25,7 @@ class Army
 
     /**
      * @ORM\Column(name="name", type="string", unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 

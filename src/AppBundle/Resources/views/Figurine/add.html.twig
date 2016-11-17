@@ -12,10 +12,10 @@
 
 		<div class="form-group">
 			{{ form_label(form.figurine,'Figurine à ajouter :',{'label_attr':{'class': 'col-sm-2 control-label'}})}}
-			{{ form_errors(form.figurine) }}
 			<div class="col-sm-10">
 				{{ form_widget(form.figurine,{'attr':{'class':'form-control', 'value': 'Choix de la figurine'}}) }}
 			</div>
+			{{ form_errors(form.figurine) }}
 		</div>
 		{{ form_row(form.equipements)}}
 

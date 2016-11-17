@@ -9,10 +9,10 @@
 
         <div class="form-group">
             {{ form_label(form.file,'Choisisser une photo',{'label_attr':{'class': 'col-sm-2 control-label'}}) }}
-            {{ form_errors(form.file)}}
             <div class="col-sm-10">
                 {{ form_widget(form.file,{'attr':{'class':'form-control file'}})}}
             </div>
+            {{ form_errors(form.file)}}
         </div>
         <div class="text-center">
             {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-sm'}})}}

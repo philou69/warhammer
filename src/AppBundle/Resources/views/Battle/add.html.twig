@@ -8,6 +8,7 @@
 
 {% block body %}
   <div class="well">
+
     {{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
     {{ form_errors(form) }}
 
@@ -15,23 +16,25 @@
 
     <div class="form-group">
           {{ form_label(form.date,"Quand :",{'label_attr':{'class':'col-sm-3 control-label'}})}}
-          {{ form_errors(form.date)}}
           <div class="col-sm-5">
             {{ form_widget(form.date,{'attr':{'class':'form-controle '}})}}
             <br/>
               <small><i class="glyphicon glyphicon-warning-sign"></i> Format jj/mm/aaaa   hh:mm attendu</small>
           </div>
+          {{ form_errors(form.date)}}
     </div>
 
     {{ form_row(form.lieu) }}
 
-
     <div class="text-center">
       {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-xs'}})}}
     </div>
+
     {{ form_rest(form) }}
     {{ form_end(form) }}
+
   </div>
+
 {% endblock %}
 
 {% block javascript %}
