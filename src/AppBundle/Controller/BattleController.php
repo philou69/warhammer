@@ -103,7 +103,7 @@ class BattleController extends Controller
     public function canceledAction(Request $request, Battle $battle)
     {
         // On cérifie l'existance de la battle
-        if(null === battle){
+        if(null === $battle){
         throw new NotFoundHttpException('Cette battle n\'existe pas');
         }
         // On vérifie si le visiteur est le créateur de la battle
