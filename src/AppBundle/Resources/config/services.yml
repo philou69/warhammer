@@ -6,3 +6,8 @@ services:
    battle.add_participants:
        class: AppBundle\Battle\ParticipantsBattle
        arguments: ['@doctrine.orm.entity_manager']
+
+   battle.changed:
+      class: AppBundle\EventListener\ChangedBattle
+      tags:
+        - { name: doctrine.event_listener, event:postUpdate}
