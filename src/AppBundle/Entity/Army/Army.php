@@ -125,7 +125,7 @@ class Army
         foreach ($this->figurines as $figurine) {
             $points += $figurine->getPoints();
         }
-
+        $this->points = $points;
         return $points;
     }
 

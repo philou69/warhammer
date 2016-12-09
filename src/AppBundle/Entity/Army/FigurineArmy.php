@@ -186,11 +186,11 @@ class FigurineArmy
      */
     public function getPoints()
     {
-        /*	$this->points = $this->figurine->getPoints();
-            foreach ($this->equipements as $equipement)
-            {
-                $this->points += $equipement->getPoints();
-            }*/
+        $this->points = $this->figurine->getPoints();
+        foreach ($this->equipements as $equipement)
+        {
+            $this->points += $equipement->getPoints();
+        }
         return $this->points;
     }
 
