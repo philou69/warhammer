@@ -9,6 +9,7 @@ aElts.forEach(function (aElt) {
         var divElt = document.getElementById(id);
         // on verifie si le div contient la class 'in', puis on retire le chevron et on ajoute un nouveau chevron
         if(divElt.classList.contains('in')){
+            var chevro
             var chevronElt = aElt.querySelector('.chevron');
             chevronElt.classList.remove('glyphicon-chevron-up');
             chevronElt.classList.add('glyphicon-chevron-down');
