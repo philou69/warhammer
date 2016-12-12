@@ -10,4 +10,22 @@ namespace AppBundle\Repository\Army;
  */
 class FigurineArmyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByGroup($group, $army)
+    {
+        $qb = $this->createQueryBuilder('f');
+
+        $qb->leftJoin('f.army', 'a')
+            ->leftJoin('f.figurine', 'fi')
+            ->addSelect('fi')
+            ->leftJoin('fi.groupe','g')
+            ->leftJoin('f.photos', 'ph')
+            ->addSelect('ph')
+            ->where('a.id = :army')
+            ->andWhere('g.id= :group')
+            ->setParameters(array('army' => $army,'group' => $group))
+            ->orderBy('fi.name','ASC')
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
 }
