@@ -13,6 +13,8 @@ matrix:
     fast_finish: true
 
 before_script:
+  - sudo rm var/*
+  - sudo chmod 777 -R var/
   - composer install --prefer-dist --no-interaction
 
 script:
