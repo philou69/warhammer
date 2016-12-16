@@ -147,10 +147,6 @@ class BattleController extends Controller
     // Page de vue de la battle future
     public function viewFutureAction(Request $request, Battle $battle)
     {
-        if($battle === null){
-            throw  new NotFoundHttpException("Cette bataille n'existe pas !");
-        }
-
         $em = $this->getDoctrine()->getManager();
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
