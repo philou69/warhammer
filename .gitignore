@@ -6,6 +6,7 @@
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 .idea
+var/bootstrap.php.cache
 
 # Parameters
 /app/config/parameters.yml
