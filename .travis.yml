@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 language: php
 
 php:
@@ -13,12 +13,10 @@ matrix:
     fast_finish: true
 
 before_script:
-  - sudo rm var/*
-  - sudo chmod 777 -R var/
   - composer install --prefer-dist --no-interaction
-
-script:
   - php app/console doctrine:database:create --env=test --no-interaction
   - php app/console doctrine:schema:create --env=test --no-interaction
   - php app/console doctrine:fixtures:load --no-interaction --env=test
+
+script:
   - phpunit
