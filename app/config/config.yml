@@ -102,3 +102,32 @@ liip_imagine:
       quality: 50
       filters:
         thumbnail: { size: [200, 200], mode: outbound }
+
+easy_admin:
+  entities:
+    Armies:
+      class: AppBundle\Entity\Army\Army
+    Equipements:
+      class: AppBundle\Entity\Army\Equipement
+    EquipementsFigurines:
+      class: AppBundle\Entity\Army\EquipementFigurine
+    Figurines:
+      class: AppBundle\Entity\Army\Figurine
+    FigurinesArmy:
+      class: AppBundle\Entity\Army\FigurineArmy
+    Groupes:
+      class: AppBundle\Entity\Army\Groupe
+    PhotosFigurine:
+      class: AppBundle\Entity\Army\PhotoFigurine
+    Races:
+      class: AppBundle\Entity\Army\Race
+    Battles:
+      class: AppBundle\Entity\Battle\Battle
+    Participants:
+      class: AppBundle\Entity\Battle\Participant
+    PhotosBattle:
+      class: AppBundle\Entity\Battle\PhotoBattle
+    Presences:
+      class: AppBundle\Entity\Battle\Presence
+    Resumes:
+      class: AppBundle\Entity\Battle\Resume

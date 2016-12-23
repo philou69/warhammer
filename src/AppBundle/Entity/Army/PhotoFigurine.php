@@ -43,7 +43,13 @@ class PhotoFigurine
      */
     private $file;
 
-  // On ajoute cet attribut pour y stocker le nom du fichier temporairement
+
+    public function __toString()
+    {
+        return $this->url;
+    }
+
+    // On ajoute cet attribut pour y stocker le nom du fichier temporairement
   private $tempFilename;
 
     public function getFile()

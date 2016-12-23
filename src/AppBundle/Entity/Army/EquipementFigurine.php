@@ -30,6 +30,11 @@ class EquipementFigurine
      */
     private $equipement;
 
+    public function __toString()
+    {
+        return $this->figurine->getName().' -> '.$this->equipement->getName();
+    }
+
     /**
      * Get id.
      *

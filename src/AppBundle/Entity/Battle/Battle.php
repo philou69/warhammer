@@ -88,6 +88,10 @@ class Battle
         $this->participants = new \Doctrine\Common\Collections\ArrayCollection();
         $this->canceled = false;
     }
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
      * Get id.

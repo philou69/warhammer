@@ -24,6 +24,11 @@ class Presence
      */
     private $presence;
 
+    public function __toString()
+    {
+        return $this->presence;
+    }
+
     /**
      * Get id.
      *

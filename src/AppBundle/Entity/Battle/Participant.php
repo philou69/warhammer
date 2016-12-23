@@ -55,6 +55,11 @@ class Participant
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->participant->getUsername();
+    }
+
     /**
      * Set battle.
      *

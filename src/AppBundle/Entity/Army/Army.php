@@ -66,6 +66,11 @@ class Army
         $this->points = 0;
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get id.
      *

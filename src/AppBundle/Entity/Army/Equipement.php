@@ -43,6 +43,11 @@ class Equipement
         $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name.' '.$this->points;
+    }
+
     /**
      * Get id.
      *

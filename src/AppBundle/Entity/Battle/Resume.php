@@ -30,6 +30,11 @@ class Resume
    */
   private $battle;
 
+  public function __toString()
+  {
+      return $this->resume;
+  }
+
     /**
      * Get id.
      *

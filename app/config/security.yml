@@ -4,6 +4,9 @@ security:
     encoders:
         AppBundle\Entity\User\User: sha1
 
+    role_hierarchy:
+      ROLE_USER:   ROLE_USER
+      ROLE_ADMIN: ROLE_ADMIN, ROLE_USER
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         main:
@@ -35,6 +38,11 @@ security:
                 target: /login
             remember_me:
                 secret: "%secret%"
+
+
+    access_control:
+    - { path: ^/admin/, roles: ROLE_ADMIN }
+    - { path: ^/battle/delete/, roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
             # http_basic: ~
