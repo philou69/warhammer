@@ -36,6 +36,11 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="well">
+                acceder à l'administration : <a href="{{ path('easyadmin')}}">Administration</a>
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}
