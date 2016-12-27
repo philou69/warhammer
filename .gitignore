@@ -5,6 +5,7 @@
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
+!var/.gitkeep
 .idea
 var/bootstrap.php.cache
 
