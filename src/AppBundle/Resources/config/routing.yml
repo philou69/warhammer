@@ -16,7 +16,7 @@ app_figurine:
 
 app_photo_figurine:
     resource: 'routing/photo.figurine.yml'
-    prefix: /photo/figurine/
+    prefix: /photo/figurine
 
 app_photo_user:
     resource: 'routing/photo.user.yml'
