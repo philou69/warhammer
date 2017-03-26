@@ -15,28 +15,30 @@ class PhotoBattleController extends Controller
     // Page d'ajout d'une photo de battle
     public function addAction(Request $request, Battle $battle)
     {
-        // On vérifie que la battle existe
-        if(null === $battle){
-            throw new NotFoundHttpException('Cette battle n\'existe pas !');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $now = new \DateTime();
         // On crée une instance photoBattle qu'on lie au visiteur
-        $photo = new PhotoBattle();
-        $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $photo->setDateUpload($now);
 
-        $form = $this->createForm(PhotoBattleType::class, $photo);
+
+        $form = $this->createForm(PhotoBattleType::class);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($photo);
+            $data = $form->getData();
+            $files = $data['files'];
+
+            foreach ($files as $file){
+                $photo = new PhotoBattle();
+                $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
+                $photo->setDateUpload($now);
+                $photo->setFile($file);
+                $em->persist($photo);
+            }
             $em->flush();
 
             // Apres enregistrement de la photo, on vérifie si la battle à un résumé ou non
             if($battle->getResume() === null )
             {
-                return $this->redirectToRoute('resume_add', array('slugBattle' => $battle->getSlugBattle()));
+                return $this->redirectToRoute('resume_create', array('slugBattle' => $battle->getSlugBattle()));
             }else{
                 return $this->redirectToRoute('resume_edit', array('id' => $battle->getResume()->getId()));
             }
@@ -67,7 +69,7 @@ class PhotoBattleController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
 
-            return $this->redirectToRoute('battles');
+            return $this->redirectToRoute('battle_list');
         }
 
         return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle, 'slugBattle' => $slugBattle));

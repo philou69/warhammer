@@ -15,13 +15,13 @@
         </div>
         {{ form_rest(form)}}
         <div class="text-right">
-          <a href="{{ path('battles')}}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-left"></i>Retour aux batailles</a>
+          <a href="{{ path('battle_list')}}" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-chevron-left"></i>Retour aux batailles</a>
         </div>
       </form>
     {% else %}
         <p class="alert alert-danger">
           Cette zone est a accès reservé. Vous ne disposé pas de droit suffisant.<br/>
-          Veuillez retourné sur la liste des <a href="{{ path('battles')}}">battles</a>.
+          Veuillez retourné sur la liste des <a href="{{ path('battle_list')}}">battles</a>.
         </p>
     {% endif %}
   </div>

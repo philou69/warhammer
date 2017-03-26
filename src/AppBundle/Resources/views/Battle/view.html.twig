@@ -10,7 +10,7 @@
     {% if resumeBattle is empty %}
       Il n'y a pas encore de résumé de cette bataille.
       {% if app.user == battle.createur %}
-        Vous pouvez créer un résumé <a href="{{ path('resume_add', {'slugBattle': battle.slugBattle})}}">ici</a>
+        Vous pouvez créer un résumé <a href="{{ path('resume_create', {'slugBattle': battle.slugBattle})}}">ici</a>
       {% endif %}
     {% else %}
         {{ resumeBattle.resume|raw  }}

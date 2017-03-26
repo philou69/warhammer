@@ -10,7 +10,7 @@ use AppBundle\Form\Battle\ResumeType;
 class ResumeController extends Controller
 {
     // gestion d'ajout de resumé
-    public function addAction(Request $request, Battle $battle)
+    public function createAction(Request $request, Battle $battle)
     {
         // On vérifie l'existance de la battle et si le visiteur est le créateur
         if(null === $battle){

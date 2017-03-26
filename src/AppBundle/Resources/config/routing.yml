@@ -2,122 +2,30 @@ app_home:
     path: /
     defaults: { _controller: "AppBundle:App:index"}
 
-battles:
-    path: /battles
-    defaults: { _controller: "AppBundle:Battle:index"}
+app_battle:
+    resource: 'routing/battle.yml'
+    prefix: /battle
 
-battle_add:
-    path: /battle/add
-    defaults: { _controller: "AppBundle:Battle:add"}
+app_army:
+    resource: 'routing/army.yml'
+    prefix: /army
 
-battle_edit:
-    path: /battle/edit/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:edit" }
-battle_view:
-    path: /battle/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:view"}
+app_figurine:
+    resource: 'routing/figurine.yml'
+    prefix: /figurine
 
-battle_future_view:
-    path: /battle/future/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:viewFuture"}
+app_photo_figurine:
+    resource: 'routing/photo.figurine.yml'
+    prefix: /photo/figurine/
 
-resume_add:
-    path: /battle/add/view/{slugBattle}
-    defaults: { _controller: "AppBundle:Resume:add"}
+app_photo_user:
+    resource: 'routing/photo.user.yml'
+    prefix: /photo/user
 
-resume_edit:
-    path: /battle/edit/view/{id}
-    defaults: { _controller: "AppBundle:Resume:edit"}
-    requirements:
-      id: \d+
+app_resume:
+    resource: 'routing/resume.yml'
+    prefix: /resume
 
-battle_canceled:
-    path:  /battle/canceled/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:canceled"}
-
-battle_delete:
-    path:  /battle/delete/{slugBattle}
-    defaults: { _controller: "AppBundle:Battle:delete"}
-
-armies:
-    path: /armies
-    defaults: { _controller: "AppBundle:Army:index"}
-
-army_add:
-    path: /armies/add
-    defaults: { _controller: "AppBundle:Army:add"}
-
-army_view:
-    path: /armies/army/{slugArmy}
-    defaults: { _controller: "AppBundle:Army:view"}
-
-army_edit:
-    path: /armies/edit/{slugArmy}
-    defaults: { _controller: "AppBundle:Army:edit"}
-
-army_delete:
-    path: /armies/delete/{slugArmy}
-    defaults: { _controller: "AppBundle:Army:delete"}
-
-army_figurine_add:
-    path: /figurines/add/{slugArmy}
-    defaults: { _controller: "AppBundle:Figurine:add"}
-
-army_figurine_edit:
-    path: /figurines/edit/{id}
-    defaults: { _controller: "AppBundle:Figurine:edit"}
-    requirements:
-      id: \d+
-
-army_figurine_delete:
-    path: /figurines/delete/{id}
-    defaults: { _controller: "AppBundle:Figurine:delete"}
-    requirements:
-      id: \d+
-
-figurine_photo_add:
-    path: /photo/add/{id}
-    defaults: { _controller: "AppBundle:PhotoFigurine:add"}
-    requirements:
-        id: \d+
-
-figurine_photo_delete:
-    path:  /photo/delete/{id}
-    defaults: { _controller: "AppBundle:PhotoFigurine:delete"}
-    requirements:
-        id: \d+
-
-user_role:
-    path:  /user/{id}
-    defaults: { _controller: "AppBundle:User:addRole"}
-    requirements:
-      id: \d+
-
-battle_photo_add:
-    path: /battle/photo/add/{id}
-    defaults: { _controller: "AppBundle:PhotoBattle:add" }
-    requirements:
-      id: \d+
-
-battle_photo_delete:
-    path: /battle/photo/delete/{id}/{slugBattle}
-    defaults: { _controller : "AppBundle:PhotoBattle:delete" }
-    requirements:
-      id: \d+
-
-battle_photo_page:
-    path: /battle/photos/{page}
-    defaults:
-      _controller: "AppBundle:PhotoBattle:index"
-      page:   1
-    requirements:
-      page: \d+
-user:
-    path: /user/view
-    defaults: { _controller: "AppBundle:User:view"}
-
-user_edit:
-    path: /user/edit/{id}
-    defaults: { _controller: "AppBundle:User:edit" }
-    requirements:
-      id: \d+
+app_user:
+    resource: 'routing/user.yml'
+    prefix: /user

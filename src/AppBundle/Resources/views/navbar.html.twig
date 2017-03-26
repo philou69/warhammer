@@ -16,10 +16,10 @@
                         <a href="{{ path('app_home') }}"><i class="glyphicon glyphicon-home"></i> Accueil</a>
                     </li>
                     <li class="battles">
-                        <a href="{{ path('battles') }}">Les battles</a>
+                        <a href="{{ path('battle_list') }}">Les battles</a>
                     </li>
                     <li class="armies">
-                        <a href="{{ path('armies') }}"> Les armées</a>
+                        <a href="{{ path('army_list') }}"> Les armées</a>
                     </li>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li>

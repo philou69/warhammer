@@ -3,7 +3,7 @@
     <ul class="pagination">
         {% for p in range(1, nbPages) %}
             <li {% if p == page %}class="active" {% endif %} >
-                <a class="page" href="{{ path('battle_photo_page', {'page': p }) }}">{{ p }}</a>
+                <a class="page" href="{{ path('photo_user_page', {'page': p }) }}">{{ p }}</a>
             </li>
         {% endfor %}
     </ul>

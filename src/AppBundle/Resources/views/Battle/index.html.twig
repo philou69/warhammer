@@ -9,7 +9,7 @@
     <div id="futurBattles" class="row" >
       <h2 class="text-center">Les futures Batailles</h2>
       <table class="col-sm-12 table">
-        {% for battleFuture in listBattlesFuture if listBattlesFuture|length >= 1 %}
+        {% for battleFuture in battlesFuture if battlesFuture|length >= 1 %}
             <tr class="row">
               <td class="col-sm-3">
                 <a href="{{ path('battle_future_view',{'slugBattle': battleFuture.slugBattle})}}">{{ battleFuture.name }}</a><br>
@@ -55,10 +55,10 @@
         {% endfor %}
         <tr class="row">
           <td class="col-sm-12 text-center" colspan="3">
-            {% if listBattlesFuture|length == 0 %}
+            {% if battlesFuture|length == 0 %}
                 Il n'y a aucunes batailles de prévue pour l'intant.<br/>
             {% endif %}
-            <a href="{{ path('battle_add') }}">Proposer</a> une battle.
+            <a href="{{ path('battle_create') }}">Proposer</a> une battle.
           </td>
         </tr>
 
@@ -67,7 +67,7 @@
     <div id="pasxtattles" class="row">
       <h2 class="text-center">Les anciennes Batailles</h2>
       <table class="col-sm-12 table">
-        {% for battlePast in listBattlesPast %}
+        {% for battlePast in battlesPast %}
           <tr class="row">
             <td class="col-sm-5">
               Bataille <a href="{{ path('battle_view',{'slugBattle': battlePast.slugBattle})}}">{{ battlePast.name }}</a> <small>du {{ battlePast.date|date('d/m/Y')}}</small>

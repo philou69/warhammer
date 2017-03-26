@@ -1,0 +1,11 @@
+resume_create:
+    path: /{slugBattle}/create
+    defaults:
+        _controller: "AppBundle:Resume:create"
+
+resume_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: "AppBundle:Resume:edit"
+    requirements:
+      id: \d+

@@ -11,7 +11,7 @@ use AppBundle\Form\Army\ArmyType;
 class ArmyController extends Controller
 {
     // Accueil de la zone armée
-    public function indexAction()
+    public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -20,6 +20,7 @@ class ArmyController extends Controller
 
         return $this->render('AppBundle:Army:index.html.twig', array('listArmies' => $listArmies, 'listUsers' => $listUsers));
     }
+
     // Page de vue d'une armée
     public function viewAction(Army $army)
     {
@@ -41,7 +42,7 @@ class ArmyController extends Controller
     }
 
     //Page de création d'une armée
-    public function addAction(Request $request)
+    public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -54,7 +55,7 @@ class ArmyController extends Controller
             $em->persist($army);
             $em->flush();
 
-            return $this->redirectToRoute('armies');
+            return $this->redirectToRoute('army_list');
         }
 
         return $this->render('AppBundle:Army:add.html.twig', array('form' => $form->createView()));
@@ -72,7 +73,7 @@ class ArmyController extends Controller
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('armies');
+            return $this->redirectToRoute('army_list');
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -102,7 +103,7 @@ class ArmyController extends Controller
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('armies');
+            return $this->redirectToRoute('army_list');
         }
         // On crée un form pour supprimer l'armée
         $em = $this->getDoctrine()->getManager();
@@ -114,7 +115,7 @@ class ArmyController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Votre armée a bien été supprimé !');
 
-            return $this->redirectToRoute('armies');
+            return $this->redirectToRoute('army_list');
         }
 
         return $this->render('AppBundle:Army:delete.html.twig', array('form' => $form->createView(), 'army' => $army));

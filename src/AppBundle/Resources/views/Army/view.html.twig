@@ -27,7 +27,7 @@
 				<a href="{{ path('army_delete', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-danger">
 					<span class="glyphicon glyphicon-remove"></span> Supprimer
 				</a>
-				<a href="{{ path('army_figurine_add', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-primary">
+				<a href="{{ path('figurine_army_create', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-primary">
 					Ajouter une figurine
 				</a>
 
@@ -66,12 +66,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figQG.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figQG.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figQG.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figQG.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figQG.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figQG.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figQG.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -82,7 +82,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}
@@ -132,12 +132,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figTroupe.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figTroupe.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figTroupe.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figTroupe.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figTroupe.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figTroupe.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figTroupe.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -148,7 +148,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}
@@ -200,12 +200,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figElite.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figElite.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figElite.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figElite.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figElite.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figElite.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figElite.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -216,7 +216,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}
@@ -268,12 +268,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figTransport.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figTransport.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figTransport.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figTransport.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figTransport.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figTransport.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figTransport.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -284,7 +284,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}
@@ -336,12 +336,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figAttaque.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figAttaque.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figAttaque.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figAttaque.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figAttaque.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figAttaque.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figAttaque.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -352,7 +352,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}
@@ -404,12 +404,12 @@
 									{% if army.user == app.user %}
 										<ul class="list-unstyled col-sm-2 text-center">
 											{% if figSoutien.figurine.equipements|length > 0 %}
-												<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figSoutien.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+												<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figSoutien.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 												<br>
 											{%endif %}
-											<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figSoutien.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+											<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figSoutien.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 											<br/>
-											<li><a href="{{ path('figurine_photo_add',{'id': figSoutien.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+											<li><a href="{{ path('photo_figurine_add',{'id': figSoutien.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 										</ul>
 									{% endif %}
 								</div>
@@ -420,7 +420,7 @@
 												<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 											</a>
 											{% if app.user == army.user %}
-												<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+												<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 											{% endif %}
 										</div>
 									{% else %}
@@ -473,12 +473,12 @@
 								{% if army.user == app.user %}
 									<ul class="list-unstyled col-sm-2 text-center">
 										{% if figSeigneur.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('army_figurine_edit', {'id': figSeigneur.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figSeigneur.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
 											<br>
 										{%endif %}
-										<li><a  class="btn btn-danger btn-xs"href="{{ path('army_figurine_delete', {'id': figSeigneur.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+										<li><a  class="btn btn-danger btn-xs"href="{{ path('figurine_army_delete', {'id': figSeigneur.id}) }}"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
 										<br/>
-										<li><a href="{{ path('figurine_photo_add',{'id': figSeigneur.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+										<li><a href="{{ path('photo_figurine_add',{'id': figSeigneur.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 									</ul>
 								{% endif %}
 							</div>
@@ -489,7 +489,7 @@
 											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
-											<a class="col-sm-1" href="{{ path('figurine_photo_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
+											<a class="col-sm-1" href="{{ path('photo_figurine_delete', {'id': photo.id}) }}"><i class="glyphicon glyphicon-remove"></i></a>
 										{% endif %}
 									</div>
 								{% else %}

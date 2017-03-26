@@ -52,7 +52,7 @@
 				<p class="well text-center">
 					{% if user == app.user %}
 						Vous n'avez pas encore enregistré d'armées. <br>
-						Rendez vous sur la page <a href="{{ path('army_add') }}">d'inscription</a>
+						Rendez vous sur la page <a href="{{ path('army_create') }}">d'inscription</a>
 						{% else %}
                             {{ user.username }} n'a pas encore enregistré d'armées.
 					{% endif %}
@@ -60,7 +60,7 @@
 			{% endfor %}
             {% if app.user == user %}
 				<div class="well row">
-					<a href="{{ path('army_add') }}" class="btn btn-default btn-xs">Créer une armée</a>
+					<a href="{{ path('army_create') }}" class="btn btn-default btn-xs">Créer une armée</a>
 				</div>
             {% endif %}
 		</div>

@@ -1,0 +1,24 @@
+army_list:
+    path: /list
+    defaults:
+        _controller: "AppBundle:Army:list"
+
+army_view:
+    path: /{slugArmy}
+    defaults:
+        _controller: "AppBundle:Army:view"
+
+army_create:
+    path: /create
+    defaults:
+        _controller: "AppBundle:Army:create"
+
+army_edit:
+    path: /{slugArmy}/edit
+    defaults:
+        _controller: "AppBundle:Army:edit"
+
+army_delete:
+    path: /{slugArmy}/delete
+    defaults:
+        _controller: "AppBundle:Army:delete"

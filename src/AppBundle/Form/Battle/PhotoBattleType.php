@@ -17,8 +17,11 @@ class PhotoBattleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, array(
-                'label' => 'Photo :',
+            ->add('files', FileType::class, array(
+                'attr' => array(
+                    'multiple' => 'multiple'
+                ),
+                'multiple' => true
             ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Sauvegarder',
@@ -32,7 +35,7 @@ class PhotoBattleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Battle\PhotoBattle',
+            'data_class' => null
         ));
     }
 }
