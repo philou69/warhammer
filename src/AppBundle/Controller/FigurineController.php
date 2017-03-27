@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class FigurineController extends Controller
 {
     // Ajout d'une figurine dans une armée
-    public function addAction(Request $request, Army $army)
+    public function createAction(Request $request, Army $army)
     {
         // On vérifie l'existance de l'armée et si le visiteur possède l'armée
         if(null === $army){

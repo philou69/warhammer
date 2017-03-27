@@ -8,7 +8,7 @@ photo_user_add:
 photo_user_delete:
     path: /{id}/delete
     defaults:
-      _controller : "AppBundle:PhotoBattle:delete"
+      _controller : 'AppBundle:PhotoBattle:delete'
     requirements:
       id: \d+
 

@@ -12,24 +12,28 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
     {
         $userNames = [
             [
+                'id'=> '1',
                 'name' => 'user1',
                 'password' => 'AMSaHwjDcCFNKg+6auQc5hS/zpc=',
                 'email' => 'phil.pichet.test1@gmail.com',
                 'salt' => 'klvtmyxdyg0gc40ok0wskow84c0sswk',
             ],
             [
+                'id'=> '2',
                 'name' => 'user2',
                 'password' => 'AMSaHwjDcCFNKg+6auQc5hS/zpc=',
                 'email' => 'phil.pichet.test2@gmail.com',
                 'salt' => 'klvtmyxdyg0gc40ok0wskow84c0sswk'
             ],
             [
+                'id'=> '3',
                 'name' => 'user3',
                 'password' => 'AMSaHwjDcCFNKg+6auQc5hS/zpc=',
                 'email' => 'phil.pichet.test3@gmail.com',
                 'salt' => 'klvtmyxdyg0gc40ok0wskow84c0sswk'
             ],
             [
+                'id'=> '4',
                 'name' => 'user4',
                 'password' => 'AMSaHwjDcCFNKg+6auQc5hS/zpc=',
                 'email' => 'phil.pichet.test4@gmail.com',
@@ -41,7 +45,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
         foreach ($userNames as $userName) {
 
             $user = new User();
-
+            $user->setId($userName['id']);
             $user->setUsername($userName['name']);
             $user->setPlainPassword($userName['password']);
             $user->setEmail($userName['email']);

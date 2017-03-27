@@ -3,11 +3,6 @@ battle_list:
     defaults:
         _controller: "AppBundle:Battle:list"
 
-battle_view:
-    path: /{slugBattle}
-    defaults:
-        _controller: "AppBundle:Battle:view"
-
 battle_future_view:
     path: /future/{slugBattle}
     defaults:
@@ -17,6 +12,11 @@ battle_create:
     path: /create
     defaults:
         _controller: "AppBundle:Battle:create"
+
+battle_view:
+    path: /{slugBattle}
+    defaults:
+        _controller: "AppBundle:Battle:view"
 
 battle_edit:
     path: /{slugBattle}/edit

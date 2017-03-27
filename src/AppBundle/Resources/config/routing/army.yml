@@ -3,10 +3,6 @@ army_list:
     defaults:
         _controller: "AppBundle:Army:list"
 
-army_view:
-    path: /{slugArmy}
-    defaults:
-        _controller: "AppBundle:Army:view"
 
 army_create:
     path: /create
@@ -22,3 +18,8 @@ army_delete:
     path: /{slugArmy}/delete
     defaults:
         _controller: "AppBundle:Army:delete"
+
+army_view:
+    path: /{slugArmy}
+    defaults:
+        _controller: "AppBundle:Army:view"

@@ -22,7 +22,7 @@ class ApplicationAvailabilityFunctionalTest extends AbstractTest
         return array(
             array('/'),
             array('/battle/list'),
-//            array('/battle/create'),
+            array('/battle/create'),
             array('/battle/battle-futur/edit'),
             array('/battle/battle-futur'),
             array('/battle/future/battle-futur'),
@@ -32,15 +32,15 @@ class ApplicationAvailabilityFunctionalTest extends AbstractTest
             array('/battle/battle-passee/delete'),
             array('/photo/user/1'),
             array('/army/list'),
-//            array('/army/create'),
+            array('/army/create'),
             array('/army/armee-1'),
             array('/army/armee-2/edit'),
             array('/army/armee-2/delete'),
-//            array('/figurine/armee-1/create'),
+            array('/figurine/armee-1/create'),
             array('/figurine/1/edit'),
             array('/figurine/1/delete'),
             array('/photo/user/1/add'),
-            //array('/photo/user/1/delete'),
+            array('/photo/user/1/delete'),
             array('/user/view'),
             array('/user/1/edit')
         );
