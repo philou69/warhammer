@@ -6,9 +6,11 @@
 
 {% block stylesheets %}
 	{{ parent() }}
-	.thumbnail img{
-		max-height: 80px;
-	}
+	<style>
+		.thumbnail img{
+			max-height: 80px;
+		}
+	</style>
 {% endblock %}
 
 {% block body %}
