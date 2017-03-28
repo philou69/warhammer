@@ -48,18 +48,12 @@ class PhotoFigurineController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        $army = $photoFigurine->getFigurine()->getArmy();
-        $form = $this->get('form.factory')->create();
+        $em->remove($photoFigurine);
+        $em->flush();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($photoFigurine);
-            $em->flush();
+        $this->addFlash('info', 'Votre photo a bien été supprimée.');
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
+        return $this->redirectToRoute('army_view', array('slug' => $photoFigurine->getFigurine()->getArmy()->getSlug()));
 
-            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
-        }
-
-        return $this->render('AppBundle:PhotoFigurine:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slug' => $army->getSlug()));
     }
 }

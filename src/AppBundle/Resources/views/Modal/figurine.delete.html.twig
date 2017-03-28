@@ -1,0 +1,18 @@
+<div class="modal" id="{{ figurine.id }}_delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" data-dismiss="modal" class="close"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title">Suppresion de la figurine {{ figurine.figurine.name }}</h4>
+            </div>
+            <div class="modal-body">
+                Vous allez supprimer la figurine {{ figurine.figurine.name }} de {{ figurine.points }} points. <br>
+                Etes-vous sur ?
+                <div class="group-button">
+                    <a data-dismiss="modal" class="btn btn-xs btn-default">NON</a>
+                    <a href="{{ path('figurine_army_delete', {'id': figurine.id}) }}" class="btn btn-xs btn-danger">OUI</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

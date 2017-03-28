@@ -30,14 +30,14 @@ class ResumeController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid());
         {
             if ($resume->getResume() === null) {
-                return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' =>$battle));
+                return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' =>$battle));
             }
             $em->persist($resume);
             $em->flush();
 
             return $this->redirectToRoute('battle_view', array('slug' => $battle->getSlug()));
         }
-        return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(),'photos' => $photos,'battle' => $battle));
+        return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(),'photos' => $photos,'battle' => $battle));
     }
 
     // gestion de modification de résumé de battle

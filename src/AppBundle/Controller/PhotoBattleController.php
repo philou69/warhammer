@@ -85,21 +85,21 @@ class PhotoBattleController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // On récupere notre objet Paginator
-        $listPhotos = $this->getDoctrine()
+        $photos = $this->getDoctrine()
                             ->getManager()
                             ->getRepository("AppBundle:Battle\PhotoBattle")
                             ->getPhotos($page, $nbPerPage, $user);
 
         // On calcul le nombre total de page
-        $nbPages= ceil(count($listPhotos)/$nbPerPage);
+        $nbPages= ceil(count($photos)/$nbPerPage);
 
         // Si la page n'existe pas, on retourne une erreur 404
-        if($page > $nbPages && count($listPhotos)> 0){
+        if($page > $nbPages && count($photos)> 0){
             return $this->createNotFoundException('La page '. $page . ' n\'exciste pas.');
         }
 
         return $this->render('AppBundle:PhotoBattle:page.html.twig', array(
-                'listPhotos' => $listPhotos,
+                'photos' => $photos,
                 'nbPages' => $nbPages,
                 'page' => $page
         ));

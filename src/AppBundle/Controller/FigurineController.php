@@ -28,16 +28,14 @@ class FigurineController extends Controller
         $form = $this->createForm(FigurineArmyType::class, $figurineArmy, array('race' => $army->getRace()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $this->addFlash('info', 'Votre figurine a bien été ajouté!');
-
-
             $em->persist($figurineArmy);
             $em->flush();
 
+            $this->addFlash('info', 'Votre figurine a bien été ajouté!');
             return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:add.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
+        return $this->render('AppBundle:Figurine:create.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
     }
 
     // Gestion de modification d'une figurine
@@ -67,24 +65,16 @@ class FigurineController extends Controller
     public function deleteAction(Request $request, FigurineArmy $figurineArmy)
     {
         // On vérifie si le visiteur possède l'armée de la figurine
-
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->get('form.factory')->create();
+        $em->remove($figurineArmy);
+        $em->flush();
+        $this->addFlash('info', 'La figurine '.$figurineArmy->getFigurine()->getName().' a bien été retirée de la liste de l\'armée.');
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-
-            $em->remove($figurineArmy);
-            $em->flush();
-            $this->addFlash('info', 'La figurine '.$figurineArmy->getFigurine()->getName().' a bien été retirée de la liste de l\'armée.');
-
-            return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
-        }
-
-        return $this->render('AppBundle:Figurine:delete.html.twig', array('form' => $form->createView(), 'figurineArmy' => $figurineArmy, 'slug' => $figurineArmy->getArmy()->getSlug()));
+        return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
     }
 }
