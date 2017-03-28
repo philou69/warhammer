@@ -33,10 +33,10 @@ class PhotoFigurineController extends Controller
             $em->persist($photo);
             $em->flush();
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
-        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'slug' => $figurineArmy->getArmy()->getSlug()));
     }
 
     // Gestion de suppresion des photos de figurine
@@ -57,9 +57,9 @@ class PhotoFigurineController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:PhotoFigurine:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slugArmy' => $army->getSlugArmy()));
+        return $this->render('AppBundle:PhotoFigurine:delete.html.twig', array('form' => $form->createView(), 'photoFigurine' => $photoFigurine, 'slug' => $army->getSlug()));
     }
 }

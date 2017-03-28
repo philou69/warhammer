@@ -8,7 +8,7 @@
   <div class="jumbotron">
     {% if is_granted('ROLE_ADMIN') %}
       <h2 class="text-center">Suppression de la bataille {{ battle.name}}</h2>
-      <form action="{{path('battle_delete',{'slugBattle': battle.slugBattle})}}" method="post">
+      <form action="{{path('battle_delete',{'slug': battle.slug})}}" method="post">
         <div class="row">
           <label for="suppression" class="col-sm-4">Voulez-vous supprimer cette bataille</label>
           <input type="submit" value="Supprimer" id="suppression" class="btn btn-danger btn-sm col-sm-2">

@@ -1,5 +1,5 @@
 resume_create:
-    path: /{slugBattle}/create
+    path: /{slug}/create
     defaults:
         _controller: "AppBundle:Resume:create"
 

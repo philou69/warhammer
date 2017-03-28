@@ -35,7 +35,7 @@ class ResumeController extends Controller
             $em->persist($resume);
             $em->flush();
 
-            return $this->redirectToRoute('battle_view', array('slugBattle' => $battle->getSlugBattle()));
+            return $this->redirectToRoute('battle_view', array('slug' => $battle->getSlug()));
         }
         return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(),'photos' => $photos,'battle' => $battle));
     }
@@ -54,7 +54,7 @@ class ResumeController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($resume);
             $em->flush();
-            return $this->redirectToRoute('battle_view', array('slugBattle' => $resume->getBattle()->getSlugBattle()));
+            return $this->redirectToRoute('battle_view', array('slug' => $resume->getBattle()->getSlug()));
         }
 
         return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' => $resume->getBattle()));

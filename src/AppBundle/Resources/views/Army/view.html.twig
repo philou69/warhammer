@@ -21,13 +21,13 @@
 		</small>
 		{% if army.user == app.user %}
 			<div class="text-right">
-				<a href="{{ path('army_edit', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-primary">
+				<a href="{{ path('army_edit', {'slug': army.slug}) }}" class="btn btn-xs btn-primary">
 					<span class="glyphicon glyphicon-edit"></span> Modifier
 				</a>
-				<a href="{{ path('army_delete', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-danger">
+				<a href="{{ path('army_delete', {'slug': army.slug}) }}" class="btn btn-xs btn-danger">
 					<span class="glyphicon glyphicon-remove"></span> Supprimer
 				</a>
-				<a href="{{ path('figurine_army_create', {'slugArmy': army.slugArmy}) }}" class="btn btn-xs btn-primary">
+				<a href="{{ path('figurine_army_create', {'slug': army.slug}) }}" class="btn btn-xs btn-primary">
 					Ajouter une figurine
 				</a>
 

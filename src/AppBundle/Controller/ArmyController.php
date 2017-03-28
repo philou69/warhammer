@@ -66,7 +66,7 @@ class ArmyController extends Controller
     {
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
             return $this->redirectToRoute('army_list');
         }
         $em = $this->getDoctrine()->getManager();
@@ -78,9 +78,9 @@ class ArmyController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashbag()->add('info', 'Votre armée a bien été modifier');
+            $this->addFlash('info', 'Votre armée a bien été modifier');
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
         return $this->render('AppBundle:Army:edit.html.twig', array('form' => $form->createView(), 'army' => $army));
@@ -91,7 +91,7 @@ class ArmyController extends Controller
     {
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
             return $this->redirectToRoute('army_list');
         }
         // On crée un form pour supprimer l'armée
@@ -102,7 +102,7 @@ class ArmyController extends Controller
             $em->remove($army);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre armée a bien été supprimé !');
+            $this->addFlash('info', 'Votre armée a bien été supprimé !');
 
             return $this->redirectToRoute('army_list');
         }

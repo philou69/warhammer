@@ -10,16 +10,16 @@ army_create:
         _controller: "AppBundle:Army:create"
 
 army_edit:
-    path: /{slugArmy}/edit
+    path: /{slug}/edit
     defaults:
         _controller: "AppBundle:Army:edit"
 
 army_delete:
-    path: /{slugArmy}/delete
+    path: /{slug}/delete
     defaults:
         _controller: "AppBundle:Army:delete"
 
 army_view:
-    path: /{slugArmy}
+    path: /{slug}
     defaults:
         _controller: "AppBundle:Army:view"

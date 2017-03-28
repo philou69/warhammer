@@ -59,7 +59,7 @@ class BattleController extends Controller
         {
             $em->persist($participant);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', 'Votre réponse à bien été pris en compte !');
+            $this->addFlash('info', 'Votre réponse à bien été pris en compte !');
         }
         return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'participants' => $participants ,'visiteur' => $participant, 'battle' =>$battle));
     }
@@ -90,11 +90,11 @@ class BattleController extends Controller
             if ($battle->getDate() > $now) {
                 $mailer = $this->get('battle.send_mail');
                 $mailer->sendMailBattle($battle);
-                $request->getSession()->getFlashBag()->add('info', 'La bataille a bien été créée et les invitations ont bien été envoyées.');
+                $this->addFlash('info', 'La bataille a bien été créée et les invitations ont bien été envoyées.');
 
                 return $this->redirectToRoute('battle_list');
             } else {
-                $request->getSession()->getFlashBag()->add('info', 'Votre battle a bien été enregistrer.');
+                $this->addFlash('info', 'Votre battle a bien été enregistrer.');
 
                 return $this->redirectToRoute('battles');
             }
@@ -177,7 +177,7 @@ class BattleController extends Controller
             $em->flush();
             $mailer = $this->get('battle.send_mail');
             $mailer->sendCancelBattle($battle);
-            $request->getSession()->getFlashBag()->add('success', 'La bataille '.$battle->getName().' a bien été annulée');
+            $this->addFlash('success', 'La bataille '.$battle->getName().' a bien été annulée');
 
             return $this->redirectToRoute('battle_list');
         }
@@ -200,7 +200,7 @@ class BattleController extends Controller
           $em->remove($battle);
           $em->flush();
 
-          $request->getSession()->getFlashBag()->add('success', 'La bataille '.$battle->getName().' a bien été supprimer.');
+          $this->addFlash('success', 'La bataille '.$battle->getName().' a bien été supprimer.');
 
           return $this->redirectToRoute('battle_list');
         }
