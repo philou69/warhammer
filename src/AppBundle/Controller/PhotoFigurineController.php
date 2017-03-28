@@ -15,10 +15,7 @@ class PhotoFigurineController extends Controller
     // Gestion d'ajout d'une photo Figurine
     public function addAction(Request $request, FigurineArmy $figurineArmy)
     {
-        // On vérifie l'existance de la figurine et si le visiteur est le proprio de la figurine
-        if(null === $figurineArmy){
-            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
-        }
+        // On vérifie si le visiteur est le proprio de la figurine
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter une photo à cette figurine !');
         }
@@ -45,10 +42,7 @@ class PhotoFigurineController extends Controller
     // Gestion de suppresion des photos de figurine
     public function deleteAction(Request $request, PhotoFigurine $photoFigurine)
     {
-        // On vérifie l'existance de la figurine et si le visiteur est le proprio de la figurine
-        if(null === $photoFigurine){
-            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
-        }
+        // On vérifie si le visiteur est le proprio de la figurine
         if($photoFigurine->getFigurine()->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter une photo à cette figurine !');
         }

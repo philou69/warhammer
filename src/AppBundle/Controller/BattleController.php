@@ -36,9 +36,6 @@ class BattleController extends Controller
     // Page de vue de la battle passé
     public function viewAction(Battle $battle)
     {
-        if($battle === null){
-            throw  new NotFoundHttpException("Cette bataille n'existe pas !");
-        }
         $em = $this->getDoctrine()->getManager();
 
         $resumeBattle = $em->getRepository('AppBundle:Battle\Resume')->findOneBy(array('battle' => $battle));
@@ -108,10 +105,7 @@ class BattleController extends Controller
 
     public function editAction(Request $request, Battle $battle)
     {
-        // On vérifie si la battle existe ou si le visiteur est le créateur de la battle
-        if(null === $battle){
-            throw new NotFoundHttpException("Cette battle n'existe pas !");
-        }
+        // On vérifie si le visiteur est le créateur de la battle
         if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
             throw new NotFoundHttpException('Vous n\'avez pas les droits sur cette battle !');
         }
@@ -167,10 +161,6 @@ class BattleController extends Controller
     // Page d'annulation
     public function canceledAction(Request $request, Battle $battle)
     {
-        // On cérifie l'existance de la battle
-        if(null === $battle){
-            throw new NotFoundHttpException('Cette battle n\'existe pas');
-        }
         // On vérifie si le visiteur est le créateur de la battle
         if ($this->get('security.token_storage')->getToken()->getUser() != $battle->getCreateur()) {
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas le droit d\'annuler cette bataille !');
@@ -202,10 +192,6 @@ class BattleController extends Controller
     */
     public function deleteAction(Request $request, Battle $battle)
     {
-        // On vérifie si la battle existe
-        if(null === $battle){
-            throw new NotFoundHttpException('Cette battle n\'existe pas !');
-        }
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->get('form.factory')->create();

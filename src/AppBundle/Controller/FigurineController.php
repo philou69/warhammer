@@ -15,10 +15,6 @@ class FigurineController extends Controller
     // Ajout d'une figurine dans une armée
     public function createAction(Request $request, Army $army)
     {
-        // On vérifie l'existance de l'armée et si le visiteur possède l'armée
-        if(null === $army){
-            throw new NotFoundHttpException('Cette armée n\'existe pas');
-        }
         if($army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
@@ -47,10 +43,7 @@ class FigurineController extends Controller
     // Gestion de modification d'une figurine
     public function editAction(Request $request, FigurineArmy $figurineArmy)
     {
-        // On vérifie l'existance dela figurine et si le visiteur possède l'armée de la figurine
-        if(null === $figurineArmy){
-            throw new NotFoundHttpException('Cette armée n\'existe pas');
-        }
+        // On vérifie si le visiteur possède l'armée de la figurine
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
@@ -73,10 +66,8 @@ class FigurineController extends Controller
     // gestion de suppression d'une figurine
     public function deleteAction(Request $request, FigurineArmy $figurineArmy)
     {
-        // On vérifie l'existance dela figurine et si le visiteur possède l'armée de la figurine
-        if(null === $figurineArmy){
-            throw new NotFoundHttpException('Cette armée n\'existe pas');
-        }
+        // On vérifie si le visiteur possède l'armée de la figurine
+
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
