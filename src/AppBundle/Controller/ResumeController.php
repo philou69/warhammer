@@ -12,10 +12,7 @@ class ResumeController extends Controller
     // gestion d'ajout de resumé
     public function createAction(Request $request, Battle $battle)
     {
-        // On vérifie l'existance de la battle et si le visiteur est le créateur
-        if(null === $battle){
-            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
-        }
+        // On vérifie si le visiteur est le créateur
         if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter unrésumé à cette bataille !');
         }
@@ -46,10 +43,7 @@ class ResumeController extends Controller
     // gestion de modification de résumé de battle
     public function editAction(Request $request, Resume $resume)
     {
-        // On vérifie l'existance de la battle et si le visiteur est le créateur
-        if(null === $resume){
-            throw new NotFoundHttpException('Cette figurine d\'armée n\existe pas !');
-        }
+        // On vérifie si le visiteur est le créateur
         if($resume->getBattle()->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour modifier le résumé de cette bataille !');
         }

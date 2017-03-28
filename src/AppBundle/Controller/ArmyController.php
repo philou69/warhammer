@@ -64,12 +64,6 @@ class ArmyController extends Controller
     // Page de modifiaction de l'armée
     public function editAction(Request $request, Army $army)
     {
-        // Vérification si $army existe
-        if(null === $army)
-        {
-            throw new NotFoundHttpException('Armée inexistant.');
-        }
-
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
@@ -95,11 +89,6 @@ class ArmyController extends Controller
     // Page de suppresion d'armée
     public function deleteAction(Request $request, Army $army)
     {
-        // Vérification si $army existe
-        if(null === $army)
-        {
-            throw new NotFoundHttpException('Armée inexistant');
-        }
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');

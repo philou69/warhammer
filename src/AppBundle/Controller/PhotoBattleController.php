@@ -51,10 +51,7 @@ class PhotoBattleController extends Controller
     // gestion de la suppression  d'une photoBattle
     public function deleteAction(Request $request, PhotoBattle $photoBattle)
     {
-        // On vérifie si la photoBattle existe et que le visiteur en est bien le propriétaire
-        if(null === $photoBattle){
-            throw new NotFoundHttpException('Cette Photo de bataille n\'existe pas !');
-        }
+        // On vérifie si le visiteur en est bien le propriétaire
         if($photoBattle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
         }

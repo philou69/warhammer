@@ -30,7 +30,7 @@ class UserController extends Controller
     // Gestion d'edition d'utilisateurf
     public function editAction(Request $request, User $user)
     {
-        if(null === $user || $user != $this->get('security.token_storage')->getToken()->getUser() )
+        if($user != $this->get('security.token_storage')->getToken()->getUser() )
         {
             $request->getSession()->getFlashBag()->add('danger', 'Vous avez essaier de modifier un profile n\'étant pas le vôtre.');
 

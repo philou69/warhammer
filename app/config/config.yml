@@ -81,6 +81,9 @@ fos_user:
     db_driver:    orm
     firewall_name: main
     user_class: AppBundle\Entity\User\User
+    from_email:
+        address: "admin@warhantmillebattle.fr"
+        sender_name: You
 
 ivory_ck_editor:
   configs:
