@@ -1,5 +1,5 @@
 figurine_army_create:
-    path: /{slugArmy}/create
+    path: /{slug}/create
     defaults:
        _controller: "AppBundle:Figurine:create"
 

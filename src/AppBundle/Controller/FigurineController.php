@@ -16,7 +16,7 @@ class FigurineController extends Controller
     public function createAction(Request $request, Army $army)
     {
         if($army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
+            $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -28,16 +28,16 @@ class FigurineController extends Controller
         $form = $this->createForm(FigurineArmyType::class, $figurineArmy, array('race' => $army->getRace()));
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $request->getSession()->getFlashBag()->add('info', 'Votre figurine a bien été ajouté!');
+            $this->addFlash('info', 'Votre figurine a bien été ajouté!');
 
 
             $em->persist($figurineArmy);
             $em->flush();
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:add.html.twig', array('form' => $form->createView(), 'slugArmy' => $army->getSlugArmy(), 'armyName' => $army->getName()));
+        return $this->render('AppBundle:Figurine:add.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
     }
 
     // Gestion de modification d'une figurine
@@ -45,7 +45,7 @@ class FigurineController extends Controller
     {
         // On vérifie si le visiteur possède l'armée de la figurine
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
+            $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -54,13 +54,13 @@ class FigurineController extends Controller
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
 
-            $request->getSession()->getFlashBag()->add('info', 'Vous figurine a bien été mise à jour!');
+            $this->addFlash('info', 'Vous figurine a bien été mise à jour!');
             $em->flush();
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:edit.html.twig', array('form' => $form->createView(), 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy(), 'figurineArmy' => $figurineArmy));
+        return $this->render('AppBundle:Figurine:edit.html.twig', array('form' => $form->createView(), 'slug' => $figurineArmy->getArmy()->getSlug(), 'figurineArmy' => $figurineArmy));
     }
 
     // gestion de suppression d'une figurine
@@ -69,7 +69,7 @@ class FigurineController extends Controller
         // On vérifie si le visiteur possède l'armée de la figurine
 
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne disposer pas des droits sur cette armée !');
+            $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -80,11 +80,11 @@ class FigurineController extends Controller
 
             $em->remove($figurineArmy);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('info', 'La figurine '.$figurineArmy->getFigurine()->getName().' a bien été retirée de la liste de l\'armée.');
+            $this->addFlash('info', 'La figurine '.$figurineArmy->getFigurine()->getName().' a bien été retirée de la liste de l\'armée.');
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:delete.html.twig', array('form' => $form->createView(), 'figurineArmy' => $figurineArmy, 'slugArmy' => $figurineArmy->getArmy()->getSlugArmy()));
+        return $this->render('AppBundle:Figurine:delete.html.twig', array('form' => $form->createView(), 'figurineArmy' => $figurineArmy, 'slug' => $figurineArmy->getArmy()->getSlug()));
     }
 }

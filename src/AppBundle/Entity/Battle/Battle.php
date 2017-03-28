@@ -53,9 +53,9 @@ class Battle
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(name="slug_battle", length=128, unique=true)
+     * @ORM\Column(name="slug", length=128, unique=true)
      */
-    private $slugBattle;
+    private $slug;
 
      /**
       * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
@@ -176,27 +176,27 @@ class Battle
     }
 
     /**
-     * Set slugBattle.
+     * Set slug.
      *
-     * @param string $slugBattle
+     * @param string $slug
      *
      * @return Battle
      */
-    public function setSlugBattle($slugBattle)
+    public function setSlug($slug)
     {
-        $this->slugBattle = $slugBattle;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get slugBattle.
+     * Get slug.
      *
      * @return string
      */
-    public function getSlugBattle()
+    public function getSlug()
     {
-        return $this->slugBattle;
+        return $this->slug;
     }
 
     

@@ -38,7 +38,7 @@ class PhotoBattleController extends Controller
             // Apres enregistrement de la photo, on vérifie si la battle à un résumé ou non
             if($battle->getResume() === null )
             {
-                return $this->redirectToRoute('resume_create', array('slugBattle' => $battle->getSlugBattle()));
+                return $this->redirectToRoute('resume_create', array('slug' => $battle->getSlug()));
             }else{
                 return $this->redirectToRoute('resume_edit', array('id' => $battle->getResume()->getId()));
             }
@@ -53,7 +53,7 @@ class PhotoBattleController extends Controller
     {
         // On vérifie si le visiteur en est bien le propriétaire
         if($photoBattle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
+            $this->addFlash('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -64,7 +64,7 @@ class PhotoBattleController extends Controller
             $em->remove($photoBattle);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
+            $this->addFlash('info', 'Votre photo a bien été supprimée.');
 
             return $this->redirectToRoute('battle_list');
         }
