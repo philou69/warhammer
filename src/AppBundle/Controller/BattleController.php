@@ -53,7 +53,7 @@ class BattleController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         // On liste les gens sans le visiteur qu'on récupere à part
-        $listParticipants = $em->getRepository('AppBundle:Battle\Participant')->findWithoutVisitor($battle, $user);
+        $participants = $em->getRepository('AppBundle:Battle\Participant')->findWithoutVisitor($battle, $user);
         $participant = $em->getRepository('AppBundle:Battle\Participant')->findOneBy(array('battle' => $battle, 'participant' => $user));
         // on crée un fiormulaire de présence contenant les armées du visiteur
         $form = $this->createForm(ParticipantType::class, $participant,array('user' => $user));
@@ -64,7 +64,7 @@ class BattleController extends Controller
             $em->flush();
             $request->getSession()->getFlashBag()->add('info', 'Votre réponse à bien été pris en compte !');
         }
-        return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'listParticipants' => $listParticipants ,'visiteur' => $participant, 'battle' =>$battle));
+        return $this->render('AppBundle:Battle:view_futur.html.twig', array('form' => $form->createView(),'participants' => $participants ,'visiteur' => $participant, 'battle' =>$battle));
     }
 
     // Création d'une battle

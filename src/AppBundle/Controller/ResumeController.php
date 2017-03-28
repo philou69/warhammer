@@ -26,21 +26,21 @@ class ResumeController extends Controller
         $resume->setBattle($battle);
 
         // On liste les photos de battle
-        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($battle->getCreateur());
+        $photos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($battle->getCreateur());
 
         $form = $this->createForm(ResumeType::class, $resume);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid());
         {
             if ($resume->getResume() === null) {
-                return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(), 'photos' => $listPhotos, 'battle' =>$battle));
+                return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' =>$battle));
             }
             $em->persist($resume);
             $em->flush();
 
             return $this->redirectToRoute('battle_view', array('slugBattle' => $battle->getSlugBattle()));
         }
-        return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(),'photos' => $listPhotos,'battle' => $battle));
+        return $this->render('AppBundle:Resume:add.html.twig', array('form' => $form->createView(),'photos' => $photos,'battle' => $battle));
     }
 
     // gestion de modification de résumé de battle
@@ -56,13 +56,13 @@ class ResumeController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ResumeType::class, $resume);
-        $listPhotos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($resume->getBattle()->getCreateur());
+        $photos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($resume->getBattle()->getCreateur());
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->persist($resume);
             $em->flush();
             return $this->redirectToRoute('battle_view', array('slugBattle' => $resume->getBattle()->getSlugBattle()));
         }
 
-        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $listPhotos, 'battle' => $resume->getBattle()));
+        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' => $resume->getBattle()));
     }
 }

@@ -49,7 +49,7 @@ class PhotoBattleController extends Controller
     }
 
     // gestion de la suppression  d'une photoBattle
-    public function deleteAction(Request $request, PhotoBattle $photoBattle, $slugBattle = null )
+    public function deleteAction(Request $request, PhotoBattle $photoBattle)
     {
         // On vérifie si la photoBattle existe et que le visiteur en est bien le propriétaire
         if(null === $photoBattle){
@@ -71,11 +71,9 @@ class PhotoBattleController extends Controller
 
             return $this->redirectToRoute('battle_list');
         }
-        if ($slugBattle != null)
-        {
-            return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle, 'slugBattle' => $slugBattle));
-        }
-       return $this->render('AppBundle:App:index.html.twig');
+
+        return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle));
+
     }
 
     // Gestion d'affichage des photos battles du visiteur

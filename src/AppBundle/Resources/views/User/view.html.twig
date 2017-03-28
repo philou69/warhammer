@@ -23,7 +23,7 @@
         <div class="well">
             <h3>Vos Armées</h3>
             <ul class="list-unstyled">
-                {% for army in listArmies %}
+                {% for army in armies %}
                     <li><a href="{{ path('army_view',{'slugArmy': army.slugArmy}) }}">{{ army.name }}</a> de {{ army.points }} pts, race : {{  army.race.name }}</li>
                     {% endfor %}
             </ul>
@@ -31,7 +31,7 @@
         <div class="well">
             <h3>Vos battles</h3>
             <ul class="list-unstyled">
-                {% for battle in listBattles %}
+                {% for battle in battles %}
                     <li>bataille <a href="{{ path('battle_view',{'slugBattle': battle.slugBattle}) }}">{{ battle.name }}</a> {% if battle.date|date('d/m/Y') < "now"|date("dm/Y") %} où vous avez guidé{% else %} ou vous guiderez{% endif %} l'armée {% for participant in battle.participants if participant.participant == user %}{{ participant.army.name }}{% endfor %}</li>
                 {% endfor %}
             </ul>

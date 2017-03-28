@@ -15,14 +15,14 @@ class ArmyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $listArmies = $em->getRepository("AppBundle:Army\Army")->findAll();
-        $listUsers = $em->getRepository("AppBundle:User\User")->findAllOrder();
+        $armies = $em->getRepository("AppBundle:Army\Army")->findAll();
+        $users = $em->getRepository("AppBundle:User\User")->findAllOrder();
 
-        return $this->render('AppBundle:Army:index.html.twig', array('listArmies' => $listArmies, 'listUsers' => $listUsers));
+        return $this->render('AppBundle:Army:index.html.twig', array('armies' => $armies, 'users' => $users));
     }
 
     // Page de vue d'une armée
-    public function viewAction(Army $army)
+    public function viewAction(Request $request, Army $army)
     {
         $repo = $this->getDoctrine()
             ->getManager()

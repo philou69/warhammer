@@ -5,14 +5,14 @@
 {% block body %}
 	<h2 class="text-center">Liste des armées</h2>
 	<ul class="nav nav-tabs row">
-	{% for user in listUsers if user == app.user %}
+	{% for user in users if user == app.user %}
 		<li class="active col-sm-2">
 			<a data-toggle="tab" href="#{{ user.username }}-armies" class="armies">
 				Vos armées
 			</a>
 		</li>
 	{% endfor %}
-	{% for user in listUsers if user != app.user %}
+	{% for user in users if user != app.user %}
 		<li class="col-sm-2">
 			<a data-toggle="tab" href="#{{ user.username }}-armies" class="armies">
 				Armées de {{ user.username }}
@@ -21,12 +21,12 @@
 	{% endfor %}
 	</ul>
 
-	{% for user in listUsers  %}
+	{% for user in users  %}
 		{% if loop.first %}
 			<div class="tab-content" >
 		{% endif %}
 		<div id="{{ user.username }}-armies" class="tab-pane fade {% if user == app.user %} in active {% endif %}">
-			{% for army in listArmies if army.user == user %}
+			{% for army in armies if army.user == user %}
 				<div class="well row">
 					<div class="imageArmy col-sm-2">
 						Image de l'armée. <br>

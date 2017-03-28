@@ -16,14 +16,14 @@ class UserController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // Liste des armées et des battles ou le visiteur à participer
-        $listArmies = $em->getRepository("AppBundle:Army\Army")->findBy(array('user' => $user));
+        $armies = $em->getRepository("AppBundle:Army\Army")->findBy(array('user' => $user));
 
-        $listBattles = $em->getRepository("AppBundle:Battle\Battle")->findAllOfVisitor($user);
+        $battles = $em->getRepository("AppBundle:Battle\Battle")->findAllOfVisitor($user);
 
         return $this->render('AppBundle:User:view.html.twig', array(
             'user' => $user,
-            'listBattles' => $listBattles,
-            'listArmies' => $listArmies
+            'battles' => $battles,
+            'armies' => $armies
         ));
     }
 

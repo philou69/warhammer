@@ -40,7 +40,7 @@
 
             <ul class="list-unstyled">
                 <li id="participant">Vous {{ visiteur.presence.presence }} {% if visiteur.presence.id == 3 %} au commande de <a href="{{ path('army_view', {'slugArmy': visiteur.army.slugArmy}) }}">{{ visiteur.army.name }}</a>{%  endif %} <small><a id="cachePresence" href="#">Modifier votre réponse</a></small></li>
-                {% for participant in listParticipants %}
+                {% for participant in participants %}
                     <li>{{ participant.participant.username }}
                         {% if participant.presence.id == 1  %} seras présent
                         {% elseif participant.presence.id == 2 %} ne seras pas présent
