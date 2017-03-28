@@ -5,7 +5,7 @@ photo_figurine_add:
     requirements:
         id: \d+
 
-figurine_photo_delete:
+photo_figurine_delete:
     path:  /{id}/delete
     defaults:
         _controller: "AppBundle:PhotoFigurine:delete"

@@ -43,7 +43,7 @@
                     {% if app.user == army.user %}
 						<div class="col-sm-3">
 							<a href="{{ path('army_edit', {'slug': army.slug}) }}" class="btn btn-primary btn-xs">Réformer cette armée</a>
-							<a href="{{ path('army_delete', {'slug': army.slug}) }}" class="btn btn-danger btn-xs">Dissoudre cette armée</a>
+							<a data-toggle="modal" href="#{{ army.slug }}_delete" class="btn btn-danger btn-xs">Dissoudre cette armée</a>
 						</div>
 
                     {% endif %}
@@ -69,5 +69,8 @@
 		{% endif %}
 	{% endfor %}
 
+    {% for army in armies if army.user == app.user %}
+		{% include 'AppBundle:Modal:army.delete.modal.html.twig' with{'army': army} %}
+    {% endfor %}
 
 {% endblock %}

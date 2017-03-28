@@ -1,0 +1,18 @@
+<div class="modal" id="{{ battle.slug }}_canceled">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title">Annulation de la bataille {{ battle.name }}</h4>
+            </div>
+            <div class="modal-body">
+                Vous êtes sur le point d'annuler la bataille {{ battle.name }}.<br>
+                Etes-vous sur ?
+                <div class="group-button pull-rigth">
+                    <a class="btn btn-xs btn-default" data-dismiss="modal">NON</a>
+                    <a href="{{ path('battle_canceled', {'slug': battle.slug}) }}" class="btn btn-xs btn-danger">OUI</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -18,7 +18,7 @@ class ArmyController extends Controller
         $armies = $em->getRepository("AppBundle:Army\Army")->findAll();
         $users = $em->getRepository("AppBundle:User\User")->findAllOrder();
 
-        return $this->render('AppBundle:Army:index.html.twig', array('armies' => $armies, 'users' => $users));
+        return $this->render('AppBundle:Army:list.html.twig', array('armies' => $armies, 'users' => $users));
     }
 
     // Page de vue d'une armée
@@ -55,10 +55,10 @@ class ArmyController extends Controller
             $em->persist($army);
             $em->flush();
 
-            return $this->redirectToRoute('army_list');
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:Army:add.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:Army:create.html.twig', array('form' => $form->createView()));
     }
 
     // Page de modifiaction de l'armée
@@ -94,19 +94,13 @@ class ArmyController extends Controller
             $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
             return $this->redirectToRoute('army_list');
         }
-        // On crée un form pour supprimer l'armée
+        // On appelle l'entityManager et on supprime l'armée
         $em = $this->getDoctrine()->getManager();
-        $form = $this->get('form.factory')->create();
+        $em->remove($army);
+        $em->flush();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($army);
-            $em->flush();
+        $this->addFlash('info', 'Votre armée a bien été supprimé !');
 
-            $this->addFlash('info', 'Votre armée a bien été supprimé !');
-
-            return $this->redirectToRoute('army_list');
-        }
-
-        return $this->render('AppBundle:Army:delete.html.twig', array('form' => $form->createView(), 'army' => $army));
+        return $this->redirectToRoute('army_list');
     }
 }
