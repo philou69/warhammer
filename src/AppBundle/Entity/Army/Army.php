@@ -57,6 +57,8 @@ class Army
      * @ORM\JoinColumn(nullable=true)
      */
     private $figurines;
+
+    private $groupes = ['QG', 'Elite', 'Troupe', 'Transport', 'Attaque Rapide', 'Soutien', 'Seigneur de Guerre'];
     /**
      * Constructor.
      */
@@ -241,4 +243,10 @@ class Army
     {
         return $this->figurines;
     }
+
+    public function getGroupes()
+    {
+        return $this->groupes;
+    }
+
 }
