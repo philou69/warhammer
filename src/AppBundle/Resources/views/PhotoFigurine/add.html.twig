@@ -5,26 +5,26 @@
 {% endblock %}
 
 {% block body %}
-		<div class="well">
-			{{ form_start(form,{'attr':{'class':'form-horizontal'}}) }}
-			{{ form_errors(form)}}
+	<div>
+	<a class="btn btn-default btn-xs" href="{{ path('army_view',{'slug': figurine.army.slug})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à l'armée</a>
+	</div><br>
+	<div class="well">
+		<h1 class="text-center">Ajout de photo pour la figurine {{ figurine.figurine.name }}</h1>
+		{{ form_start(form) }}
+		{{ form_errors(form)}}
 
-			<div class="form-group">
-				{{ form_label(form.file,'Choisisser une photo',{'label_attr':{'class': 'col-sm-2 control-label'}}) }}
-				<div class="col-sm-10">
-					{{ form_widget(form.file,{'attr':{'class':'form-control file'}})}}
-				</div>
-				{{ form_errors(form.file)}}
+		<div class="row form-group">
+			{{ form_label(form.files,'Choisisser une photo',{'label_attr':{'class': 'col-sm-3 control-label'}}) }}
+			<div class="col-sm-5">
+				{{ form_widget(form.files,{'attr':{'class':'form-control files'}})}}
 			</div>
-			<div class="text-center">
-				{{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-sm'}})}}
-			</div>
-			{{ form_rest(form)}}
-			{{ form_end(form) }}
-			<div>
-				<a class="btn btn-default btn-xs" href="{{ path('army_view',{'slug': slug})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à l'armée</a>
-			</div>
+			{{ form_errors(form.files)}}
 		</div>
+		<div class="text-center">
+			{{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-sm'}})}}
+		</div>
+		{{ form_rest(form)}}
+		{{ form_end(form) }}
 
-
+	</div>
 {% endblock %}

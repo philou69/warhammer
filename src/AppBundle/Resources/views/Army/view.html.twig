@@ -80,7 +80,7 @@
 						</div>
 						<div class="row">
                             {% for photo in figurine.photos %}
-								<div class="col-sm-2 row">
+								<div class="col-sm-2">
 									<a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
 										<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 									</a>

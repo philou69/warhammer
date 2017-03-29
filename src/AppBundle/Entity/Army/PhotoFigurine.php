@@ -70,6 +70,7 @@ class PhotoFigurine
       $this->url = null;
         $this->alt = null;
     }
+    return $this;
   }
 
   /**

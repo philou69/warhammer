@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Army\UploadPhotoFigurineType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\FigurineArmy;
@@ -21,22 +22,29 @@ class PhotoFigurineController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        // On crée une instance de photoFigurine lié à la figurine
-        $photo = new PhotoFigurine();
-        $photo->setFigurine($figurineArmy);
-
-        $form = $this->createForm(PhotoFigurineType::class, $photo);
-
-        $form->add('save', SubmitType::class);
-
+//        // On crée une instance de photoFigurine lié à la figurine
+//        $photo = new PhotoFigurine();
+//        $photo->setFigurine($figurineArmy);
+//
+//        $form = $this->createForm(PhotoFigurineType::class, $photo);
+//
+//        $form->add('save', SubmitType::class);
+            $form = $this->createForm(UploadPhotoFigurineType::class);
         if ($request->isMethod('POST') && $form->handleRequest($request)) {
-            $em->persist($photo);
+            $data = $form->getData();
+            $files = $data['files'];
+            foreach ($files as $file) {
+                $photo = new PhotoFigurine();
+                $photo->setFile($file)
+                    ->setFigurine($figurineArmy);
+                $em->persist($photo);
+            }
             $em->flush();
 
             return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
-        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'slug' => $figurineArmy->getArmy()->getSlug()));
+        return $this->render('AppBundle:PhotoFigurine:add.html.twig', array('form' => $form->createView(), 'figurine' => $figurineArmy));
     }
 
     // Gestion de suppresion des photos de figurine
