@@ -7,7 +7,7 @@
       <h2>Bataille {{ battle.name }}</h2>
       <p>
         {{ battle.createur.username }} a proposé une bataille le {{ battle.date|date('d/m/Y') }}.<br>
-        Rendez vous sur la page <a href="{{ url('battle_future_view',{'slugBattle': battle.slugBattle}) }}">{{ battle.name}}</a>
+        Rendez vous sur la page <a href="{{ url('battle_future_view',{'slug': battle.slug}) }}">{{ battle.name}}</a>
         pour signalez votre présence et peut être un jour vous voir combattre.
       </p>
     </div>

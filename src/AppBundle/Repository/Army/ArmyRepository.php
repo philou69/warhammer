@@ -10,7 +10,7 @@ namespace AppBundle\Repository\Army;
  */
 class ArmyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findOneWithAll($slugArmy)
+    public function findOneWithAll($slug)
     {
         $qb = $this->createQueryBuilder('a');
 
@@ -22,8 +22,8 @@ class ArmyRepository extends \Doctrine\ORM\EntityRepository
             ->addSelect('e')
             ->leftJoin('f.photos', 'ph')
             ->addSelect('ph')
-            ->where('a.slugArmy = :slugArmy')
-            ->setParameter('slugArmy', $slugArmy);
+            ->where('a.slug = :slug')
+            ->setParameter('slug', $slug);
 
         return $qb->getQuery()->getOneOrNullResult();
     }

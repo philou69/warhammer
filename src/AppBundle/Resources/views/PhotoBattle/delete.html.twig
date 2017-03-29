@@ -8,15 +8,15 @@
     <div class="jumbotron">
         <h2 class="text-center">Suppresion d'une photo</h2>
 
-        <form action="{{ path('battle_photo_delete',{'id': photoBattle.id, 'slugBattle': slugBattle})}}" method="post">
+        <form action="{{ path('photo_user_delete',{'id': photoBattle.id})}}" method="post">
             <div class="row">
                 <label class="col-sm-6" for="suppression">Etes-vous sur de vouloir supprimer cette photo :</label><input type="submit" value="Supprimer" class="btn btn-danger btn-sm col-sm-2">
             </div>
 
             {{ form_rest(form)}}
         </form>
-        <div class="text-right">
-            <a class="btn btn-default btn-xs" href="{{ path('battle_view',{'slugBattle': slugBattle})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à la bataille</a>
-        </div>
+        {#<div class="text-right">#}
+            {#<a class="btn btn-default btn-xs" href="{{ path('battle_view',{'slug': slug})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à la bataille</a>#}
+        {#</div>#}
     </div>
 {% endblock %}

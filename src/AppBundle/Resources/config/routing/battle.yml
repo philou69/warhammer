@@ -1,0 +1,34 @@
+battle_list:
+    path: /list
+    defaults:
+        _controller: "AppBundle:Battle:list"
+
+battle_future_view:
+    path: /future/{slug}
+    defaults:
+        _controller: "AppBundle:Battle:viewFuture"
+
+battle_create:
+    path: /create
+    defaults:
+        _controller: "AppBundle:Battle:create"
+
+battle_view:
+    path: /{slug}
+    defaults:
+        _controller: "AppBundle:Battle:view"
+
+battle_edit:
+    path: /{slug}/edit
+    defaults:
+        _controller: "AppBundle:Battle:edit"
+
+battle_canceled:
+    path:  /{slug}/canceled
+    defaults:
+        _controller: "AppBundle:Battle:canceled"
+
+battle_delete:
+    path:  /{slug}/delete
+    defaults:
+        _controller: "AppBundle:Battle:delete"

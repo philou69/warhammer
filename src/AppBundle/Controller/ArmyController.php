@@ -11,17 +11,18 @@ use AppBundle\Form\Army\ArmyType;
 class ArmyController extends Controller
 {
     // Accueil de la zone armée
-    public function indexAction()
+    public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $listArmies = $em->getRepository("AppBundle:Army\Army")->findAll();
-        $listUsers = $em->getRepository("AppBundle:User\User")->findAllOrder();
+        $armies = $em->getRepository("AppBundle:Army\Army")->findAll();
+        $users = $em->getRepository("AppBundle:User\User")->findAllOrder();
 
-        return $this->render('AppBundle:Army:index.html.twig', array('listArmies' => $listArmies, 'listUsers' => $listUsers));
+        return $this->render('AppBundle:Army:list.html.twig', array('armies' => $armies, 'users' => $users));
     }
+
     // Page de vue d'une armée
-    public function viewAction(Army $army)
+    public function viewAction(Request $request, Army $army)
     {
         $repo = $this->getDoctrine()
             ->getManager()
@@ -41,7 +42,7 @@ class ArmyController extends Controller
     }
 
     //Page de création d'une armée
-    public function addAction(Request $request)
+    public function createAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -54,25 +55,19 @@ class ArmyController extends Controller
             $em->persist($army);
             $em->flush();
 
-            return $this->redirectToRoute('armies');
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:Army:add.html.twig', array('form' => $form->createView()));
+        return $this->render('AppBundle:Army:create.html.twig', array('form' => $form->createView()));
     }
 
     // Page de modifiaction de l'armée
     public function editAction(Request $request, Army $army)
     {
-        // Vérification si $army existe
-        if(null === $army)
-        {
-            throw new NotFoundHttpException('Armée inexistant.');
-        }
-
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('armies');
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
+            return $this->redirectToRoute('army_list');
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -83,9 +78,9 @@ class ArmyController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em->flush();
-            $request->getSession()->getFlashbag()->add('info', 'Votre armée a bien été modifier');
+            $this->addFlash('info', 'Votre armée a bien été modifier');
 
-            return $this->redirectToRoute('army_view', array('slugArmy' => $army->getSlugArmy()));
+            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
         return $this->render('AppBundle:Army:edit.html.twig', array('form' => $form->createView(), 'army' => $army));
@@ -94,29 +89,18 @@ class ArmyController extends Controller
     // Page de suppresion d'armée
     public function deleteAction(Request $request, Army $army)
     {
-        // Vérification si $army existe
-        if(null === $army)
-        {
-            throw new NotFoundHttpException('Armée inexistant');
-        }
         // On s'assure que l'utilisateur est le propriétaire de l'armée
         if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('armies');
+            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
+            return $this->redirectToRoute('army_list');
         }
-        // On crée un form pour supprimer l'armée
+        // On appelle l'entityManager et on supprime l'armée
         $em = $this->getDoctrine()->getManager();
-        $form = $this->get('form.factory')->create();
+        $em->remove($army);
+        $em->flush();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($army);
-            $em->flush();
+        $this->addFlash('info', 'Votre armée a bien été supprimé !');
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre armée a bien été supprimé !');
-
-            return $this->redirectToRoute('armies');
-        }
-
-        return $this->render('AppBundle:Army:delete.html.twig', array('form' => $form->createView(), 'army' => $army));
+        return $this->redirectToRoute('army_list');
     }
 }

@@ -15,28 +15,30 @@ class PhotoBattleController extends Controller
     // Page d'ajout d'une photo de battle
     public function addAction(Request $request, Battle $battle)
     {
-        // On vérifie que la battle existe
-        if(null === $battle){
-            throw new NotFoundHttpException('Cette battle n\'existe pas !');
-        }
-
         $em = $this->getDoctrine()->getManager();
         $now = new \DateTime();
         // On crée une instance photoBattle qu'on lie au visiteur
-        $photo = new PhotoBattle();
-        $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
-        $photo->setDateUpload($now);
 
-        $form = $this->createForm(PhotoBattleType::class, $photo);
+
+        $form = $this->createForm(PhotoBattleType::class);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->persist($photo);
+            $data = $form->getData();
+            $files = $data['files'];
+
+            foreach ($files as $file){
+                $photo = new PhotoBattle();
+                $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
+                $photo->setDateUpload($now);
+                $photo->setFile($file);
+                $em->persist($photo);
+            }
             $em->flush();
 
             // Apres enregistrement de la photo, on vérifie si la battle à un résumé ou non
             if($battle->getResume() === null )
             {
-                return $this->redirectToRoute('resume_add', array('slugBattle' => $battle->getSlugBattle()));
+                return $this->redirectToRoute('resume_create', array('slug' => $battle->getSlug()));
             }else{
                 return $this->redirectToRoute('resume_edit', array('id' => $battle->getResume()->getId()));
             }
@@ -47,14 +49,11 @@ class PhotoBattleController extends Controller
     }
 
     // gestion de la suppression  d'une photoBattle
-    public function deleteAction(Request $request, PhotoBattle $photoBattle, $slugBattle )
+    public function deleteAction(Request $request, PhotoBattle $photoBattle)
     {
-        // On vérifie si la photoBattle existe et que le visiteur en est bien le propriétaire
-        if(null === $photoBattle){
-            throw new NotFoundHttpException('Cette Photo de bataille n\'existe pas !');
-        }
+        // On vérifie si le visiteur en est bien le propriétaire
         if($photoBattle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
+            $this->addFlash('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -65,12 +64,13 @@ class PhotoBattleController extends Controller
             $em->remove($photoBattle);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('info', 'Votre photo a bien été supprimée.');
+            $this->addFlash('info', 'Votre photo a bien été supprimée.');
 
-            return $this->redirectToRoute('battles');
+            return $this->redirectToRoute('battle_list');
         }
 
-        return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle, 'slugBattle' => $slugBattle));
+        return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle));
+
     }
 
     // Gestion d'affichage des photos battles du visiteur
@@ -85,21 +85,21 @@ class PhotoBattleController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // On récupere notre objet Paginator
-        $listPhotos = $this->getDoctrine()
+        $photos = $this->getDoctrine()
                             ->getManager()
                             ->getRepository("AppBundle:Battle\PhotoBattle")
                             ->getPhotos($page, $nbPerPage, $user);
 
         // On calcul le nombre total de page
-        $nbPages= ceil(count($listPhotos)/$nbPerPage);
+        $nbPages= ceil(count($photos)/$nbPerPage);
 
         // Si la page n'existe pas, on retourne une erreur 404
-        if($page > $nbPages && count($listPhotos)> 0){
+        if($page > $nbPages && count($photos)> 0){
             return $this->createNotFoundException('La page '. $page . ' n\'exciste pas.');
         }
 
         return $this->render('AppBundle:PhotoBattle:page.html.twig', array(
-                'listPhotos' => $listPhotos,
+                'photos' => $photos,
                 'nbPages' => $nbPages,
                 'page' => $page
         ));

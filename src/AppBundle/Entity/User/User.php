@@ -23,10 +23,30 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\Army", mappedBy="user" )
-     * @ORM\JoinColumn(nullable=true)
+     * Get id
+     *
+     * @return int
      */
-    private $armies;
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+
 
     /**
      * Add army.

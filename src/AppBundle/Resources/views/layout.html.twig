@@ -8,37 +8,87 @@
 			{% block title %}Warhantmille Battle{% endblock %}
 		</title>
 		<!-- appelle des cdn de bootstrap -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-		{% block link %}{% endblock %}
-		<style type="text/css">
+
+		{% block link %}
+            {% include 'AppBundle:Default:link.html.twig' %}
+        {% endblock %}
 			{% block stylesheets %}
+            <style type="text/css">
 				/* Margin haute au body pour descendre le contenu de la page sous la barre de navigation */
 				body{
 					padding-top: 80px;
 				}
+				.gallery-image {
+					max-height: 90%;
+					max-width: 90%;
+					margin: 5%;
+				}
+				.modal-content {
+					height: 90vh;
+				}
+				.modal-header{
+					height: 10%;
+				}
+				.modal-body{
+					height: 80%;
+				}
+				.modal-footer {
+					height: 10%;
+				}
+				/*
+					Prévoir l'utilisation des @screen-size-minormax de bootstrap avec less
+					Création des différentes tailles d'images possible à l'aide de classes
+					picture: photo de taille normal, utilisé dans les modals
+					min-picture: miniature de la photo, utiliser dans les tableaux et autres
+
+					Extra Small devices (width max :768px)
+				*/
+				@media( max-width: 768px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Small devices (width between 769 at 991px) */
+				@media (min-width: 769px) and (max-width: 991px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Medium devices (width between 992 at 1199px) */
+				@media (min-width: 992px ) and (max-width: 1199px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Large devices ( width min 1200 px) */
+				@media (min-width: 1200px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+            </style>
 			{% endblock %}
-		</style>
 	</head>
 	<body class="container">
-		{% include 'AppBundle::navbar.html.twig' %}
+		{% include 'AppBundle:Default:navbar.html.twig' %}
 		<div class="container">
-			{% for label,flashes in app.session.flashbag.all %}
-				{% for flash in flashes %}
-					<div class="alert alert-{{ label }}">
-						{{ flash }}
-					</div>
-				{% endfor %}
-			{% endfor %}
+			{% include 'AppBundle:Default:flash.message.html.twig' %}
 			{% block body %}{% endblock %}
 		</div>
 	</body>
 	{% block javascript %}
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		    <!-- Javascript de Bootstrap -->
-		    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-				<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.fr.min.js"></script>
-					<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+			{% include 'AppBundle:Default:javascript.html.twig' %}
 		{% endblock %}
 </html>

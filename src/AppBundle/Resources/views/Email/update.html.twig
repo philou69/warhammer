@@ -8,7 +8,7 @@
         <p>
             {{ battle.createur.username }} a modifié la bataille {{ battle.name }}.<br>
             Elle aura lieu le {{ battle.date|date('d/m/Y H:m') }}.<br>
-            Rendez vous sur la <a href="{{ url('battle_future_view',{'slugBattle': battle.slugBattle}) }}">battle</a> pour signifier votre présence.
+            Rendez vous sur la <a href="{{ url('battle_future_view',{'slug': battle.slug}) }}">battle</a> pour signifier votre présence.
         </p>
     </div>
 

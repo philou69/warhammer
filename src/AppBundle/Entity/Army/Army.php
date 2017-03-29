@@ -36,9 +36,9 @@ class Army
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(name="slug_army", length=128, unique=true)
+     * @ORM\Column(name="slug", length=128, unique=true)
      */
-    private $slugArmy;
+    private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
@@ -57,6 +57,8 @@ class Army
      * @ORM\JoinColumn(nullable=true)
      */
     private $figurines;
+
+    private $groupes = ['QG', 'Elite', 'Troupe', 'Transport', 'Attaque Rapide', 'Soutien', 'Seigneur de Guerre'];
     /**
      * Constructor.
      */
@@ -135,27 +137,27 @@ class Army
     }
 
     /**
-     * Set slugArmy.
+     * Set slug.
      *
-     * @param string $slugArmy
+     * @param string $slug
      *
      * @return Army
      */
-    public function setSlugArmy($slugArmy)
+    public function setSlug($slug)
     {
-        $this->slugArmy = $slugArmy;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get slugArmy.
+     * Get slug.
      *
      * @return string
      */
-    public function getSlugArmy()
+    public function getSlug()
     {
-        return $this->slugArmy;
+        return $this->slug;
     }
 
     /**
@@ -241,4 +243,10 @@ class Army
     {
         return $this->figurines;
     }
+
+    public function getGroupes()
+    {
+        return $this->groupes;
+    }
+
 }

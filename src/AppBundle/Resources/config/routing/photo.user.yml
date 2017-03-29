@@ -1,0 +1,21 @@
+photo_user_add:
+    path: /{id}/add
+    defaults:
+      _controller: "AppBundle:PhotoBattle:add"
+    requirements:
+      id: \d+
+
+photo_user_delete:
+    path: /{id}/delete
+    defaults:
+      _controller : 'AppBundle:PhotoBattle:delete'
+    requirements:
+      id: \d+
+
+photo_user_page:
+    path: /{page}
+    defaults:
+      _controller: "AppBundle:PhotoBattle:index"
+      page:   1
+    requirements:
+      page: \d+

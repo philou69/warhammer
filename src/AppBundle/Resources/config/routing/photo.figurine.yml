@@ -1,0 +1,13 @@
+photo_figurine_add:
+    path: /{id}/add
+    defaults:
+        _controller: "AppBundle:PhotoFigurine:add"
+    requirements:
+        id: \d+
+
+photo_figurine_delete:
+    path:  /{id}/delete
+    defaults:
+        _controller: "AppBundle:PhotoFigurine:delete"
+    requirements:
+        id: \d+

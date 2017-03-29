@@ -14,7 +14,7 @@
             <i class="glyphicon glyphicon-warning-sign"></i> Ne modifier qu'une seule donnée pour ne pas modifier le ratio de l'image
         </small>
     </div>
-    <a href="{{ path('battle_photo_add',{'id': battle.id}) }}">Ajouter une photo</a>
+    <a href="{{ path('photo_user_add',{'id': battle.id}) }}">Ajouter une photo</a>
     <div id="contenu">
         {{ render(controller("AppBundle:PhotoBattle:index", {'page':1})) }}
     </div>

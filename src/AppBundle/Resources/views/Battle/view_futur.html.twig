@@ -39,12 +39,12 @@
 
 
             <ul class="list-unstyled">
-                <li id="participant">Vous {{ visiteur.presence.presence }} {% if visiteur.presence.id == 3 %} au commande de <a href="{{ path('army_view', {'slugArmy': visiteur.army.slugArmy}) }}">{{ visiteur.army.name }}</a>{%  endif %} <small><a id="cachePresence" href="#">Modifier votre réponse</a></small></li>
-                {% for participant in listParticipants %}
+                <li id="participant">Vous {{ visiteur.presence.presence }} {% if visiteur.presence.id == 3 %} au commande de <a href="{{ path('army_view', {'slug': visiteur.army.slug}) }}">{{ visiteur.army.name }}</a>{%  endif %} <small><a id="cachePresence" href="#">Modifier votre réponse</a></small></li>
+                {% for participant in participants %}
                     <li>{{ participant.participant.username }}
                         {% if participant.presence.id == 1  %} seras présent
                         {% elseif participant.presence.id == 2 %} ne seras pas présent
-                        {% elseif participant.presence.id== 3  %} sera le général de l'armée {% if participant.presence.id == 3 %}<a href="{{ path('army_view', {'slugArmy': participant.army.slugArmy}) }}">{{ participant.army.name }}</a>{%  endif %}
+                        {% elseif participant.presence.id== 3  %} sera le général de l'armée {% if participant.presence.id == 3 %}<a href="{{ path('army_view', {'slug': participant.army.slug}) }}">{{ participant.army.name }}</a>{%  endif %}
                         {% elseif participant.presence.id == 4 %} n'a pas encore répondu
                         {% endif %}
                         </li>

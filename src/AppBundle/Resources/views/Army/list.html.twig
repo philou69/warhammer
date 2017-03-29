@@ -5,14 +5,14 @@
 {% block body %}
 	<h2 class="text-center">Liste des armées</h2>
 	<ul class="nav nav-tabs row">
-	{% for user in listUsers if user == app.user %}
+	{% for user in users if user == app.user %}
 		<li class="active col-sm-2">
 			<a data-toggle="tab" href="#{{ user.username }}-armies" class="armies">
 				Vos armées
 			</a>
 		</li>
 	{% endfor %}
-	{% for user in listUsers if user != app.user %}
+	{% for user in users if user != app.user %}
 		<li class="col-sm-2">
 			<a data-toggle="tab" href="#{{ user.username }}-armies" class="armies">
 				Armées de {{ user.username }}
@@ -21,12 +21,12 @@
 	{% endfor %}
 	</ul>
 
-	{% for user in listUsers  %}
+	{% for user in users  %}
 		{% if loop.first %}
 			<div class="tab-content" >
 		{% endif %}
 		<div id="{{ user.username }}-armies" class="tab-pane fade {% if user == app.user %} in active {% endif %}">
-			{% for army in listArmies if army.user == user %}
+			{% for army in armies if army.user == user %}
 				<div class="well row">
 					<div class="imageArmy col-sm-2">
 						Image de l'armée. <br>
@@ -34,7 +34,7 @@
 					</div>
 					<div id="army" {% if app.user == army.user %} class="col-sm-7" {% else %} class="col-sm-10" {% endif
 					%}>
-						<h4 class="text-center"><a href="{{ path('army_view',{'slugArmy': army.slugArmy}) }}">{{ army.name }}</a></h4>
+						<h4 class="text-center"><a href="{{ path('army_view',{'slug': army.slug}) }}">{{ army.name }}</a></h4>
 						<ul class="list-unstyled">
 							<li>{{ army.points }} points</li>
 							<li>{{ army.race.name }}</li>
@@ -42,8 +42,8 @@
 					</div>
                     {% if app.user == army.user %}
 						<div class="col-sm-3">
-							<a href="{{ path('army_edit', {'slugArmy': army.slugArmy}) }}" class="btn btn-primary btn-xs">Réformer cette armée</a>
-							<a href="{{ path('army_delete', {'slugArmy': army.slugArmy}) }}" class="btn btn-danger btn-xs">Dissoudre cette armée</a>
+							<a href="{{ path('army_edit', {'slug': army.slug}) }}" class="btn btn-primary btn-xs">Réformer cette armée</a>
+							<a data-toggle="modal" href="#{{ army.slug }}_delete" class="btn btn-danger btn-xs">Dissoudre cette armée</a>
 						</div>
 
                     {% endif %}
@@ -52,7 +52,7 @@
 				<p class="well text-center">
 					{% if user == app.user %}
 						Vous n'avez pas encore enregistré d'armées. <br>
-						Rendez vous sur la page <a href="{{ path('army_add') }}">d'inscription</a>
+						Rendez vous sur la page <a href="{{ path('army_create') }}">d'inscription</a>
 						{% else %}
                             {{ user.username }} n'a pas encore enregistré d'armées.
 					{% endif %}
@@ -60,7 +60,7 @@
 			{% endfor %}
             {% if app.user == user %}
 				<div class="well row">
-					<a href="{{ path('army_add') }}" class="btn btn-default btn-xs">Créer une armée</a>
+					<a href="{{ path('army_create') }}" class="btn btn-default btn-xs">Créer une armée</a>
 				</div>
             {% endif %}
 		</div>
@@ -69,5 +69,8 @@
 		{% endif %}
 	{% endfor %}
 
+    {% for army in armies if army.user == app.user %}
+		{% include 'AppBundle:Modal:army.delete.modal.html.twig' with{'army': army} %}
+    {% endfor %}
 
 {% endblock %}

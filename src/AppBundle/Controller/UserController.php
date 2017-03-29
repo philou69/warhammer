@@ -16,21 +16,21 @@ class UserController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
         // Liste des armées et des battles ou le visiteur à participer
-        $listArmies = $em->getRepository("AppBundle:Army\Army")->findBy(array('user' => $user));
+        $armies = $em->getRepository("AppBundle:Army\Army")->findBy(array('user' => $user));
 
-        $listBattles = $em->getRepository("AppBundle:Battle\Battle")->findAllOfVisitor($user);
+        $battles = $em->getRepository("AppBundle:Battle\Battle")->findAllOfVisitor($user);
 
         return $this->render('AppBundle:User:view.html.twig', array(
             'user' => $user,
-            'listBattles' => $listBattles,
-            'listArmies' => $listArmies
+            'battles' => $battles,
+            'armies' => $armies
         ));
     }
 
     // Gestion d'edition d'utilisateurf
     public function editAction(Request $request, User $user)
     {
-        if(null === $user || $user != $this->get('security.token_storage')->getToken()->getUser() )
+        if($user != $this->get('security.token_storage')->getToken()->getUser() )
         {
             $request->getSession()->getFlashBag()->add('danger', 'Vous avez essaier de modifier un profile n\'étant pas le vôtre.');
 

@@ -15,16 +15,16 @@ class ArmyControllerTest extends AbstractTest
 {
     public function testIndex()
     {
-        $crawler = $this->client->request('GET', '/armies');
+        $crawler = $this->client->request('GET', '/army/list');
 
-        $this->assertEquals('AppBundle\Controller\ArmyController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
+        $this->assertEquals('AppBundle\Controller\ArmyController::listAction', $this->client->getRequest()->attributes->get('_controller'));
         $this->assertEquals('4', $crawler->filter('a.armies')->count());
 
     }
 
     public function testwiew()
     {
-        $crawler = $this->client->request('GET', '/armies/army/armee-1');
+        $crawler = $this->client->request('GET', '/army/armee-1');
 
         $this->assertEquals('AppBundle\Controller\ArmyController::viewAction', $this->client->getRequest()->attributes->get('_controller'));
         $this->assertEquals('

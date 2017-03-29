@@ -1,0 +1,18 @@
+figurine_army_create:
+    path: /{slug}/create
+    defaults:
+       _controller: "AppBundle:Figurine:create"
+
+figurine_army_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: "AppBundle:Figurine:edit"
+    requirements:
+      id: \d+
+
+figurine_army_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: "AppBundle:Figurine:delete"
+    requirements:
+      id: \d+

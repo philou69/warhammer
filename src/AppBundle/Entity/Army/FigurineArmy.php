@@ -144,7 +144,7 @@ class FigurineArmy
      */
     public function addPhoto(\AppBundle\Entity\Army\PhotoFigurine $photo)
     {
-        $photo->getFigurine($this);
+        $photo->setFigurine($this);
         $this->photos[] = $photo;
 
         return $this;
