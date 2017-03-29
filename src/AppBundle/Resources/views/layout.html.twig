@@ -18,6 +18,66 @@
 				body{
 					padding-top: 80px;
 				}
+				.gallery-image {
+					max-height: 90%;
+					max-width: 90%;
+					margin: 5%;
+				}
+				.modal-content {
+					height: 90vh;
+				}
+				.modal-header{
+					height: 10%;
+				}
+				.modal-body{
+					height: 80%;
+				}
+				.modal-footer {
+					height: 10%;
+				}
+				/*
+					Prévoir l'utilisation des @screen-size-minormax de bootstrap avec less
+					Création des différentes tailles d'images possible à l'aide de classes
+					picture: photo de taille normal, utilisé dans les modals
+					min-picture: miniature de la photo, utiliser dans les tableaux et autres
+
+					Extra Small devices (width max :768px)
+				*/
+				@media( max-width: 768px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Small devices (width between 769 at 991px) */
+				@media (min-width: 769px) and (max-width: 991px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Medium devices (width between 992 at 1199px) */
+				@media (min-width: 992px ) and (max-width: 1199px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
+				/* Large devices ( width min 1200 px) */
+				@media (min-width: 1200px) {
+					.picture {
+						max-width: 10px;
+					}
+					.min-picture {
+						max-width: 10px;
+					}
+				}
             </style>
 			{% endblock %}
 	</head>
