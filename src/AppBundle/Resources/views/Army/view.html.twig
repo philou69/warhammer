@@ -37,481 +37,73 @@
 		{% endif %}
 	</div>
 	<div id="figs" class="panel-group">
-		<div id="QG" class="panel panel-default">
+        {% for groupe in army.groupes %}
+
+			<div id="{{ groupe | replace({' ': '' }) }}" class="panel panel-default">
 				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsQG" href="#figsQG" class="menu-drop">
-					<h4 class="panel-heading text-center">QG <span class=" chevron glyphicon glyphicon-chevron-down "></span></h4>
+					<a data-toggle="collapse" data-parent="#{{ groupe | replace({' ': '' }) }}" data-cible="figurines_{{ groupe | replace({' ': '' }) }}" href="#figurines_{{ groupe | replace({' ': '' }) }}" class="menu-drop">
+						<h4 class="text-center">{{ groupe }} <span class="glyphicon glyphicon-chevron-down"></span></h4>
 					</a>
 				</div>
-			<div id="figsQG" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figQG in figsQG  %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figQG.figurine.name  }}</h5></li>
-									<li>{{ figQG.points }} points</li>
-								</ul>
-								{% for equipement in figQG.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figQG.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figQG.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figQG.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figQG.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figQG.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-									</ul>
-								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figQG.photos %}
-									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figQG.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
-								{% else %}
-									<p class="text-center">
-										{{ figQG.figurine.name }} ne possède pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-						</div>
-					{% else %}
-						<p class="well text-center">
-							Le  QG ne contient pas de figurines.
-						</p>
-					{% endfor %}
-				</div>
 			</div>
-		</div>
-		<br>
-		<div id="troupes" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsTroupe" href="#figsTroupe"  class="menu-drop">
-					<h4 class="panel-heading text-center">Troupe <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-					</a>
-				</div>
-			<div id="figsTroupe" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figTroupe in figsTroupe %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figTroupe.figurine.name  }}</h5></li>
-									<li>{{ figTroupe.points }} points</li>
-								</ul>
-								{% for equipement in figTroupe.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figTroupe.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figTroupe.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figTroupe.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figTroupe.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figTroupe.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-									</ul>
-								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figTroupe.photos %}
-									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figTroupe.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
-								{% else %}
-									<p class="text-center">
-										{{ figTroupe.figurine.name }} n'a pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-
-						</div>
-					{% else %}
-						<p class="well text-center">
-							Cette armée ne possède pas de troupe.
-						</p>
-					{% endfor %}
-				</div>
-
-			</div>
-		</div>
-		<br>
-		<div id="elite" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsElite" href="#figsElite"  class="menu-drop">
-					<h4 class="panel-heading text-center">Elite <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-					</a>
-				</div>
-			<div id="figsElite" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figElite in figsElite %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figElite.figurine.name  }}</h5></li>
-									<li>{{ figElite.points }} points</li>
-								</ul>
-								{% for equipement in figElite.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figElite.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figElite.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figElite.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figElite.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figElite.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-									</ul>
-								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figElite.photos %}
-									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figElite.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
-								{% else %}
-									<p class="text-center">
-										{{ figElite.figurine.name }} n'a pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-
-						</div>
-					{% else %}
-						<p class="well text-center">
-							Cette armée ne possède pas d'élite.
-						</p>
-					{% endfor %}
-				</div>
-
-			</div>
-		</div>
-		<br>
-		<div id="transport" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsTransport" href="#figsTransport"  class="menu-drop">
-					<h4 class="panel-heading text-center">Transport <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-					</a>
-				</div>
-			<div id="figsTransport" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figTransport in figsTransport %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figTransport.figurine.name  }}</h5></li>
-									<li>{{ figTransport.points }} points</li>
-								</ul>
-								{% for equipement in figTransport.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figTransport.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figTransport.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figTransport.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figTransport.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figTransport.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-									</ul>
-								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figTransport.photos %}
-									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figTransport.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
-								{% else %}
-									<p class="text-center">
-										{{ figTransport.figurine.name }} n'a pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-
-						</div>
-					{% else %}
-						<p class="well text-center">
-							Cette armée ne possède pas de transport.
-						</p>
-					{% endfor %}
-				</div>
-
-			</div>
-		</div>
-		<br>
-		<div id="attaque" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsAttaque" href="#figsAttaque"  class="menu-drop">
-					<h4 class="panel-heading text-center">Attaque Rapide  <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-					</a>
-				</div>
-			<div id="figsAttaque" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figAttaque in figsAttaque %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figAttaque.figurine.name  }}</h5></li>
-									<li>{{ figAttaque.points }} points</li>
-								</ul>
-								{% for equipement in figAttaque.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figAttaque.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figAttaque.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figAttaque.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figAttaque.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figAttaque.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-									</ul>
-								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figAttaque.photos %}
-									<div class="col-sm-3 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figAttaque.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
-								{% else %}
-									<p class="text-center">
-										{{ figAttaque.figurine.name }} n'a pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-
-						</div>
-					{% else %}
-						<p class="well text-center">
-							Cette armée ne possède pas d'attaque rapide.
-						</p>
-					{% endfor %}
-				</div>
-
-			</div>
-		</div>
-		<br>
-		<div id="soutien" class="panel panel-default">
-			<div class="well panel-heading">
-				<a data-toggle="collapse" data-parent="#QG" data-cible="figsSoutien" href="#figsSoutien"  class="menu-drop">
-					<h4 class="panel-heading text-center">Soutien  <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-				</a>
-			</div>
-				<div id="figsSoutien" class="panel-collapse collapse">
-					<div class="panel-body">
-						{% for figSoutien in figsSoutien %}
-							<div class="well">
-								<div class="row">
+			<div id="figurines_{{ groupe | replace({' ': '' }) }}" class="panel panel-collapse collapse" >
+                {% for figurine in army.figurines if figurine.figurine.groupe.name == groupe %}
+					<div class="well">
+						<div class="row">
+							<ul class="list-unstyled  {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
+								<li><h5>{{ figurine.figurine.name }}</h5></li>
+								<li>{{ figurine.points }}</li>
+							</ul>
+                            {% for equipement in figurine.equipements %}
+                                {% if loop.first %}
 									<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-										<li><h5>{{ figSoutien.figurine.name  }}</h5></li>
-										<li>{{ figSoutien.points }} points</li>
-									</ul>
-									{% for equipement in figSoutien.equipements  %}
-										{% if loop.first %}
-											<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-										{% endif %}
+                                {% endif %}
 										<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-										{% if loop.last %}
-											</ul>
-										{% endif %}
-									{% else %}
-										<p class="col-sm-5 text-center">
-											{{ figSoutien.figurine.name }} ne possède pas d'options.
-										</p>
-									{% endfor %}
-									{% if army.user == app.user %}
-										<ul class="list-unstyled col-sm-2 text-center">
-											{% if figSoutien.figurine.equipements|length > 0 %}
-												<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figSoutien.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-												<br>
-											{%endif %}
-											<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figSoutien.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-											<br/>
-											<li><a href="{{ path('photo_figurine_add',{'id': figSoutien.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-										</ul>
-									{% endif %}
-								</div>
-								<div class="row">
-									{% for photo in figSoutien.photos %}
-										<div class="col-sm-2 row">
-											<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figSoutien.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-												<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-											</a>
-											{% if app.user == army.user %}
-												<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-											{% endif %}
-										</div>
-									{% else %}
-										<p class="text-center">
-											{{ figSoutien.figurine.name }} n'a pas de photos.
-										</p>
-									{% endfor %}
-								</div>
-
-							</div>
-						{% else %}
-							<p class="well text-center">
-								Cette armée ne possède pas de soutien.
-							</p>
-						{% endfor %}
-					</div>
-
-			</div>
-		</div>
-		<br>
-		<div id="seigneur" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#QG" data-cible="figsSeigneur" href="#figsSeigneur"  class="menu-drop">
-					<h4 class="panel-heading text-center">Seigneur de Guerre <span class="chevron glyphicon glyphicon-chevron-down "></span></h4>
-					</a>
-				</div>
-
-			<div id="figsSeigneur" class="panel-collapse collapse">
-				<div class="panel-body">
-					{% for figSeigneur in figsSeigneur %}
-						<div class="well">
-							<div class="row">
-								<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									<li><h5>{{ figSeigneur.figurine.name  }}</h5></li>
-									<li>{{ figSeigneur.points }} points</li>
-								</ul>
-								{% for equipement in figSeigneur.equipements  %}
-									{% if loop.first %}
-										<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{% endif %}
-									<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-									{% if loop.last %}
-										</ul>
-									{% endif %}
-								{% else %}
-									<p class="col-sm-5 text-center">
-										{{ figSeigneur.figurine.name }} ne possède pas d'options.
-									</p>
-								{% endfor %}
-								{% if army.user == app.user %}
-									<ul class="list-unstyled col-sm-2 text-center">
-										{% if figSeigneur.figurine.equipements|length > 0 %}
-											<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figSeigneur.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
-											<br>
-										{%endif %}
-										<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figSeigneur.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
-										<br/>
-										<li><a href="{{ path('photo_figurine_add',{'id': figSeigneur.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+								{% if loop.last %}
 									</ul>
 								{% endif %}
-							</div>
-							<div class="row">
-								{% for photo in figSeigneur.photos %}
-									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figSeigneur.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target=".image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-										</a>
-										{% if app.user == army.user %}
-											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-										{% endif %}
-									</div>
+
 								{% else %}
-									<p class="text-center">
-										{{ figSeigneur.figurine.name }} n'a pas de photos.
-									</p>
-								{% endfor %}
-							</div>
-
+								<p class="{% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
+									{{ figurine.figurine.name }} n'a pas d'equipements supplémentaire
+								</p>
+                            {% endfor %}
+                            {% if app.user == army.user %}
+								<ul class="list-unstyled col-sm-2">
+                                    {% if figurine.figurine.equipements|length > 0 %}
+										<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+                                    {% endif %}
+									<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figurine.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+									<li><a href="{{ path('photo_figurine_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
+								</ul>
+                            {% endif %}
 						</div>
-					{% else %}
-						<p class="well text-center">
-							Cette armée ne possède pas de seigneur de guerre.
-						</p>
-					{% endfor %}
-				</div>
-
+					</div>
+					<div class="row">
+                        {% for photo in figurine.photos %}
+							<div class="col-sm-2 row">
+								<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
+									<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
+								</a>
+                                {% if app.user == army.user %}
+									<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
+                                {% endif %}
+							</div>
+                        {% else %}
+							<p class="text-center">
+                                {{ figurine.figurine.name }} ne possède pas de photos.
+							</p>
+                        {% endfor %}
+					</div>
+                {% else %}
+					<p class="well text-center">
+						Cette armée ne possède pas de {{ groupe }}.
+					</p>
+                {% endfor %}
 			</div>
-		</div>
+        {% endfor %}
 	</div>
+
 	{% include '@App/Modal/photos.army.html.twig' %}
 
     {% if app.user == army.user %}
