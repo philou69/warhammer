@@ -81,7 +81,7 @@
 								{% for photo in figQG.photos %}
 									<div class="col-sm-2 row">
 										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figQG.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -147,7 +147,7 @@
 								{% for photo in figTroupe.photos %}
 									<div class="col-sm-2 row">
 										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figTroupe.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -215,7 +215,7 @@
 								{% for photo in figElite.photos %}
 									<div class="col-sm-2 row">
 										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figElite.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -283,7 +283,7 @@
 								{% for photo in figTransport.photos %}
 									<div class="col-sm-2 row">
 										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figTransport.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -349,9 +349,9 @@
 							</div>
 							<div class="row">
 								{% for photo in figAttaque.photos %}
-									<div class="col-sm-2 row">
+									<div class="col-sm-3 row">
 										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figAttaque.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -419,7 +419,7 @@
 									{% for photo in figSoutien.photos %}
 										<div class="col-sm-2 row">
 											<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figSoutien.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-												<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+												<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 											</a>
 											{% if app.user == army.user %}
 												<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
@@ -487,8 +487,8 @@
 							<div class="row">
 								{% for photo in figSeigneur.photos %}
 									<div class="col-sm-2 row">
-										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figSeigneur.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-											<img class="img-responsive" src="{{ asset(photo.webPath) | imagine_filter('thumb')}}" alt="{{ photo.alt }}">
+										<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figSeigneur.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target=".image-gallery">
+											<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 										</a>
 										{% if app.user == army.user %}
 											<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
