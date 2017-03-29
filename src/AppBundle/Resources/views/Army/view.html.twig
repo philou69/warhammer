@@ -41,7 +41,7 @@
 
 			<div id="{{ groupe | replace({' ': '' }) }}" class="panel panel-default">
 				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#{{ groupe | replace({' ': '' }) }}" data-cible="figurines_{{ groupe | replace({' ': '' }) }}" href="#figurines_{{ groupe | replace({' ': '' }) }}" class="menu-drop">
+					<a data-toggle="collapse" data-parent="#{{ groupe | replace({' ': '' }) }}" data-cible="figurines_{{ groupe | replace({' ': '' }) }}" href="#figurines_{{ groupe | replace({' ': '' }) }}" class="menu-drop collapsed">
 						<h4 class="text-center">{{ groupe }} <span class="glyphicon glyphicon-chevron-down"></span></h4>
 					</a>
 				</div>
@@ -71,29 +71,29 @@
                             {% if app.user == army.user %}
 								<ul class="list-unstyled col-sm-2">
                                     {% if figurine.figurine.equipements|length > 0 %}
-										<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i> Modifier</a></li>
+										<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i></a></li>
                                     {% endif %}
-									<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figurine.id }}_delete"><i class="glyphicon glyphicon-remove"></i> Supprimer</a></li>
+									<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figurine.id }}_delete"><i class="glyphicon glyphicon-trash"></i></a></li>
 									<li><a href="{{ path('photo_figurine_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
 								</ul>
                             {% endif %}
 						</div>
-					</div>
-					<div class="row">
-                        {% for photo in figurine.photos %}
-							<div class="col-sm-2 row">
-								<a class="thumbnail col-sm-11" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-									<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-								</a>
-                                {% if app.user == army.user %}
-									<a class="col-sm-1" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove"></i></a>
-                                {% endif %}
-							</div>
-                        {% else %}
-							<p class="text-center">
-                                {{ figurine.figurine.name }} ne possède pas de photos.
-							</p>
-                        {% endfor %}
+						<div class="row">
+                            {% for photo in figurine.photos %}
+								<div class="col-sm-2 row">
+									<a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
+										<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
+									</a>
+                                    {% if app.user == army.user %}
+										<a class="photo_delete" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove-circle"></i></a>
+                                    {% endif %}
+								</div>
+                            {% else %}
+								<p class="text-center">
+                                    {{ figurine.figurine.name }} ne possède pas de photos.
+								</p>
+                            {% endfor %}
+						</div>
 					</div>
                 {% else %}
 					<p class="well text-center">
