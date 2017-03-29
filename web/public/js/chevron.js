@@ -1,9 +1,9 @@
 // On récupere tous les liens de l'accordeon
-var aElts = document.querySelectorAll('.menu-drop');
+var aElts = $('.menu-drop');
 
-aElts.forEach(function (aElt) {
+$.each(aElts, function (aElt) {
     // On ajoute un listener
-    aElt.addEventListener('click', function (e) {
+    $(this).click(function (e) {
         if($(this).hasClass('collapsed')){
             $(this).children('h4').children('span').addClass("glyphicon-chevron-up").removeClass("glyphicon-chevron-down");
         }else{
