@@ -10,4 +10,12 @@ namespace AppBundle\Repository\Army;
  */
 class PhotoFigurineRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findForFigurine($figurine)
+    {
+        $qb = $this->createQueryBuilder('ph');
+
+        $qb->where('ph.figurine = :figurine')
+            ->setParameter('figurine', $figurine);
+        return $qb;
+    }
 }

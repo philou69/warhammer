@@ -69,24 +69,20 @@
 								</p>
                             {% endfor %}
                             {% if app.user == army.user %}
-								<ul class="list-unstyled col-sm-2">
+								<div class="col-sm-2">
                                     {% if figurine.figurine.equipements|length > 0 %}
-										<li><a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i></a></li>
+										<a class="btn btn-primary btn-xs" href="{{ path('figurine_army_edit', {'id': figurine.id}) }}"><i class="glyphicon glyphicon-edit"></i></a>
                                     {% endif %}
-									<li><a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figurine.id }}_delete"><i class="glyphicon glyphicon-trash"></i></a></li>
-									<li><a href="{{ path('photo_figurine_add',{'id': figurine.id}) }}" class="btn btn-default btn-xs">Ajout Photo(s)</a></li>
-								</ul>
+									<a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ figurine.id }}_delete"><i class="glyphicon glyphicon-trash"></i></a>
+								</div>
                             {% endif %}
 						</div>
 						<div class="row">
                             {% for photo in figurine.photos %}
-								<div class="col-sm-2 row">
+								<div class="col-sm-2">
 									<a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{ figurine.figurine.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
 										<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
 									</a>
-                                    {% if app.user == army.user %}
-										<a class="photo_delete" data-toggle="modal" href="#{{ photo.id }}_delete"><i class="glyphicon glyphicon-remove-circle"></i></a>
-                                    {% endif %}
 								</div>
                             {% else %}
 								<p class="text-center">
@@ -109,9 +105,6 @@
     {% if app.user == army.user %}
         {% for figurine in army.figurines %}
 			{% include 'AppBundle:Modal:figurine.delete.html.twig' with {'figurine': figurine} %}
-            {% for photo in figurine.photos %}
-				{% include 'AppBundle:Modal:photo.figurine.delete.html.twig' with {'photo': photo} %}
-            {% endfor %}
         {% endfor %}
         {% include 'AppBundle:Modal:army.delete.modal.html.twig' with {'army': army} %}
     {% endif %}

@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Army;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -41,7 +42,7 @@ class FigurineArmyType extends AbstractType
                     'choice_attr' => function ($choice) {
                         $datas = array();
                         foreach ($choice->getFigurines() as $figurine) {
-                            $datas['data-'.$figurine->getFigurine()->getId()] = 1;
+                            $datas['data-'.$figurine->getFigurine()->getId()] = $figurine->getFigurine()->getId();
                         }
                         $datas['class'] = 'option';
 
@@ -53,15 +54,23 @@ class FigurineArmyType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     ))
-            ->add('photos', CollectionType::class, array(
-                    'entry_type' => PhotoFigurineType::class,
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'required' => false,
-                    'label_attr' => array('id' => 'photo', 'class' => 'col-sm-2'),
-                    'label' => 'Photos :',
-                ))
+//            ->add('photos', CollectionType::class, array(
+//                    'entry_type' => PhotoFigurineType::class,
+//                    'by_reference' => false,
+//                    'allow_add' => true,
+//                    'allow_delete' => true,
+//                    'required' => false,
+//                    'label_attr' => array('id' => 'photo', 'class' => 'col-sm-2'),
+//                    'label' => 'Photos :',
+//                ))
+                ->add('files', FileType::class, array(
+                    'label' => 'Photos de la figurine',
+                'multiple' => "multiple",
+                    'attr' => array(
+                        'accept' => 'image/*',
+                    ),
+                    'mapped' => false
+            ))
             ->add('save', SubmitType::class, array(
                     'label' => 'Enregistrer',
             ));

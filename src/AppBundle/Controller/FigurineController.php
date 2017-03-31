@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Army\PhotoFigurine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
@@ -27,7 +28,17 @@ class FigurineController extends Controller
 
         $form = $this->createForm(FigurineArmyType::class, $figurineArmy, array('race' => $army->getRace()));
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
+        {
+            $files = $form->get('files')->getData();
+            foreach ($files as $file)
+            {
+                $photo = new PhotoFigurine();
+                $photo->setFile($file)
+                    ->setFigurine($figurineArmy);
+
+                $figurineArmy->addPhoto($photo);
+            }
             $em->persist($figurineArmy);
             $em->flush();
 
@@ -45,16 +56,30 @@ class FigurineController extends Controller
         if($figurineArmy->getArmy()->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
             $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
         }
-
+        $oldFigurine = clone $figurineArmy;
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(EditFigurineArmyType::class, $figurineArmy, array('figurine' => $figurineArmy->getFigurine()));
+        $form = $this->createForm(EditFigurineArmyType::class, $figurineArmy);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
+        {
+          $photosFigurine = $em->getRepository("AppBundle:Army\PhotoFigurine")->findBy(array('figurine' => $figurineArmy));
 
+            foreach ($photosFigurine as $photo){
+                if(!$figurineArmy->getPhotos()->contains($photo))
+                {
+                    $em->remove($photo);
+                }
+            }
+            $files = $form->get('files')->getData();
+            foreach ($files as $file) {
+                $photo = new PhotoFigurine();
+                $photo->setFile($file)
+                    ->setFigurine($figurineArmy);
+
+                $em->persist($photo);
+            }
 
             $this->addFlash('info', 'Vous figurine a bien été mise à jour!');
-            $em->flush();
-
             return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
