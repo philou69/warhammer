@@ -30,6 +30,6 @@ class ArmyControllerTest extends AbstractTest
         $this->assertEquals('
 			armée 1 commandé par user1
 		', $crawler->filter('h2')->text());
-        $this->assertEquals('7', $crawler->filter('div.panel')->count());
+        $this->assertEquals('14', $crawler->filter('div.panel')->count());
     }
 }
