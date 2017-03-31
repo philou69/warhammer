@@ -18,15 +18,18 @@ class PhotoBattleType extends AbstractType
     {
         $builder
             ->add('files', FileType::class, array(
+                'label' => 'Photos',
+                'multiple' => 'multiple',
                 'attr' => array(
-                    'multiple' => 'multiple'
+                    'accept' => 'image/*'
                 ),
-                'multiple' => true
+                'mapped' => false
             ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Sauvegarder',
             ))
         ;
+
     }
 
     /**

@@ -24,7 +24,7 @@ class PhotoBattleController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $data = $form->getData();
-            $files = $data['files'];
+            $files = $form->get('files')->getData();
 
             foreach ($files as $file){
                 $photo = new PhotoBattle();
