@@ -6,8 +6,15 @@
                 <h4 class="modal-title">Suppression de la bataille {{ battle.name }}</h4>
             </div>
             <div class="modal-body">
-                Vous êtes sur le point de supprimez la bataille {{ battle.name }}.<br>
-                Etes-vous sur ?
+                <div class="row">
+                    <ul class="list-unstyled col-sm-9 col-sm-offset-1">
+                        <li>Name : {{ battle.name }}</li>
+                        <li>Prévue le : {{ battle.date | date('d/m/Y') }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                Etes-vous sûr de vouloir la supprimer ?
                 <div class="group-button">
                     <a class="btn btn-xs btn-default" data-dismiss="modal">NON</a>
                     <a href="{{ path('battle_delete', {'slug': battle.slug}) }}" class="btn btn-xs btn-danger">OUI</a>
