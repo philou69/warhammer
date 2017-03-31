@@ -6,8 +6,18 @@
                 <h4 class="modal-title">Suppresion de la figurine {{ figurine.figurine.name }}</h4>
             </div>
             <div class="modal-body">
-                Vous allez supprimer la figurine {{ figurine.figurine.name }} de {{ figurine.points }} points. <br>
-                Etes-vous sur ?
+                <div class="row">
+                    <ul class="list-unstyled col-sm-9 col-sm-offset-1">
+                        <li>Figurine : {{ figurine.figurine.name }}</li>
+                        <li>Groupe : {{ figurine.figurine.groupe.name }}</li>
+                        <li>Points : {{ figurine.points }}</li>
+                        <li>nb d'équipements : {{ figurine.equipements | length }}</li>
+                        <li>nb de photos : {{ figurine.photos | length }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                Etes-vous sur de vouloir la supprimer ?
                 <div class="group-button">
                     <a data-dismiss="modal" class="btn btn-xs btn-default">NON</a>
                     <a href="{{ path('figurine_army_delete', {'id': figurine.id}) }}" class="btn btn-xs btn-danger">OUI</a>

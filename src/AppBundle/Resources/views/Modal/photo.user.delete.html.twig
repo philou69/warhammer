@@ -6,7 +6,9 @@
                 <h4 class="modal-title">Suppresion d'une photo</h4>
             </div>
             <div class="modal-body">
-                <img src="{{ asset( photo.webPath) }}" alt="{{ photo.id }}" height="100px"><br>
+                <img src="{{ asset( photo.webPath) }}" alt="{{ photo.id }}" class="img-responsive">
+            </div>
+            <div class="modal-footer">
                 Etes-vous sur de vouloir supprimer cette photo ?
                 <div class="button-group">
                     <a data-dismiss="modal" class="btn btn-xs btn-default">NON</a>
