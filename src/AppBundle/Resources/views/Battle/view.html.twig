@@ -6,6 +6,12 @@
 
 {% block body %}
   <div class="jumbotron">
+      {% if app.user == battle.createur and battle.canceled == false %}
+          <div class="pull-right">
+            <a href="{{ path('battle_edit', {'slug': battle.slug}) }}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit"></span></a>
+            <a href="#{{ battle.slug }}_canceled" data-toggle="modal" class="btn btn-xs btn-danger">Annuler la bataille</a>
+          </div>
+      {% endif %}
     <h2 class="text-center">{{ battle.name }} du {{ battle.date|date('d/m/y')}}</h2>
     {% if resumeBattle is empty %}
       Il n'y a pas encore de résumé de cette bataille.
@@ -20,4 +26,7 @@
     {% endif %}
 
   </div>
+    {% if app.user == battle.createur %}
+        {% include 'AppBundle:Modal:battle.canceled.html.twig' with {'battle': battle} %}
+    {% endif %}
 {% endblock %}
