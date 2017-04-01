@@ -62,7 +62,16 @@ class FigurineController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
         {
-          $photosFigurine = $em->getRepository("AppBundle:Army\PhotoFigurine")->findBy(array('figurine' => $figurineArmy));
+            $files = $form->get('files')->getData();
+            foreach ($files as $file) {
+                $photo = new PhotoFigurine();
+                $photo->setFile($file)
+                    ->setFigurine($figurineArmy);
+                $figurineArmy->addPhoto($photo);
+                $em->persist($photo);
+            }
+            $em->flush();
+            $photosFigurine = $em->getRepository("AppBundle:Army\PhotoFigurine")->findBy(array('figurine' => $figurineArmy));
 
             foreach ($photosFigurine as $photo){
                 if(!$figurineArmy->getPhotos()->contains($photo))
@@ -70,15 +79,8 @@ class FigurineController extends Controller
                     $em->remove($photo);
                 }
             }
-            $files = $form->get('files')->getData();
-            foreach ($files as $file) {
-                $photo = new PhotoFigurine();
-                $photo->setFile($file)
-                    ->setFigurine($figurineArmy);
 
-                $em->persist($photo);
-            }
-
+            $em->flush();
             $this->addFlash('info', 'Vous figurine a bien été mise à jour!');
             return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
