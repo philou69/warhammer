@@ -26,7 +26,7 @@ class PhotoBattleController extends Controller
             $data = $form->getData();
             $files = $form->get('files')->getData();
 
-            foreach ($files as $file){
+            foreach ($files as $file) {
                 $photo = new PhotoBattle();
                 $photo->setUser($this->get('security.token_storage')->getToken()->getUser());
                 $photo->setDateUpload($now);
@@ -36,15 +36,15 @@ class PhotoBattleController extends Controller
             $em->flush();
 
             // Apres enregistrement de la photo, on vérifie si la battle à un résumé ou non
-            if($battle->getResume() === null )
-            {
+            if ($battle->getResume() === null) {
                 return $this->redirectToRoute('resume_create', array('slug' => $battle->getSlug()));
-            }else{
+            } else {
                 return $this->redirectToRoute('resume_edit', array('id' => $battle->getResume()->getId()));
             }
 
 
         }
+
         return $this->render('AppBundle:PhotoBattle:add.html.twig', array('form' => $form->createView()));
     }
 
@@ -52,33 +52,26 @@ class PhotoBattleController extends Controller
     public function deleteAction(Request $request, PhotoBattle $photoBattle)
     {
         // On vérifie si le visiteur en est bien le propriétaire
-        if($photoBattle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
+        if ($photoBattle->getUser() !== $this->get('security.token_storage')->getToken()->getUser()) {
             $this->addFlash('danger', 'Vous n\'avez pas les droits suffisants pour supprimer cette photo');
+            return $this->redirectToRoute('battle_list');
         }
         $em = $this->getDoctrine()->getManager();
 
+        $em->remove($photoBattle);
+        $em->flush();
 
-        $form = $this->get('form.factory')->create();
+        $this->addFlash('info', 'Votre photo a bien été supprimée.');
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $em->remove($photoBattle);
-            $em->flush();
-
-            $this->addFlash('info', 'Votre photo a bien été supprimée.');
-
-            return $this->redirectToRoute('battle_list');
-        }
-
-        return $this->render('AppBundle:PhotoBattle:delete.html.twig', array('form' => $form->createView(), 'photoBattle' => $photoBattle));
-
+        return $this->redirectToRoute('battle_list');
     }
 
     // Gestion d'affichage des photos battles du visiteur
-    public  function indexAction($page)
+    public function indexAction($page)
     {
         // On vérifie de ne pas être sur la page 0 ou moins
-        if($page < 1 ) {
-            throw $this->createNotFoundException("La page ". $page ." n'existe pas");
+        if ($page < 1) {
+            throw $this->createNotFoundException("La page ".$page." n'existe pas");
         }
         // On fixe le nombre de page
         $nbPerPage = 20;
@@ -86,22 +79,25 @@ class PhotoBattleController extends Controller
 
         // On récupere notre objet Paginator
         $photos = $this->getDoctrine()
-                            ->getManager()
-                            ->getRepository("AppBundle:Battle\PhotoBattle")
-                            ->getPhotos($page, $nbPerPage, $user);
+            ->getManager()
+            ->getRepository("AppBundle:Battle\PhotoBattle")
+            ->getPhotos($page, $nbPerPage, $user);
 
         // On calcul le nombre total de page
-        $nbPages= ceil(count($photos)/$nbPerPage);
+        $nbPages = ceil(count($photos) / $nbPerPage);
 
         // Si la page n'existe pas, on retourne une erreur 404
-        if($page > $nbPages && count($photos)> 0){
-            return $this->createNotFoundException('La page '. $page . ' n\'exciste pas.');
+        if ($page > $nbPages && count($photos) > 0) {
+            return $this->createNotFoundException('La page '.$page.' n\'exciste pas.');
         }
 
-        return $this->render('AppBundle:PhotoBattle:page.html.twig', array(
+        return $this->render(
+            'AppBundle:PhotoBattle:page.html.twig',
+            array(
                 'photos' => $photos,
                 'nbPages' => $nbPages,
-                'page' => $page
-        ));
+                'page' => $page,
+            )
+        );
     }
 }

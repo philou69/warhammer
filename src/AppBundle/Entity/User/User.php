@@ -23,6 +23,10 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\Army", mappedBy="user", cascade={"all"})
+     */
+    protected $armies;
+    /**
      * Get id
      *
      * @return int
