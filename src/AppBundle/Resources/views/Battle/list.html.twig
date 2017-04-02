@@ -84,7 +84,7 @@
                     {% if battlePast.resume is null %}
                         <a href="{{ path('resume_create', {'slug': battlePast.slug}) }}" class="btn-xs btn-default">Ecrire le resumé</a>
                     {% else %}
-                        <a href="{{ path('resume_edit', {'slug': battlePast.resume.id}) }}" class="btn btn-xs btn-default">Modfier le resumé</a>
+                        <a href="{{ path('resume_edit', {'id': battlePast.resume.id}) }}" class="btn btn-xs btn-default">Modfier le resumé</a>
                     {% endif %}
                     <a href="#{{ battlePast.slug }}_canceled" data-toggle="modal" class="btn btn-danger btn-xs">Anulée la bataile</a>
                 {% elseif is_granted('ROLE_ADMIN') and battlePast.canceled == true %}
