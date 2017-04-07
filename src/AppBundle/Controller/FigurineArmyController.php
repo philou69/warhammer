@@ -11,7 +11,7 @@ use AppBundle\Form\Army\FigurineArmyType;
 use AppBundle\Form\Army\EditFigurineArmyType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class FigurineController extends Controller
+class FigurineArmyController extends Controller
 {
     // Ajout d'une figurine dans une armée
     public function createAction(Request $request, Army $army)
@@ -46,7 +46,7 @@ class FigurineController extends Controller
             return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:create.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
+        return $this->render('AppBundle:FigurineArmy:create.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
     }
 
     // Gestion de modification d'une figurine
@@ -85,7 +85,7 @@ class FigurineController extends Controller
             return $this->redirectToRoute('army_view', array('slug' => $figurineArmy->getArmy()->getSlug()));
         }
 
-        return $this->render('AppBundle:Figurine:edit.html.twig', array('form' => $form->createView(), 'slug' => $figurineArmy->getArmy()->getSlug(), 'figurineArmy' => $figurineArmy));
+        return $this->render('AppBundle:FigurineArmy:edit.html.twig', array('form' => $form->createView(), 'slug' => $figurineArmy->getArmy()->getSlug(), 'figurineArmy' => $figurineArmy));
     }
 
     // gestion de suppression d'une figurine

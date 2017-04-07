@@ -1,0 +1,11 @@
+race_list:
+  path: /list
+  defaults:
+    _controller: 'AppBundle:Race:list'
+
+race_view:
+  path: /{id}
+  defaults:
+    _controller: 'AppBundle:Race:view'
+  requirements:
+    id: \d+

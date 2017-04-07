@@ -41,7 +41,7 @@ class Army
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race", inversedBy="armies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $race;

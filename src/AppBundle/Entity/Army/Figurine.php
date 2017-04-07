@@ -30,7 +30,7 @@ class Figurine
     private $points;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race", inversedBy="figurines")
      */
     private $race;
 

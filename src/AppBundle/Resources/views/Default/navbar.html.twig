@@ -21,6 +21,9 @@
                     <li class="armies">
                         <a href="{{ path('army_list') }}"> Les armées</a>
                     </li>
+                    <li id="races">
+                        <a href="{{ path('race_list') }}">Les races</a>
+                    </li>
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <li>
                             <a href="{{ path('user') }}">{{ app.user.username }}</a>

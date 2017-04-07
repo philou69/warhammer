@@ -1,0 +1,23 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}{{ race.name }}{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">{{ race.name }}</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Nombre d'equipements</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for figurine in race.figurines %}
+            <tr class="table-hover">
+                <td>{{ figurine.name }}</td>
+                <td>{{ figurine.equipements | length }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
