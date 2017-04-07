@@ -1,0 +1,32 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Liste des races{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Liste des races</h1>
+
+    <table class="table table-striped">
+        <thead class="">
+        <tr>
+            <th>Race</th>
+            <th>Nombre de figurines</th>
+            <th>Nombre d'armées à sa gloire</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for race in races %}
+            <tr class="table-hover">
+                <td>
+                    <a href="{{ path('race_view', {'id': race.id}) }}">{{ race.name }}</a>
+                </td>
+                <td class="text-right">
+                    {{ race.figurines | length }}
+                </td>
+                <td class="text-right">
+                    {{ race.armies | length }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
