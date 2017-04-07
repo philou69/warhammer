@@ -14,7 +14,7 @@
         <tbody>
         {% for figurine in race.figurines %}
             <tr class="table-hover">
-                <td>{{ figurine.name }}</td>
+                <td><a href="{{ path('figurine_view', {'id': figurine.id}) }}">{{ figurine.name }}</a></td>
                 <td>{{ figurine.equipements | length }}</td>
             </tr>
         {% endfor %}
