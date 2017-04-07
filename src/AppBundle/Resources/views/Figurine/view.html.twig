@@ -17,6 +17,8 @@
             {% if loop.last %}
                 </ul>
             {% endif %}
+            {% else %}
+            <p>{{ figurine.name }} n'a pas d'équipements</p>
         {% endfor %}
     </div>
 {% endblock %}
