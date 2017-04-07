@@ -1,0 +1,22 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}{{ figurine.name }}{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">{{ figurine.name }} de {{ figurine.points }} pts</h1>
+    <div class="features">
+        Prochainement liste des caracteristiques
+    </div>
+    <div class="equipements">
+        <h2>Les équipements possible</h2>
+        {% for equipement in figurine.equipements %}
+            {% if loop.first %}
+                <ul class="list-unstyled">
+            {% endif %}
+                <li>{{ equipement.equipement.name }} de {{ equipement.equipement.points }} pts</li>
+            {% if loop.last %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
