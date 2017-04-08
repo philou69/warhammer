@@ -540,6 +540,6 @@ class Figurine
 
     public function __toString()
     {
-        return $this->name;
+        return $this->name . ", " . $this->number . "nb, cc" . $this->cc . ', ct' . $this->ct . ', f ' . $this->f . ',e ' . $this->e . ', pv' . $this->pv . ', i' . $this->i . ',a ' . $this->a . ',cd ' . $this->cd . ',sv ' . $this->sv . 'blind av ' . $this->blindageAv . 'blindf' . $this->blindageFl . ', blind ar ' . $this->blindageAr;
     }
 }
