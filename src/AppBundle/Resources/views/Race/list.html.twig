@@ -9,7 +9,7 @@
         <thead class="">
         <tr>
             <th>Race</th>
-            <th>Nombre de figurines</th>
+            <th>Nombre de unités</th>
             <th>Nombre d'armées à sa gloire</th>
         </tr>
         </thead>
@@ -20,7 +20,7 @@
                     <a href="{{ path('race_view', {'id': race.id}) }}">{{ race.name }}</a>
                 </td>
                 <td class="text-right">
-                    {{ race.figurines | length }}
+                    {{ race.units | length }}
                 </td>
                 <td class="text-right">
                     {{ race.armies | length }}

@@ -1,0 +1,50 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}{{ unit.name }}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('race_view', {'id': unit.race.id}) }}">Retour à la race</a>
+    <h1 class="text-center">{{ unit.name }} de {{ unit.points }} pts</h1>
+    <div class="figurines">
+            {% for figurine in unit.figurines %}
+                <ul class="list-unstyled">
+                    <li>Nom de la figrine : {{ figurine.name }}</li>
+                    <li>Nombre de unit : {{ figurine.number }}</li>
+                    {% if figurine.blindageAv is null %}
+                        <li>CC : {{ figurine.cc }}</li>
+                        <li>CT : {{ figurine.ct }}</li>
+                        <li>F : {{ figurine.f }}</li>
+                        <li>E : {{ figurine.e }}</li>
+                        <li>PV : {{ figurine.pv }}</li>
+                        <li>I : {{ figurine.i }}</li>
+                        <li>A : {{ figurine.a }}</li>
+                        <li>Cd : {{ figurine.cd }}</li>
+                        <li>Sv : {{ figurine.sv }}</li>
+                    {% elseif figurine.ct is not null %}
+                        <li>CT : {{ figurine.ct }}</li>
+                        <li>Blindage Avant : {{ figurine.blindageAv }} </li>
+                        <li>Blindage Flanc : {{ figurine.blindageFl }}</li>
+                        <li>Blindage Arrière : {{ figurine.blindageAr }}</li>
+                        <li>PC : {{ figurine.pv }}</li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <p>L'unité n'a pas encore renseigné ses effectifs</p>
+            {% endfor %}
+
+    </div>
+    <div class="equipements">
+        <h2>Les équipements possible</h2>
+        {% for equipement in unit.equipements %}
+            {% if loop.first %}
+                <ul class="list-unstyled">
+            {% endif %}
+                <li>{{ equipement.equipement.name }} de {{ equipement.equipement.points }} pts</li>
+            {% if loop.last %}
+                </ul>
+            {% endif %}
+            {% else %}
+            <p>{{ unit.name }} n'a pas d'équipements</p>
+        {% endfor %}
+    </div>
+{% endblock %}

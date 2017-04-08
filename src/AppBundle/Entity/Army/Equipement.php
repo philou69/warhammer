@@ -30,17 +30,17 @@ class Equipement
     private $points;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementFigurine", mappedBy="equipement")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementUnit", mappedBy="equipement")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $figurines;
+    private $units;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -107,37 +107,37 @@ class Equipement
     }
 
     /**
-     * Add figurine.
+     * Add unit.
      *
-     * @param \AppBundle\Entity\Army\EquipementFigurine $figurine
+     * @param \AppBundle\Entity\Army\EquipementUnit $unit
      *
      * @return Options
      */
-    public function addFigurine(\AppBundle\Entity\Army\EquipementFigurine $figurine)
+    public function addUnit(\AppBundle\Entity\Army\EquipementUnit $unit)
     {
-        $this->figurines[] = $figurine;
+        $this->units[] = $unit;
 
         return $this;
     }
 
     /**
-     * Remove figurine.
+     * Remove unit.
      *
-     * @param \AppBundle\Entity\Army\EquipementFigurine $figurine
+     * @param \AppBundle\Entity\Army\EquipementUnit $unit
      */
-    public function removeFigurine(\AppBundle\Entity\Army\EquipementFigurine $figurine)
+    public function removeUnit(\AppBundle\Entity\Army\EquipementUnit $unit)
     {
-        $this->figurines->removeElement($figurine);
+        $this->units->removeElement($unit);
     }
 
     /**
-     * Get figurines.
+     * Get units.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFigurines()
+    public function getUnits()
     {
-        return $this->figurines;
+        return $this->units;
     }
 
     public function getNameAndPoints()

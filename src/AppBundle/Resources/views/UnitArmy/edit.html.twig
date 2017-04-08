@@ -1,0 +1,72 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}
+modification d'une unité
+{% endblock %}
+
+{% block body %}
+	<div class="well">
+		<h2 class="text-center">Modification des options de la unité {{ unitArmy.unit.name}}</h2>
+		{{ form_start(form,{'attr':{'class': 'form-horizontal'}}) }}
+		{{ form_errors(form)}}
+
+		<div class="form-group">
+			{{ form_label(form.equipements,'Options :',{'label_attr':{'class':'col-sm-3 control-label'}})}}
+			<div class="col-sm-9 row">
+                {% for equipement in form.equipements %}
+					<div class="col-sm-4">
+						<label for="{{ equipement.vars.id }}">
+							<input type="checkbox" name="{{ equipement.vars.full_name }}" value="{{ equipement.vars.value }}" id="{{ equipement.vars.id }}" {% if equipement.vars.checked == true %}checked{% endif %}>
+							{{ equipement.vars.label }}
+						</label>
+					</div>
+                {% endfor %}
+			</div>
+			{{ form_errors(form.equipements) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.photos, form.photos.vars.label, {'label_attr': {'class':'col-sm-3 control-label'}}) }}
+			<div class="col-sm-9">
+                {% for photo in form.photos %}
+					<div class="col-sm-3">
+						<label for="{{ photo.vars.id }}">
+							<input type="checkbox" name="{{ photo.vars.full_name }}" value="{{ photo.vars.value }}" id="{{ photo.vars.id }}" {% if photo.vars.checked == true %}checked{% endif %}>
+							<img src="{{ asset(photo.vars.label) }}" alt="photo armée" class="img-responsive">
+						</label>
+					</div>
+                {% endfor %}
+			</div>
+			{{ form_errors(form.photos) }}
+		</div>
+		<div class="form-group">
+			{{ form_label(form.files, form.files.vars.label, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+			<div class="col-sm-4">
+				{{ form_widget(form.files) }}
+			</div>
+			{{ form_errors(form.files) }}
+		</div>
+		<div class="text-center">
+			{{ form_row(form.save,{'attr':{'class':'btn btn-default btn-sm '}})}}
+		</div>
+		{{ form_widget(form._token) }}
+		{{ form_end(form, {'render_rest': false}) }}
+
+		<div class="text-right">
+			<a class="btn btn-default btn-xs" href="{{ path('army_view',{'slug': slug})}}"><i class="glyphicon glyphicon-chevron-left"></i>Retour à l'armée</a>
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascript %}
+	{{ parent() }}
+	<script type="text/javascript">
+	window.onload = function () {
+		var checkboxElts = document.querySelectorAll('div.checkbox');
+		for (var i = checkboxElts.length - 1; i >= 0; i--) {
+			checkboxElts[i].classList.add('col-sm-4');
+		}
+
+	}
+	</script>
+{% endblock %}

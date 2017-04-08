@@ -12,10 +12,10 @@
             </tr>
         </thead>
         <tbody>
-        {% for figurine in race.figurines %}
+        {% for unit in race.units %}
             <tr class="table-hover">
-                <td><a href="{{ path('figurine_view', {'id': figurine.id}) }}">{{ figurine.name }}</a></td>
-                <td>{{ figurine.equipements | length }}</td>
+                <td><a href="{{ path('unit_view', {'id': unit.id}) }}">{{ unit.name }}</a></td>
+                <td>{{ unit.equipements | length }}</td>
             </tr>
         {% endfor %}
         </tbody>

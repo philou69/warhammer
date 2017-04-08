@@ -1,6 +1,0 @@
-figurine_view:
-  path: /{id}
-  defaults:
-    _controller: 'AppBundle:Figurine:view'
-  requirements:
-    id: \d+

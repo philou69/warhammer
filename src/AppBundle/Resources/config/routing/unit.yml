@@ -1,0 +1,6 @@
+unit_view:
+  path: /{id}
+  defaults:
+    _controller: 'AppBundle:Unit:view'
+  requirements:
+    id: \d+

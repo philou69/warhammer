@@ -31,9 +31,9 @@ class Race
     private $armies;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\Figurine", mappedBy="race")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\Unit", mappedBy="race")
      */
-    private $figurines;
+    private $units;
 
     public function __toString()
     {
@@ -99,28 +99,84 @@ class Race
     }
 
     /**
-     * Get figurines
+     * Get units
      *
      * @return mixed
      */
-    public function getFigurines()
+    public function getUnits()
     {
-        return $this->figurines;
+        return $this->units;
     }
 
     /**
-     * Set figurines
+     * Set units
      *
-     * @param mixed $figurines
+     * @param mixed $units
      *
      * @return $this
      */
-    public function setFigurines($figurines)
+    public function setUnits($units)
     {
-        $this->figurines = $figurines;
+        $this->units = $units;
 
         return $this;
     }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->armies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add army
+     *
+     * @param \AppBundle\Entity\Army\Army $army
+     *
+     * @return Race
+     */
+    public function addArmy(\AppBundle\Entity\Army\Army $army)
+    {
+        $this->armies[] = $army;
+
+        return $this;
+    }
+
+    /**
+     * Remove army
+     *
+     * @param \AppBundle\Entity\Army\Army $army
+     */
+    public function removeArmy(\AppBundle\Entity\Army\Army $army)
+    {
+        $this->armies->removeElement($army);
+    }
+
+    /**
+     * Add unit
+     *
+     * @param \AppBundle\Entity\Army\Unit $unit
+     *
+     * @return Race
+     */
+    public function addUnit(\AppBundle\Entity\Army\Unit $unit)
+    {
+        $this->units[] = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Remove unit
+     *
+     * @param \AppBundle\Entity\Army\Unit $unit
+     */
+    public function removeUnit(\AppBundle\Entity\Army\Unit $unit)
+    {
+        $this->units->removeElement($unit);
+    }
 }
