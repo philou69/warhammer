@@ -69,7 +69,8 @@ class UnitArmyType extends AbstractType
                     'attr' => array(
                         'accept' => 'image/*',
                     ),
-                    'mapped' => false
+                    'mapped' => false,
+                    'required' => false
             ))
             ->add('save', SubmitType::class, array(
                     'label' => 'Enregistrer',

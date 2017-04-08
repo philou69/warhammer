@@ -54,6 +54,7 @@ class Unit
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Figurine", mappedBy="units")
      */
     private $figurines;
+
     /**
      * Constructor.
      */
@@ -65,7 +66,7 @@ class Unit
 
     public function __toString()
     {
-        return $this->name." ".$this->points;
+        return $this->name . " " . $this->race->getName() . " " . $this->points;
     }
 
     /**
