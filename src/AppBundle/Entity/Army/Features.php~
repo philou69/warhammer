@@ -1,0 +1,94 @@
+<?php
+
+
+namespace AppBundle\Entity\Army;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Class Features
+ * @package AppBundle\Form\Army
+ *
+ * @ORM\Table(name="feature")
+ * @ORM\Entity(
+ *     repositoryClass="AppBundle\Repository\Army\FeatureRepository"
+ * )
+ */
+class Features
+{
+    /**
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @ORM\Column(name="number", type="integer")
+     */
+    protected $number;
+    /**
+     * @ORM\Column(name="cc", type="integer",nullable=true)
+     */
+    protected $cc;
+
+    /**
+     * @ORM\Column(name="ct", type="integer")
+     */
+    protected $ct;
+
+    /**
+     * @ORM\Column(name="f", type="integer", nullable=true)
+     */
+    protected $f;
+
+    /**
+     * @ORM\Column(name="e", type="integer", nullable=true)
+     */
+    protected $e;
+
+    /**
+     * @ORM\Column(name="pv", type="integer")
+     */
+    protected $pv;
+
+    /**
+     * @ORM\Column(name="i", type="integer", nullable=true)
+     */
+    protected $i;
+
+    /**
+     * @ORM\Column(name="a", type="integer", nullable=true)
+     */
+    protected $a;
+
+    /**
+     * @ORM\Column(name="cd", type="integer", nullable=true)
+     */
+    protected $cd;
+
+    /**
+     * @ORM\Column(name="sv", type="string", nullable=true)
+     */
+    protected $sv;
+
+    /**
+     * @ORM\Column(name="blindage_av", type="integer", nullable=true)
+     */
+    protected $blindageAv;
+
+    /**
+     * @ORM\Column(name="blindage_fl", type="integer", nullable=true)
+     */
+    protected $blindageFl;
+
+    /**
+     * @ORM\Column(name="blindage_ar", type="integer", nullable=true)
+     */
+    protected $blindageAr;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\Figurine", inversedBy="feature")
+     */
+    protected $figurine;
+}

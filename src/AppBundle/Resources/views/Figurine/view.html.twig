@@ -5,7 +5,26 @@
 {% block body %}
     <h1 class="text-center">{{ figurine.name }} de {{ figurine.points }} pts</h1>
     <div class="features">
-        Prochainement liste des caracteristiques
+        <ul class="list-unstyled">
+            <li>Nombre de figurine : {{ figurine.feature.number }}</li>
+            {% if figurine.feature.blindageAv is null %}
+                <li>CC : {{ figurine.feature.cc }}</li>
+                <li>CT : {{ figurine.feature.ct }}</li>
+                <li>F : {{ figurine.feature.f }}</li>
+                <li>E : {{ figurine.feature.e }}</li>
+                <li>PV : {{ figurine.feature.pv }}</li>
+                <li>I : {{ figurine.feature.i }}</li>
+                <li>A : {{ figurine.feature.a }}</li>
+                <li>Cd : {{ figurine.feature.cd }}</li>
+                <li>Sv : {{ figurine.feature.sv }}</li>
+                {% else %}
+                <li>CT : {{ figurine.feature.ct }}</li>
+                <li>Blindage Avant : {{ figurine.feature.blindageAv }} </li>
+                <li>Blindage Flanc : {{ figurine.feature.blindageFl }}</li>
+                <li>Blindage Arrière : {{ figurine.feature.blindageAr }}</li>
+                    <li>PC : {{ figurine.feature.pv }}</li>
+            {% endif %}
+        </ul>
     </div>
     <div class="equipements">
         <h2>Les équipements possible</h2>

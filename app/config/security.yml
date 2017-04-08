@@ -40,8 +40,8 @@ security:
     - { path: ^/login$, role:  IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/register, role:  IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/resetting, role:  IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/admin/, roles: ROLE_SUPER_ADMIN }
-    - { path: ^/battle/delete/, roles: ROLE_SUPER_ADMIN }
+    - { path: ^/admin/, roles: ROLE_ADMIN }
+    - { path: ^/battle/delete/, roles: ROLE_ADMIN }
             # activate different ways to authenticate
 
             # http_basic: ~
