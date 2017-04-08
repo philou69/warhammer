@@ -10,9 +10,9 @@ app_army:
     resource: 'routing/army.yml'
     prefix: /army
 
-app_figurine_army:
-    resource: 'routing/figurine.army.yml'
-    prefix: /figurinearmy
+app_unit_army:
+    resource: 'routing/unit.army.yml'
+    prefix: /unitarmy
 
 app_photo_user:
     resource: 'routing/photo.user.yml'
@@ -30,6 +30,6 @@ app_race:
     resource: 'routing/race.yml'
     prefix: /race
 
-app_figurine:
-    resource: 'routing/figurine.yml'
-    prefix: /figurine
+app_unit:
+    resource: 'routing/unit.yml'
+    prefix: /unit

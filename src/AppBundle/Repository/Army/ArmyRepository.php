@@ -14,13 +14,13 @@ class ArmyRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('a');
 
-        $qb->leftJoin('a.figurines', 'f')
-            ->addSelect('f')
-            ->leftJoin('f.figurine', 'fi')
-            ->addSelect('f')
-            ->leftJoin('f.equipements', 'e')
+        $qb->leftJoin('a.units', 'u')
+            ->addSelect('u')
+            ->leftJoin('u.unit', 'un')
+            ->addSelect('u')
+            ->leftJoin('u.equipements', 'e')
             ->addSelect('e')
-            ->leftJoin('f.photos', 'ph')
+            ->leftJoin('u.photos', 'ph')
             ->addSelect('ph')
             ->where('a.slug = :slug')
             ->setParameter('slug', $slug);

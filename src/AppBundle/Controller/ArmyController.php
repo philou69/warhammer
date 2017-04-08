@@ -24,21 +24,7 @@ class ArmyController extends Controller
     // Page de vue d'une armée
     public function viewAction(Request $request, Army $army)
     {
-        $repo = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('AppBundle:Army\FigurineArmy');
-
-        $figsQG = $repo->findByGroup('1', $army->getId());
-        $figsTroupe = $repo->findByGroup('2', $army->getId()) ;
-        $figsElite = $repo->findByGroup('3', $army->getId()) ;
-        $figsTransport = $repo->findByGroup('4', $army->getId()) ;
-        $figsAttaque = $repo->findByGroup('5', $army->getId()) ;
-        $figsSoutien = $repo->findByGroup('6', $army->getId()) ;
-        $figsSeigneur = $repo->findByGroup('7', $army->getId()) ;
-
-
-        return $this->render('AppBundle:Army:view.html.twig', array('army' => $army,
-            'figsQG' => $figsQG, 'figsTroupe' => $figsTroupe, 'figsElite' => $figsElite, 'figsTransport' => $figsTransport, 'figsAttaque' => $figsAttaque, 'figsSoutien' => $figsSoutien, 'figsSeigneur' => $figsSeigneur ));
+        return $this->render('AppBundle:Army:view.html.twig', array('army' => $army ));
     }
 
     //Page de création d'une armée

@@ -53,10 +53,10 @@ class Army
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="army", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\UnitArmy", mappedBy="army", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $figurines;
+    private $units;
 
     private $groupes = ['QG', 'Elite', 'Troupe', 'Transport', 'Attaque Rapide', 'Soutien', 'Seigneur de Guerre'];
     /**
@@ -64,7 +64,7 @@ class Army
      */
     public function __construct()
     {
-        $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
         $this->points = 0;
     }
 
@@ -129,8 +129,8 @@ class Army
     public function getPoints()
     {
         $points = 0;
-        foreach ($this->figurines as $figurine) {
-            $points += $figurine->getPoints();
+        foreach ($this->units as $unit) {
+            $points += $unit->getPoints();
         }
         $this->points = $points;
         return $points;
@@ -209,39 +209,39 @@ class Army
     }
 
     /**
-     * Add figurine.
+     * Add unit.
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     * @param \AppBundle\Entity\Army\UnitArmy $unit
      *
      * @return Army
      */
-    public function addFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function addUnit(\AppBundle\Entity\Army\UnitArmy $unit)
     {
-        $this->figurines[] = $figurine;
-        $this->points += $figurine->getPoints();
+        $this->units[] = $unit;
+        $this->points += $unit->getPoints();
 
         return $this;
     }
 
     /**
-     * Remove figurine.
+     * Remove unit.
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     * @param \AppBundle\Entity\Army\UnitArmy $unit
      */
-    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function removeUnit(\AppBundle\Entity\Army\UnitArmy $unit)
     {
-        $this->points -= $figurine->getPoints();
-        $this->figurines->removeElement($figurine);
+        $this->points -= $unit->getPoints();
+        $this->units->removeElement($unit);
     }
 
     /**
-     * Get figurines.
+     * Get units.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFigurines()
+    public function getUnits()
     {
-        return $this->figurines;
+        return $this->units;
     }
 
     public function getGroupes()

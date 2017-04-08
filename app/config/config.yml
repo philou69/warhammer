@@ -112,16 +112,16 @@ easy_admin:
       class: AppBundle\Entity\Army\Army
     Equipements:
       class: AppBundle\Entity\Army\Equipement
-    EquipementsFigurines:
-      class: AppBundle\Entity\Army\EquipementFigurine
-    Figurines:
-      class: AppBundle\Entity\Army\Figurine
-    FigurinesArmy:
-      class: AppBundle\Entity\Army\FigurineArmy
+    EquipementsUnits:
+      class: AppBundle\Entity\Army\EquipementUnit
+    Units:
+      class: AppBundle\Entity\Army\Unit
+    UnitsArmy:
+      class: AppBundle\Entity\Army\UnitArmy
     Groupes:
       class: AppBundle\Entity\Army\Groupe
-    PhotosFigurine:
-      class: AppBundle\Entity\Army\PhotoFigurine
+    PhotosUnit:
+      class: AppBundle\Entity\Army\PhotoUnit
     Races:
       class: AppBundle\Entity\Army\Race
     Battles:
@@ -134,5 +134,7 @@ easy_admin:
       class: AppBundle\Entity\Battle\Presence
     Resumes:
       class: AppBundle\Entity\Battle\Resume
-    Feature:
-      class: AppBundle\Entity\Army\Features
+    Figurine:
+      class: AppBundle\Entity\Army\Figurine
+    Type:
+      class: AppBundle\Entity\Army\Type

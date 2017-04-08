@@ -1,11 +1,14 @@
 <?php
 
+
 namespace AppBundle\Entity\Army;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
- * Figurine.
+ * Class Figurine
+ * @package AppBundle\Entity\Army
  *
  * @ORM\Table(name="figurine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\FigurineRepository")
@@ -17,61 +20,93 @@ class Figurine
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string")
      */
-    private $name;
+    protected $name;
 
     /**
-     * @ORM\Column(name="points", type="integer")
+     * @ORM\Column(name="number", type="integer")
      */
-    private $points;
-
+    protected $number;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race", inversedBy="figurines")
+     * @ORM\Column(name="cc", type="integer",nullable=true)
      */
-    private $race;
+    protected $cc;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Groupe")
+     * @ORM\Column(name="ct", type="integer")
      */
-    private $groupe;
+    protected $ct;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="figurine")
+     * @ORM\Column(name="f", type="integer", nullable=true)
      */
-    private $armies;
+    protected $f;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementFigurine", mappedBy="figurine")
+     * @ORM\Column(name="e", type="integer", nullable=true)
+     */
+    protected $e;
+
+    /**
+     * @ORM\Column(name="pv", type="integer")
+     */
+    protected $pv;
+
+    /**
+     * @ORM\Column(name="i", type="integer", nullable=true)
+     */
+    protected $i;
+
+    /**
+     * @ORM\Column(name="a", type="integer", nullable=true)
+     */
+    protected $a;
+
+    /**
+     * @ORM\Column(name="cd", type="integer", nullable=true)
+     */
+    protected $cd;
+
+    /**
+     * @ORM\Column(name="sv", type="string", nullable=true)
+     */
+    protected $sv;
+
+    /**
+     * @ORM\Column(name="blindage_av", type="integer", nullable=true)
+     */
+    protected $blindageAv;
+
+    /**
+     * @ORM\Column(name="blindage_fl", type="integer", nullable=true)
+     */
+    protected $blindageFl;
+
+    /**
+     * @ORM\Column(name="blindage_ar", type="integer", nullable=true)
+     */
+    protected $blindageAr;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Type")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $equipements;
+    protected $type;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\Features", mappedBy="figurine")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Unit", inversedBy="figurines")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $feature;
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->armies = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->name." ".$this->points;
-    }
+    protected $units;
 
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -79,7 +114,7 @@ class Figurine
     }
 
     /**
-     * Set name.
+     * Set name
      *
      * @param string $name
      *
@@ -93,7 +128,7 @@ class Figurine
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
@@ -103,147 +138,403 @@ class Figurine
     }
 
     /**
-     * Set points.
+     * Set number
      *
-     * @param int $points
+     * @param integer $number
      *
      * @return Figurine
      */
-    public function setPoints($points)
+    public function setNumber($number)
     {
-        $this->points = $points;
+        $this->number = $number;
 
         return $this;
     }
 
     /**
-     * Get points.
+     * Get number
      *
-     * @return int
+     * @return integer
      */
-    public function getPoints()
+    public function getNumber()
     {
-        return $this->points;
+        return $this->number;
     }
 
     /**
-     * Set race.
+     * Set cc
      *
-     * @param \AppBundle\Entity\Army\Race $race
+     * @param integer $cc
      *
      * @return Figurine
      */
-    public function setRace(\AppBundle\Entity\Army\Race $race = null)
+    public function setCc($cc)
     {
-        $this->race = $race;
+        $this->cc = $cc;
 
         return $this;
     }
 
     /**
-     * Get race.
+     * Get cc
      *
-     * @return \AppBundle\Entity\Army\Race
+     * @return integer
      */
-    public function getRace()
+    public function getCc()
     {
-        return $this->race;
+        return $this->cc;
     }
 
     /**
-     * Set groupe.
+     * Set ct
      *
-     * @param \AppBundle\Entity\Army\Groupe $groupe
+     * @param integer $ct
      *
      * @return Figurine
      */
-    public function setGroupe(\AppBundle\Entity\Army\Groupe $groupe = null)
+    public function setCt($ct)
     {
-        $this->groupe = $groupe;
+        $this->ct = $ct;
 
         return $this;
     }
 
     /**
-     * Get groupe.
+     * Get ct
      *
-     * @return \AppBundle\Entity\Army\Groupe
+     * @return integer
      */
-    public function getGroupe()
+    public function getCt()
     {
-        return $this->groupe;
+        return $this->ct;
     }
 
     /**
-     * Add army.
+     * Set f
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $army
+     * @param integer $f
      *
      * @return Figurine
      */
-    public function addArmy(\AppBundle\Entity\Army\FigurineArmy $army)
+    public function setF($f)
     {
-        $this->armies[] = $army;
+        $this->f = $f;
 
         return $this;
     }
 
     /**
-     * Remove army.
+     * Get f
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $army
+     * @return integer
      */
-    public function removeArmy(\AppBundle\Entity\Army\FigurineArmy $army)
+    public function getF()
     {
-        $this->armies->removeElement($army);
+        return $this->f;
     }
 
     /**
-     * Get armies.
+     * Set e
+     *
+     * @param integer $e
+     *
+     * @return Figurine
+     */
+    public function setE($e)
+    {
+        $this->e = $e;
+
+        return $this;
+    }
+
+    /**
+     * Get e
+     *
+     * @return integer
+     */
+    public function getE()
+    {
+        return $this->e;
+    }
+
+    /**
+     * Set pv
+     *
+     * @param integer $pv
+     *
+     * @return Figurine
+     */
+    public function setPv($pv)
+    {
+        $this->pv = $pv;
+
+        return $this;
+    }
+
+    /**
+     * Get pv
+     *
+     * @return integer
+     */
+    public function getPv()
+    {
+        return $this->pv;
+    }
+
+    /**
+     * Set i
+     *
+     * @param integer $i
+     *
+     * @return Figurine
+     */
+    public function setI($i)
+    {
+        $this->i = $i;
+
+        return $this;
+    }
+
+    /**
+     * Get i
+     *
+     * @return integer
+     */
+    public function getI()
+    {
+        return $this->i;
+    }
+
+    /**
+     * Set a
+     *
+     * @param integer $a
+     *
+     * @return Figurine
+     */
+    public function setA($a)
+    {
+        $this->a = $a;
+
+        return $this;
+    }
+
+    /**
+     * Get a
+     *
+     * @return integer
+     */
+    public function getA()
+    {
+        return $this->a;
+    }
+
+    /**
+     * Set cd
+     *
+     * @param integer $cd
+     *
+     * @return Figurine
+     */
+    public function setCd($cd)
+    {
+        $this->cd = $cd;
+
+        return $this;
+    }
+
+    /**
+     * Get cd
+     *
+     * @return integer
+     */
+    public function getCd()
+    {
+        return $this->cd;
+    }
+
+    /**
+     * Set sv
+     *
+     * @param string $sv
+     *
+     * @return Figurine
+     */
+    public function setSv($sv)
+    {
+        $this->sv = $sv;
+
+        return $this;
+    }
+
+    /**
+     * Get sv
+     *
+     * @return string
+     */
+    public function getSv()
+    {
+        return $this->sv;
+    }
+
+    /**
+     * Set blindageAv
+     *
+     * @param integer $blindageAv
+     *
+     * @return Figurine
+     */
+    public function setBlindageAv($blindageAv)
+    {
+        $this->blindageAv = $blindageAv;
+
+        return $this;
+    }
+
+    /**
+     * Get blindageAv
+     *
+     * @return integer
+     */
+    public function getBlindageAv()
+    {
+        return $this->blindageAv;
+    }
+
+    /**
+     * Set blindageFl
+     *
+     * @param integer $blindageFl
+     *
+     * @return Figurine
+     */
+    public function setBlindageFl($blindageFl)
+    {
+        $this->blindageFl = $blindageFl;
+
+        return $this;
+    }
+
+    /**
+     * Get blindageFl
+     *
+     * @return integer
+     */
+    public function getBlindageFl()
+    {
+        return $this->blindageFl;
+    }
+
+    /**
+     * Set blindageAr
+     *
+     * @param integer $blindageAr
+     *
+     * @return Figurine
+     */
+    public function setBlindageAr($blindageAr)
+    {
+        $this->blindageAr = $blindageAr;
+
+        return $this;
+    }
+
+    /**
+     * Get blindageAr
+     *
+     * @return integer
+     */
+    public function getBlindageAr()
+    {
+        return $this->blindageAr;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param \AppBundle\Entity\Army\Unit $unit
+     *
+     * @return Figurine
+     */
+    public function setUnit(\AppBundle\Entity\Army\Unit $unit = null)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return \AppBundle\Entity\Army\Unit
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \AppBundle\Entity\Army\Type $type
+     *
+     * @return Figurine
+     */
+    public function setType(\AppBundle\Entity\Army\Type $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \AppBundle\Entity\Army\Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add unit
+     *
+     * @param \AppBundle\Entity\Army\Unit $unit
+     *
+     * @return Figurine
+     */
+    public function addUnit(\AppBundle\Entity\Army\Unit $unit)
+    {
+        $this->units[] = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Remove unit
+     *
+     * @param \AppBundle\Entity\Army\Unit $unit
+     */
+    public function removeUnit(\AppBundle\Entity\Army\Unit $unit)
+    {
+        $this->units->removeElement($unit);
+    }
+
+    /**
+     * Get units
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getArmies()
+    public function getUnits()
     {
-        return $this->armies;
-    }
-
-    /**
-     * Add equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
-     *
-     * @return Figurine
-     */
-    public function addEquipement(\AppBundle\Entity\Army\EquipementFigurine $equipement)
-    {
-        $this->equipements[] = $equipement;
-
-        return $this;
-    }
-
-    /**
-     * Remove equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementFigurine $equipement
-     */
-    public function removeEquipement(\AppBundle\Entity\Army\EquipementFigurine $equipement)
-    {
-        $this->equipements->removeElement($equipement);
-    }
-
-    /**
-     * Get equipements.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEquipements()
-    {
-        return $this->equipements;
-    }
-
-    public function getNameAndPoints()
-    {
-        return $this->name.' '.$this->points.' pts';
+        return $this->units;
     }
 }
