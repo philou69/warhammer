@@ -51,6 +51,10 @@ class Figurine
     private $equipements;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\Features", mappedBy="figurine")
+     */
+    private $feature;
+    /**
      * Constructor.
      */
     public function __construct()
@@ -241,5 +245,29 @@ class Figurine
     public function getNameAndPoints()
     {
         return $this->name.' '.$this->points.' pts';
+    }
+
+    /**
+     * Set feature
+     *
+     * @param \AppBundle\Entity\Army\Features $feature
+     *
+     * @return Figurine
+     */
+    public function setFeature(\AppBundle\Entity\Army\Features $feature = null)
+    {
+        $this->feature = $feature;
+
+        return $this;
+    }
+
+    /**
+     * Get feature
+     *
+     * @return \AppBundle\Entity\Army\Features
+     */
+    public function getFeature()
+    {
+        return $this->feature;
     }
 }
