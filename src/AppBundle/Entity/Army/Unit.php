@@ -247,38 +247,15 @@ class Unit
         return $this->name.' '.$this->points.' pts';
     }
 
-    /**
-     * Set feature
-     *
-     * @param \AppBundle\Entity\Army\Features $feature
-     *
-     * @return Unit
-     */
-    public function setFeature(\AppBundle\Entity\Army\Features $feature = null)
-    {
-        $this->feature = $feature;
-
-        return $this;
-    }
-
-    /**
-     * Get feature
-     *
-     * @return \AppBundle\Entity\Army\Features
-     */
-    public function getFeature()
-    {
-        return $this->feature;
-    }
 
     /**
      * Add figurine
      *
-     * @param \AppBundle\Entity\Army\Features $figurine
+     * @param \AppBundle\Entity\Army\Figurine $figurine
      *
      * @return Unit
      */
-    public function addFigurine(\AppBundle\Entity\Army\Features $figurine)
+    public function addFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines[] = $figurine;
 
@@ -288,9 +265,9 @@ class Unit
     /**
      * Remove figurine
      *
-     * @param \AppBundle\Entity\Army\Features $figurine
+     * @param \AppBundle\Entity\Army\Figurine $figurine
      */
-    public function removeFigurine(\AppBundle\Entity\Army\Features $figurine)
+    public function removeFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines->removeElement($figurine);
     }
