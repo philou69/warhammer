@@ -45,7 +45,7 @@ class Unit
     private $armies;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementUnit", mappedBy="unit")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Equipement", inversedBy="units")
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipements;
@@ -209,46 +209,11 @@ class Unit
         return $this->armies;
     }
 
-    /**
-     * Add equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementUnit $equipement
-     *
-     * @return Unit
-     */
-    public function addEquipement(\AppBundle\Entity\Army\EquipementUnit $equipement)
-    {
-        $this->equipements[] = $equipement;
-
-        return $this;
-    }
-
-    /**
-     * Remove equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementUnit $equipement
-     */
-    public function removeEquipement(\AppBundle\Entity\Army\EquipementUnit $equipement)
-    {
-        $this->equipements->removeElement($equipement);
-    }
-
-    /**
-     * Get equipements.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEquipements()
-    {
-        return $this->equipements;
-    }
-
     public function getNameAndPoints()
     {
         return $this->name.' '.$this->points.' pts';
     }
-
-
+    
     /**
      * Add figurine
      *
@@ -281,5 +246,39 @@ class Unit
     public function getFigurines()
     {
         return $this->figurines;
+    }
+
+    /**
+     * Add equipement
+     *
+     * @param \AppBundle\Entity\Army\Equipement $equipement
+     *
+     * @return Unit
+     */
+    public function addEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    {
+        $this->equipements[] = $equipement;
+
+        return $this;
+    }
+
+    /**
+     * Remove equipement
+     *
+     * @param \AppBundle\Entity\Army\Equipement $equipement
+     */
+    public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    {
+        $this->equipements->removeElement($equipement);
+    }
+
+    /**
+     * Get equipements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipements()
+    {
+        return $this->equipements;
     }
 }

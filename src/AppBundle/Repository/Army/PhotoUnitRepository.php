@@ -10,7 +10,7 @@ namespace AppBundle\Repository\Army;
  */
 class PhotoUnitRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findForFigurine($unit)
+    public function findForUnit($unit)
     {
         $qb = $this->createQueryBuilder('ph');
 

@@ -14,23 +14,20 @@ class EquipementRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('e');
 
-        $qb->innerJoin('e.units', 'eq')
-            ->addSelect('eq')
-            ->innerJoin('eq.unit', 'u')
+        $qb->innerJoin('e.units', 'u')
             ->addSelect('u')
             ->where('u.race = :race')
             ->setParameter('race', $race);
 
         return $qb;
     }
-    public function findByFigurine($unit)
+    public function findByUnit($unit)
     {
         $qb = $this->createQueryBuilder('e');
 
-        $qb->innerJoin('e.units', 'eq')
-            ->addSelect('eq')
-            ->where('eq.unit = :unit')
-            ->setParameter('unit', $unit);
+        $qb->innerJoin('e.units', 'u')
+            ->where('u.id = :unit')
+            ->setParameter('unit', $unit->getId());
 
         return $qb;
     }

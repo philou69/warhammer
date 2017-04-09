@@ -30,7 +30,7 @@ class Equipement
     private $points;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementUnit", mappedBy="equipement")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Unit", mappedBy="equipements")
      * @ORM\JoinColumn(nullable=false)
      */
     private $units;
@@ -106,14 +106,19 @@ class Equipement
         return $this->points;
     }
 
+    public function getNameAndPoints()
+    {
+        return $this->name.' '.$this->points;
+    }
+
     /**
-     * Add unit.
+     * Add unit
      *
-     * @param \AppBundle\Entity\Army\EquipementUnit $unit
+     * @param \AppBundle\Entity\Army\Unit $unit
      *
-     * @return Options
+     * @return Equipement
      */
-    public function addUnit(\AppBundle\Entity\Army\EquipementUnit $unit)
+    public function addUnit(\AppBundle\Entity\Army\Unit $unit)
     {
         $this->units[] = $unit;
 
@@ -121,27 +126,22 @@ class Equipement
     }
 
     /**
-     * Remove unit.
+     * Remove unit
      *
-     * @param \AppBundle\Entity\Army\EquipementUnit $unit
+     * @param \AppBundle\Entity\Army\Unit $unit
      */
-    public function removeUnit(\AppBundle\Entity\Army\EquipementUnit $unit)
+    public function removeUnit(\AppBundle\Entity\Army\Unit $unit)
     {
         $this->units->removeElement($unit);
     }
 
     /**
-     * Get units.
+     * Get units
      *
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getUnits()
     {
         return $this->units;
-    }
-
-    public function getNameAndPoints()
-    {
-        return $this->name.' '.$this->points;
     }
 }

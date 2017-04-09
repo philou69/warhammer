@@ -33,7 +33,7 @@ class EditUnitArmyType extends AbstractType
                     'choice_attr' => function ($choice) {
                         $datas = array();
                         foreach ($choice->getUnits() as $unit) {
-                            $datas['data-'.$unit->getUnit()->getId()] = 1;
+                            $datas['data-'.$unit->getId()] = 1;
                         }
                         $datas['class'] = 'option';
 

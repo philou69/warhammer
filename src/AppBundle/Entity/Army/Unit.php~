@@ -45,7 +45,7 @@ class Unit
     private $armies;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\EquipementUnit", mappedBy="unit")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Equipement", inversedBy="units")
      * @ORM\JoinColumn(nullable=false)
      */
     private $equipements;
@@ -54,6 +54,7 @@ class Unit
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Figurine", mappedBy="units")
      */
     private $figurines;
+
     /**
      * Constructor.
      */
@@ -65,7 +66,7 @@ class Unit
 
     public function __toString()
     {
-        return $this->name." ".$this->points;
+        return $this->name . " " . $this->race->getName() . " " . $this->points;
     }
 
     /**
@@ -208,77 +209,19 @@ class Unit
         return $this->armies;
     }
 
-    /**
-     * Add equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementUnit $equipement
-     *
-     * @return Unit
-     */
-    public function addEquipement(\AppBundle\Entity\Army\EquipementUnit $equipement)
-    {
-        $this->equipements[] = $equipement;
-
-        return $this;
-    }
-
-    /**
-     * Remove equipement.
-     *
-     * @param \AppBundle\Entity\Army\EquipementUnit $equipement
-     */
-    public function removeEquipement(\AppBundle\Entity\Army\EquipementUnit $equipement)
-    {
-        $this->equipements->removeElement($equipement);
-    }
-
-    /**
-     * Get equipements.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEquipements()
-    {
-        return $this->equipements;
-    }
-
     public function getNameAndPoints()
     {
         return $this->name.' '.$this->points.' pts';
     }
-
-    /**
-     * Set feature
-     *
-     * @param \AppBundle\Entity\Army\Features $feature
-     *
-     * @return Unit
-     */
-    public function setFeature(\AppBundle\Entity\Army\Features $feature = null)
-    {
-        $this->feature = $feature;
-
-        return $this;
-    }
-
-    /**
-     * Get feature
-     *
-     * @return \AppBundle\Entity\Army\Features
-     */
-    public function getFeature()
-    {
-        return $this->feature;
-    }
-
+    
     /**
      * Add figurine
      *
-     * @param \AppBundle\Entity\Army\Features $figurine
+     * @param \AppBundle\Entity\Army\Figurine $figurine
      *
      * @return Unit
      */
-    public function addFigurine(\AppBundle\Entity\Army\Features $figurine)
+    public function addFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines[] = $figurine;
 
@@ -288,9 +231,9 @@ class Unit
     /**
      * Remove figurine
      *
-     * @param \AppBundle\Entity\Army\Features $figurine
+     * @param \AppBundle\Entity\Army\Figurine $figurine
      */
-    public function removeFigurine(\AppBundle\Entity\Army\Features $figurine)
+    public function removeFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines->removeElement($figurine);
     }
@@ -303,5 +246,39 @@ class Unit
     public function getFigurines()
     {
         return $this->figurines;
+    }
+
+    /**
+     * Add equipement
+     *
+     * @param \AppBundle\Entity\Army\Equipement $equipement
+     *
+     * @return Unit
+     */
+    public function addEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    {
+        $this->equipements[] = $equipement;
+
+        return $this;
+    }
+
+    /**
+     * Remove equipement
+     *
+     * @param \AppBundle\Entity\Army\Equipement $equipement
+     */
+    public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    {
+        $this->equipements->removeElement($equipement);
+    }
+
+    /**
+     * Get equipements
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipements()
+    {
+        return $this->equipements;
     }
 }
