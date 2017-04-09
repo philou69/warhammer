@@ -42,7 +42,7 @@ class UnitArmyType extends AbstractType
                     'choice_attr' => function ($choice) {
                         $datas = array();
                         foreach ($choice->getUnits() as $unit) {
-                            $datas['data-'.$unit->getUnit()->getId()] = $unit->getUnit()->getId();
+                            $datas['data-'.$unit->getId()] = $unit->getId();
                         }
                         $datas['class'] = 'option';
 
@@ -54,15 +54,6 @@ class UnitArmyType extends AbstractType
                     'multiple' => true,
                     'required' => false,
                     ))
-//            ->add('photos', CollectionType::class, array(
-//                    'entry_type' => PhotoUnitType::class,
-//                    'by_reference' => false,
-//                    'allow_add' => true,
-//                    'allow_delete' => true,
-//                    'required' => false,
-//                    'label_attr' => array('id' => 'photo', 'class' => 'col-sm-2'),
-//                    'label' => 'Photos :',
-//                ))
                 ->add('files', FileType::class, array(
                     'label' => 'Photos de la unit',
                 'multiple' => "multiple",

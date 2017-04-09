@@ -107,13 +107,13 @@ liip_imagine:
         thumbnail: { size: [200, 200], mode: outbound }
 
 easy_admin:
+  list:
+      max_results: 100
   entities:
     Armies:
       class: AppBundle\Entity\Army\Army
     Equipements:
       class: AppBundle\Entity\Army\Equipement
-    EquipementsUnits:
-      class: AppBundle\Entity\Army\EquipementUnit
     Units:
       class: AppBundle\Entity\Army\Unit
     UnitsArmy:

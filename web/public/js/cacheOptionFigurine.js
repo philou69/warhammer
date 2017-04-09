@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-    $('#figurine_army_figurine').change(function () {
-        if($('#select-figurine').length > 0){
-            $('#select-figurine').remove();
+    $('#unit_army_unit').change(function () {
+        if($('#select-unit').length > 0){
+            $('#select-unit').remove();
         }
         hideEquipements();
         if($('div[data-' + $(this).val()).length > 0){
