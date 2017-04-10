@@ -142,7 +142,7 @@ class Race
     public function addArmy(\AppBundle\Entity\Army\Army $army)
     {
         $this->armies[] = $army;
-
+        $army->setRace($this);
         return $this;
     }
 
@@ -166,7 +166,7 @@ class Race
     public function addUnit(\AppBundle\Entity\Army\Unit $unit)
     {
         $this->units[] = $unit;
-
+        $unit->setRace($this);
         return $this;
     }
 

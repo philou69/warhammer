@@ -121,7 +121,9 @@ class Equipement
     public function addUnit(\AppBundle\Entity\Army\Unit $unit)
     {
         $this->units[] = $unit;
-
+        if (!$unit->getEquipements()->contains($this)) {
+            $unit->addEquipement($this);
+        }
         return $this;
     }
 
@@ -129,10 +131,16 @@ class Equipement
      * Remove unit
      *
      * @param \AppBundle\Entity\Army\Unit $unit
+     *
+     * @return Equipement
      */
     public function removeUnit(\AppBundle\Entity\Army\Unit $unit)
     {
         $this->units->removeElement($unit);
+
+        $unit->removeEquipement($this);
+
+        return $this;
     }
 
     /**

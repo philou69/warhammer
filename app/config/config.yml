@@ -112,18 +112,46 @@ easy_admin:
   entities:
     Armies:
       class: AppBundle\Entity\Army\Army
+      form:
+        fields:
+          - name
+          - points
+          - race
+          - user
     Equipements:
       class: AppBundle\Entity\Army\Equipement
+      form:
+        fields:
+          - name
+          - points
+          - { property: 'units', type_options: { by_reference: false }}
     Units:
       class: AppBundle\Entity\Army\Unit
+      form:
+        fields:
+          - name
+          - points
+          - race
+          - groupe
+          - equipements
+          - { property: 'figurines', type_options: { by_reference: false } }
     UnitsArmy:
       class: AppBundle\Entity\Army\UnitArmy
+      form:
+        fields:
+          - points
+          - unit
+          - army
+          - equipements
     Groupes:
       class: AppBundle\Entity\Army\Groupe
     PhotosUnit:
       class: AppBundle\Entity\Army\PhotoUnit
     Races:
       class: AppBundle\Entity\Army\Race
+      form:
+          fields:
+            - name
     Battles:
       class: AppBundle\Entity\Battle\Battle
     Participants:

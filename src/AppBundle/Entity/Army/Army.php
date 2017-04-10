@@ -219,7 +219,7 @@ class Army
     {
         $this->units[] = $unit;
         $this->points += $unit->getPoints();
-
+        $unit->setArmy($this);
         return $this;
     }
 

@@ -66,7 +66,7 @@ class Unit
 
     public function __toString()
     {
-        return $this->name . " " . $this->race->getName() . " " . $this->points;
+        return $this->name." ".$this->race->getName()." ".$this->points;
     }
 
     /**
@@ -185,7 +185,7 @@ class Unit
     public function addArmy(\AppBundle\Entity\Army\UnitArmy $army)
     {
         $this->armies[] = $army;
-
+        $army->setUnit($this);
         return $this;
     }
 
@@ -213,7 +213,7 @@ class Unit
     {
         return $this->name.' '.$this->points.' pts';
     }
-    
+
     /**
      * Add figurine
      *
@@ -224,7 +224,7 @@ class Unit
     public function addFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines[] = $figurine;
-
+        $figurine->addUnit($this);
         return $this;
     }
 
@@ -236,6 +236,7 @@ class Unit
     public function removeFigurine(\AppBundle\Entity\Army\Figurine $figurine)
     {
         $this->figurines->removeElement($figurine);
+        $figurine->addUnit($this);
     }
 
     /**
@@ -266,10 +267,13 @@ class Unit
      * Remove equipement
      *
      * @param \AppBundle\Entity\Army\Equipement $equipement
+     *
+     * @return Unit
      */
     public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
     {
         $this->equipements->removeElement($equipement);
+        return $this;
     }
 
     /**
@@ -281,4 +285,6 @@ class Unit
     {
         return $this->equipements;
     }
+
+
 }
