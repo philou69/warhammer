@@ -1,0 +1,20 @@
+admin_unit:
+  prefix: /unit
+  resource: administration/unit.yml
+
+admin_race:
+  prefix: /race
+  resource: administration/race.yml
+
+admin_groupe:
+  prefix: /groupe
+  resource: administration/groupe.yml
+
+admin_type:
+  prefix: /type
+  resource: administration/type.yml
+
+admin_index:
+  path: /
+  defaults:
+    _controller: AppBundle:Administration/Administration:index

@@ -1,0 +1,55 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Liste des unités{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour à l'accueil de l'administration</a><br>
+    <select name="race" id="race">
+        <option value="placeholder" disabled selected>Choisiser une race</option>
+        {% for race in races %}
+            <option value="{{ race.id }}">{{ race.name }}</option>
+        {% endfor %}
+    </select>
+    <button id="clean-filter">Enlever filtre</button>
+    <a href="{{ path('admin_unit_create') }}" class="pull-right">Créer une unité</a>
+    <h1>Les unités</h1>
+    <div id="units" data-href="{{ path('admin_unit_filter') }}">
+        {% include '@App/Administration/Unit/rendering.html.twig' with {'units': units} %}
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            var $race = $('#race');
+            var $units = $('#units');
+            var $cleanFilter = $('#clean-filter');
+
+            $race.on('change', function () {
+                if($race.val() !== 'placeholder'){
+                    $.ajax({
+                        url: $units.data('href') + '?race=' + $(this).val(),
+                        dataType: 'html',
+                        success: function (code_html, code) {
+                            $units.empty();
+                            $units.append(code_html);
+                        }
+                    })
+                }
+            })
+
+            $cleanFilter.on('cick', function () {
+                $.ajax({
+                    url: $units.data('href'),
+                    dataType: 'html',
+                    success: function (code_html, code) {
+                        $units.empty();
+                        $units.append(code_html);
+                        $race.val('placeholder')
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

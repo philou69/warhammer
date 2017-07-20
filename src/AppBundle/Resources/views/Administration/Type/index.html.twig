@@ -1,0 +1,30 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour accueil administration</a>
+    <a href="{{ path('admin_type_create') }}" class="pull-right">Créer un type</a>
+    <h1>Liste des types de figurine</h1>
+    <div id="types">
+        {% for type in types %}
+           <div class="type row">
+               <div class="col-sm-8">
+                   {{ type.name }}
+               </div>
+               <div class="col-sm-4">
+                   <a href="{{ path('admin_type_edit', {'id': type.id}) }}">Modifier</a>
+                   <a href="#type-{{ type.id }}-delete" data-toggle="modal">Supprimer</a>
+               </div>
+           </div>
+            {% else %}
+            <div>
+                Il n'y a pas encore de type
+            </div>
+         {% endfor %}
+
+        {% for type in types %}
+           {% include '@App/Administration/Type/modal.delete.html.twig' with{'type': type} %}
+        {% endfor %}
+    </div>
+{% endblock %}

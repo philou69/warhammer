@@ -21,7 +21,7 @@ class UnitArmy
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Unit", inversedBy="armies")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Unit", inversedBy="armies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $unit;
@@ -33,7 +33,7 @@ class UnitArmy
     private $army;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Army\Equipement")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement")
      * @ORM\JoinColumn(nullable=true)
      */
     private $equipements;
@@ -75,11 +75,11 @@ class UnitArmy
     /**
      * Set unit.
      *
-     * @param \AppBundle\Entity\Army\Unit $unit
+     * @param \AppBundle\Entity\Unit\Unit $unit
      *
      * @return UnitArmy
      */
-    public function setUnit(\AppBundle\Entity\Army\Unit $unit)
+    public function setUnit(\AppBundle\Entity\Unit\Unit $unit)
     {
         $this->unit = $unit;
         $this->points = $unit->getPoints();
@@ -90,7 +90,7 @@ class UnitArmy
     /**
      * Get unit.
      *
-     * @return \AppBundle\Entity\Army\Unit
+     * @return \AppBundle\Entity\Unit\Unit
      */
     public function getUnit()
     {
@@ -202,11 +202,11 @@ class UnitArmy
     /**
      * Add equipement.
      *
-     * @param \AppBundle\Entity\Army\Equipement $equipement
+     * @param \AppBundle\Entity\Unit\Equipement $equipement
      *
      * @return UnitArmy
      */
-    public function addEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    public function addEquipement(\AppBundle\Entity\Unit\Equipement $equipement)
     {
         $this->points = $this->points + $equipement->getPoints();
         $this->equipements[] = $equipement;
@@ -217,9 +217,9 @@ class UnitArmy
     /**
      * Remove equipement.
      *
-     * @param \AppBundle\Entity\Army\Equipement $equipement
+     * @param \AppBundle\Entity\Unit\Equipement $equipement
      */
-    public function removeEquipement(\AppBundle\Entity\Army\Equipement $equipement)
+    public function removeEquipement(\AppBundle\Entity\Unit\Equipement $equipement)
     {
         $this->points = $this->points - $equipement->getPoints();
         $this->equipements->removeElement($equipement);

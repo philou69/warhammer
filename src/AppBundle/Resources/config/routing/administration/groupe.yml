@@ -1,0 +1,19 @@
+admin_groupe_create:
+    path: /create
+    defaults:
+        _controller: AppBundle:Administration/Groupe:create
+
+admin_groupe_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: AppBundle:Administration/Groupe:edit
+
+admin_groupe_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: AppBundle:Administration/Groupe:delete
+
+admin_groupe_index:
+    path: /
+    defaults:
+        _controller: AppBundle:Administration/Groupe:index

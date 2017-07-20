@@ -119,14 +119,14 @@ easy_admin:
           - race
           - user
     Equipements:
-      class: AppBundle\Entity\Army\Equipement
+      class: AppBundle\Entity\Unit\Equipement
       form:
         fields:
           - name
           - points
           - { property: 'units', type_options: { by_reference: false }}
     Units:
-      class: AppBundle\Entity\Army\Unit
+      class: AppBundle\Entity\Unit\Unit
       form:
         fields:
           - name
@@ -144,11 +144,11 @@ easy_admin:
           - army
           - equipements
     Groupes:
-      class: AppBundle\Entity\Army\Groupe
+      class: AppBundle\Entity\Unit\Groupe
     PhotosUnit:
       class: AppBundle\Entity\Army\PhotoUnit
     Races:
-      class: AppBundle\Entity\Army\Race
+      class: AppBundle\Entity\Unit\Race
       form:
           fields:
             - name
@@ -163,6 +163,6 @@ easy_admin:
     Resumes:
       class: AppBundle\Entity\Battle\Resume
     Figurine:
-      class: AppBundle\Entity\Army\Figurine
+      class: AppBundle\Entity\Unit\Figurine
     Type:
-      class: AppBundle\Entity\Army\Type
+      class: AppBundle\Entity\Unit\Type

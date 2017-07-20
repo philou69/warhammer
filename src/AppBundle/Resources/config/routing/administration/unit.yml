@@ -1,0 +1,24 @@
+admin_unit_create:
+    path: /create
+    defaults:
+      _controller: AppBundle:Administration/Unit:create
+
+admin_unit_edit:
+    path: /{id}/edit
+    defaults:
+      _controller: AppBundle:Administration/Unit:edit
+
+admin_unit_delete:
+    path: /{id}/delete
+    defaults:
+      _controller: AppBundle:Administration/Unit:delete
+
+admin_unit_index:
+    path: /index
+    defaults:
+      _controller: AppBundle:Administration/Unit:index
+
+admin_unit_filter:
+    path: /filter
+    defaults:
+      _controller:  AppBundle:Administration/Unit:filter

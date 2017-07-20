@@ -1,0 +1,26 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Liste des groupes{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour à l'accueil de l'administration</a>
+    <a href="{{ path('admin_groupe_create') }}" class="pull-right">Créer un groupe</a>
+    <h1>Les groupes</h1>
+    <div id="groupes">
+        {% for groupe in groupes %}
+            <div class="groupe row">
+                <div class="col-sm-8">
+                    {{ groupe.name }}
+                </div>
+                <div class="col-sm-4">
+                    <a href="{{ path('admin_groupe_edit', {'id': groupe.id}) }}">Modifier</a>
+                    <a href="#groupe-{{ groupe.id }}-delete" data-toggle="modal">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% for groupe in groupes %}
+            {% include '@App/Administration/Groupe/modal.delete.html.twig' with {'groupe': groupe} %}
+        {% endfor %}
+    </div>
+{% endblock %}

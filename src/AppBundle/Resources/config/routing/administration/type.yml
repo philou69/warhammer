@@ -1,0 +1,19 @@
+admin_type_create:
+    path: /create
+    defaults:
+        _controller: AppBundle:Administration/Type:create
+
+admin_type_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: AppBundle:Administration/Type:edit
+
+admin_type_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: AppBundle:Administration/Type:delete
+
+admin_type_index:
+    path: /
+    defaults:
+        _controller: AppBundle:Administration/Type:index

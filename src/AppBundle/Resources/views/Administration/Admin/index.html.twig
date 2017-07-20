@@ -1,0 +1,20 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Accueil de l'administration{% endblock %}
+
+{% block body %}
+    <ul>
+        <li>
+            <a href="{{ path('admin_race_index') }}">Race</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_groupe_index') }}">Groupe</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_type_index') }}">Type de Figurine</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_unit_index') }}">Unité</a>
+        </li>
+    </ul>
+{% endblock %}

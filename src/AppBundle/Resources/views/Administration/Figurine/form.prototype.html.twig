@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-sm-3">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.type) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.points) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.minQuantity) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.maxQuantity) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.move) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.weaponSkill) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.balisticSkill) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.strength) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.toughness) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.wounds) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.attacks) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.leaderShip) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.save) }}
+    </div>
+</div>
+<div id="equipements-figurine-{{  index is not defined ? '__name__figurine__' : index }}" data-prototype="{% filter escape %}{{ include('@App/Administration/Equipement/form.prototype.html.twig', {'form': form.equipements.vars.prototype }) }}{% endfilter %}">
+    {% for equipement in form.equipements %}
+        <div id="equipement-{{ loop.index }}-figurine-{{ index is not defined ? '__name__figurine__' : index }}" class="equipement">
+            <h5>Equipement {{ loop.index }} de la figurine {{ index is not defined ? '__name__figurine__' : index }}</h5>
+            {{ include('@App/Administration/Equipement/form.prototype.html.twig', {'form': equipement}) }}
+            <a href="#" class="delete-equipement btn btn-danger" data-id="#equipement-{{ loop.index }}-figurine-{{ index is not defined ? '__name__figurine__' : index }}">Retirer cet equipement</a>
+        </div>
+    {% endfor %}
+</div>
+<a href="#" class="btn btn-info add-equipement" data-equipements="#equipements-figurine-{{ index is not defined ? '__name__figurine__' : index }}" data-index="{{ index is not defined ? '__name__figurine__' : index }}" data-lenght="{{ form.equipements | length }}">Ajouter un equipement</a>

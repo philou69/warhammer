@@ -41,7 +41,7 @@ class Army
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race", inversedBy="armies")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Race", inversedBy="armies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $race;
@@ -163,11 +163,11 @@ class Army
     /**
      * Set race.
      *
-     * @param \AppBundle\Entity\Army\Race $race
+     * @param \AppBundle\Entity\Unit\Race $race
      *
      * @return Army
      */
-    public function setRace(\AppBundle\Entity\Army\Race $race)
+    public function setRace(\AppBundle\Entity\Unit\Race $race)
     {
         $this->race = $race;
 
@@ -177,7 +177,7 @@ class Army
     /**
      * Get race.
      *
-     * @return \AppBundle\Entity\Army\Race
+     * @return \AppBundle\Entity\Unit\Race
      */
     public function getRace()
     {

@@ -1,0 +1,19 @@
+admin_race_create:
+    path: /create
+    defaults:
+        _controller: AppBundle:Administration/Race:create
+
+admin_race_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: AppBundle:Administration/Race:edit
+
+admin_race_delete:
+    path: /{id}/delete
+    defaults:
+        _controller: AppBundle:Administration/Race:delete
+
+admin_race_index:
+    path: /
+    defaults:
+        _controller: AppBundle:Administration/Race:index

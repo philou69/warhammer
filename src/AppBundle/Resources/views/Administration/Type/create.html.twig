@@ -1,0 +1,9 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Creation d'un type{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour accueil administration</a> <a href="{{ path('admin_type_index') }}">< Retour à la liste de type</a>
+    <h1>Création d'un type</h1>
+    {{ form(form) }}
+{% endblock %}

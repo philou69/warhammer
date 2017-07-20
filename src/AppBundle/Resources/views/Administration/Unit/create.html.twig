@@ -1,0 +1,14 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Creation d'unité{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Revenir à l'acueil de l'admin</a> <a href="{{ path('admin_unit_index') }}">< Revenir à la liste des unités</a>
+    <h1>Création d'une unité</h1>
+    {% include '@App/Administration/Unit/form.html.twig' with {'form': form} %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/figurine.add.js') }}"></script>
+{% endblock %}

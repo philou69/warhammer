@@ -1,0 +1,9 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Création d'une race{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour accueil administration</a> <a href="{{ path('admin_unit_index') }}">< Retour liste race</a>
+    <h1>Création d'une race</h1>
+    {{ form(form) }}
+{% endblock %}

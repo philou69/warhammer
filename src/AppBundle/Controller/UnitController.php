@@ -4,7 +4,7 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Army\Unit;
+use AppBundle\Entity\Unit\Unit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UnitController extends Controller

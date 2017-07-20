@@ -4,7 +4,7 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Army\Race;
+use AppBundle\Entity\Unit\Race;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class RaceController extends Controller

@@ -1,0 +1,25 @@
+{% for unit in units %}
+    <div class="unit row">
+        <div class="col-sm-3">
+            {{ unit.name }}
+        </div>
+        <div class="col-sm-3">
+            {{ unit.race.name }}
+        </div>
+        <div class="col-sm-3">
+            {{ unit.groupe.name }}
+        </div>
+        <div class="col-sm-3">
+            <a href="{{ path('admin_unit_edit', {'id': unit.id}) }}">Modifier</a>
+            <a href="#unit-{{ unit.id }}-delete" data-toggle="modal">Supprimer</a>
+        </div>
+    </div>
+{% else %}
+    <div class="row">
+        Il n'y a pas d'unités.
+    </div>
+{% endfor %}
+{# Appelation des modals pour la suppresion d'une unité #}
+ {% for unit in units %}
+     {% include '@App/Administration/Unit/modal.delete.html.twig' with {'unit': unit} %}
+ {% endfor %}
