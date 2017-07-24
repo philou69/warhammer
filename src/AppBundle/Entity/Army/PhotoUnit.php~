@@ -16,9 +16,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PhotoUnit
 {
     /**
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 

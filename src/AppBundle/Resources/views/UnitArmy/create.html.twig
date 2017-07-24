@@ -18,38 +18,38 @@
                 {{ form_errors(form.unit) }}
 			</div>
 		</div>
-		<div class="row">
-			<div class="form-group">
-                {{ form_label(form.equipements, form.equipements.vars.label, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-				<div class="col-sm-9 row">
-					<div id="select-unit" class="col-sm-6 col-sm-offset-3">
-						Veuillez choisir une unité pour affiché les équipements
-					</div>
-					<div id="no-equipement" class="col-sm-6 col-sm-offset-3 equipements" hidden>
-						Cette unité n'a aucun équipements
-					</div>
-                    {% for equipement in form.equipements %}
-						<div class="col-sm-4 equipements" {% for attr in equipement.vars.attr  %}data-{{ attr }}="{{ attr }}"{% endfor %} hidden>
-							<label for="{{ equipement.vars.id }}" class="label-checkbox">
-								<input type="checkbox" name="{{ equipement.vars.full_name }}" id="{{ equipement.vars.id }}" value="{{ equipement.vars.value }}" >
-                                {{ equipement.vars.label }}
-							</label>
+		{#<div class="row">#}
+			{#<div class="form-group">#}
+                {#{{ form_label(form.equipements, form.equipements.vars.label, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}#}
+				{#<div class="col-sm-9 row">#}
+					{#<div id="select-unit" class="col-sm-6 col-sm-offset-3">#}
+						{#Veuillez choisir une unité pour affiché les équipements#}
+					{#</div>#}
+					{#<div id="no-equipement" class="col-sm-6 col-sm-offset-3 equipements" hidden>#}
+						{#Cette unité n'a aucun équipements#}
+					{#</div>#}
+                    {#{% for equipement in form.equipements %}#}
+						{#<div class="col-sm-4 equipements" {% for attr in equipement.vars.attr  %}data-{{ attr }}="{{ attr }}"{% endfor %} hidden>#}
+							{#<label for="{{ equipement.vars.id }}" class="label-checkbox">#}
+								{#<input type="checkbox" name="{{ equipement.vars.full_name }}" id="{{ equipement.vars.id }}" value="{{ equipement.vars.value }}" >#}
+                                {#{{ equipement.vars.label }}#}
+							{#</label>#}
 
-						</div>
-                    {% endfor %}
-				</div>
-				{{ form_errors(form.equipements) }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="form-group">
-                {{ form_label(form.files, form.files.vars.label, {'label_attr': {'class': 'col-sm-3'}}) }}
-				<div class="col-sm-5">
-                    {{ form_widget(form.files, {'attr': {'class': 'form-control file', 'mutliple': 'multiple'}}) }}
-				</div>
-                    {{ form_errors(form.files) }}
-			</div>
-		</div>
+						{#</div>#}
+                    {#{% endfor %}#}
+				{#</div>#}
+				{#{{ form_errors(form.equipements) }}#}
+			{#</div>#}
+		{#</div>#}
+		{#<div class="row">#}
+			{#<div class="form-group">#}
+                {#{{ form_label(form.files, form.files.vars.label, {'label_attr': {'class': 'col-sm-3'}}) }}#}
+				{#<div class="col-sm-5">#}
+                    {#{{ form_widget(form.files, {'attr': {'class': 'form-control file', 'mutliple': 'multiple'}}) }}#}
+				{#</div>#}
+                    {#{{ form_errors(form.files) }}#}
+			{#</div>#}
+		{#</div>#}
 		<div class="row">
 			<div class="col-sm-12 text-center">
                 {{ form_row(form.save,{'attr':{'class': 'btn btn-default btn-sm'}}) }}

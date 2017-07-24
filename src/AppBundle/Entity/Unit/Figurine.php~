@@ -81,7 +81,7 @@ class Figurine
     protected $save;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $points;
 
@@ -98,7 +98,7 @@ class Figurine
     protected $unit;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"all"})
      */
     protected $equipements;
     /**
@@ -496,4 +496,28 @@ class Figurine
         return $this->equipements;
     }
 
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return Figurine
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
 }

@@ -31,4 +31,13 @@ class EquipementRepository extends \Doctrine\ORM\EntityRepository
 
         return $qb;
     }
+
+    public function findByFigurine($figurine)
+    {
+        $queryBuilder = $this->createQueryBuilder('e');
+        $queryBuilder->where('e.figurine = :figurine')
+            ->setParameter('figurine', $figurine)
+            ->orderBy('e.name', 'ASC');
+        return $queryBuilder;
+    }
 }

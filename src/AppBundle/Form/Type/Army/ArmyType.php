@@ -22,7 +22,7 @@ class ArmyType extends AbstractType
                     'label' => 'Nom de l\'armée :',
             ))
             ->add('race', EntityType::class, array(
-                'class' => 'AppBundle:Army\Race',
+                'class' => 'AppBundle\Entity\Unit\Race',
                 'choice_label' => 'name',
                 'label' => 'Race de l\'armée :',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),

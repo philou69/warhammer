@@ -3,12 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Army\PhotoUnit;
+use AppBundle\Form\Type\Army\EquipementUnitArmytype;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
 use AppBundle\Entity\Army\UnitArmy;
-use AppBundle\Form\Army\UnitArmyType;
-use AppBundle\Form\Army\EditUnitArmyType;
+use AppBundle\Form\Type\Army\UnitArmyType;
+use AppBundle\Form\Type\Army\EditUnitArmyType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UnitArmyController extends Controller
@@ -16,8 +17,8 @@ class UnitArmyController extends Controller
     // Ajout d'une unit dans une armée
     public function createAction(Request $request, Army $army)
     {
-        if($army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $this->addFlash('danger', 'Vous ne disposer pas des droits sur cette armée !');
+        if($army->getUser() !== $this->getUser()){
+            $this->createAccessDeniedException('Vous ne pouvez modifier une armée ne vous apartenant pas');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -26,24 +27,26 @@ class UnitArmyController extends Controller
         $unitArmy = new UnitArmy();
         $unitArmy->setArmy($army);
 
-        $form = $this->createForm(UnitArmyType::class, $unitArmy, array('race' => $army->getRace()));
+        $form = $this->createForm(UnitArmyType::class, $unitArmy, ['race' => $army->getRace()]);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid())
+        if ($form->isSubmitted() && $form->isValid())
         {
-            $files = $form->get('files')->getData();
-            foreach ($files as $file)
-            {
-                $photo = new PhotoUnit();
-                $photo->setFile($file)
-                    ->setUnit($unitArmy);
 
-                $unitArmy->addPhoto($photo);
-            }
+//            $files = $form->get('files')->getData();
+//            foreach ($files as $file)
+//            {
+//                $photo = new PhotoUnit();
+//                $photo->setFile($file)
+//                    ->setUnit($unitArmy);
+//
+//                $unitArmy->addPhoto($photo);
+//            }
             $em->persist($unitArmy);
             $em->flush();
 
             $this->addFlash('info', 'Votre unit a bien été ajouté!');
-            return $this->redirectToRoute('army_view', array('slug' => $army->getSlug()));
+            return $this->redirectToRoute('unit_army_adding_figurines', ['id' => $unitArmy->getId()]);
         }
 
         return $this->render('AppBundle:UnitArmy:create.html.twig', array('form' => $form->createView(), 'slug' => $army->getSlug(), 'armyName' => $army->getName()));
@@ -103,5 +106,26 @@ class UnitArmyController extends Controller
         $this->addFlash('info', 'La unit '.$unitArmy->getUnit()->getName().' a bien été retirée de la liste de l\'armée.');
 
         return $this->redirectToRoute('army_view', array('slug' => $unitArmy->getArmy()->getSlug()));
+    }
+
+    public function addingFigurinesAction(UnitArmy $unit, Request $request)
+    {
+        // On ajoute les figuirines
+        foreach ($unit->getUnit()->getFigurines() as $figurine)
+        {
+            $unit->addFigurine($figurine);
+        }
+
+        $form = $this->createForm(EquipementUnitArmytype::class, $unit);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $em  = $this->getDoctrine()->getManager();
+            $em->persist($unit);
+            $em->flush();
+            $this->addFlash('success', 'Votre unité a bien été enregistrée !');
+
+            return $this->redirectToRoute('army_view', ['slug' => $unit->getArmy()->getSlug()]);
+        }
+        return $this->render('@App/UnitArmy/adding.figurines.html.twig', ['form' => $form->createView()]);
     }
 }

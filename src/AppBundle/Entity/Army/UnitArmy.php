@@ -14,14 +14,14 @@ use Doctrine\ORM\Mapping as ORM;
 class UnitArmy
 {
     /**
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Unit", inversedBy="armies")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Unit")
      * @ORM\JoinColumn(nullable=false)
      */
     private $unit;
@@ -33,10 +33,9 @@ class UnitArmy
     private $army;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="unit", cascade={"all"})
      */
-    private $equipements;
+    protected $figurines;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoUnit", mappedBy="unit", cascade={"all"})
@@ -63,9 +62,36 @@ class UnitArmy
     }
 
     /**
-     * Get id.
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function countPoints()
+    {
+
+        // On créer une vartiable points valnt les points de la unit + les points d'équipements
+        $points = 0;
+        foreach ($this->equipements as $equipement) {
+            $points = $points + $equipement->getPoints();
+        }
+
+        // On calcule les nouveaux points de l'armée en lui ajoutant la difference des points - les points de la unitarmée
+
+        $this->points = $points;
+    }
+
+    /**
+     * @ORM\PreRemove
+     */
+    public function countArmy()
+    {
+        // On compte les points de l'armée sans ceux de la unit armé
+    }
+
+
+    /**
+     * Get id
      *
-     * @return int
+     * @return guid
      */
     public function getId()
     {
@@ -73,107 +99,9 @@ class UnitArmy
     }
 
     /**
-     * Set unit.
+     * Set points
      *
-     * @param \AppBundle\Entity\Unit\Unit $unit
-     *
-     * @return UnitArmy
-     */
-    public function setUnit(\AppBundle\Entity\Unit\Unit $unit)
-    {
-        $this->unit = $unit;
-        $this->points = $unit->getPoints();
-
-        return $this;
-    }
-
-    /**
-     * Get unit.
-     *
-     * @return \AppBundle\Entity\Unit\Unit
-     */
-    public function getUnit()
-    {
-        return $this->unit;
-    }
-
-    /**
-     * Set army.
-     *
-     * @param \AppBundle\Entity\Army\Army $army
-     *
-     * @return UnitArmy
-     */
-    public function setArmy(\AppBundle\Entity\Army\Army $army)
-    {
-        $this->army = $army;
-        $army->setPoints($this->points);
-
-        return $this;
-    }
-
-    /**
-     * Get army.
-     *
-     * @return \AppBundle\Entity\Army\Army
-     */
-    public function getArmy()
-    {
-        return $this->army;
-    }
-
-    /**
-     * @param mixed $photos
-     */
-    public function setPhotos($photos)
-    {
-        foreach ($photos as $photo) {
-            $photo->setUnit($this);
-        }
-        $this->photos = $photos;
-
-        return $this;
-    }
-
-    /**
-     * Add photo.
-     *
-     * @param \AppBundle\Entity\Army\PhotoUnit $photo
-     *
-     * @return UnitArmy
-     */
-    public function addPhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
-    {
-        $photo->setUnit($this);
-        $this->photos[] = $photo;
-
-        return $this;
-    }
-
-    /**
-     * Remove photo.
-     *
-     * @param \AppBundle\Entity\Army\PhotoUnit $photo
-     */
-    public function removePhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
-    {
-        $this->photos->removeElement($photo);
-    }
-
-    /**
-     * Get photos.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
-     * Set points.
-     *
-     * @param int $points
+     * @param integer $points
      *
      * @return UnitArmy
      */
@@ -185,84 +113,128 @@ class UnitArmy
     }
 
     /**
-     * Get points.
+     * Get points
      *
-     * @return int
+     * @return integer
      */
     public function getPoints()
     {
-        $this->points = $this->unit->getPoints();
-        foreach ($this->equipements as $equipement)
-        {
-            $this->points += $equipement->getPoints();
-        }
         return $this->points;
     }
 
     /**
-     * Add equipement.
+     * Set unit
      *
-     * @param \AppBundle\Entity\Unit\Equipement $equipement
+     * @param \AppBundle\Entity\Unit\Unit $unit
      *
      * @return UnitArmy
      */
-    public function addEquipement(\AppBundle\Entity\Unit\Equipement $equipement)
+    public function setUnit(\AppBundle\Entity\Unit\Unit $unit)
     {
-        $this->points = $this->points + $equipement->getPoints();
-        $this->equipements[] = $equipement;
+        $this->unit = $unit;
 
         return $this;
     }
 
     /**
-     * Remove equipement.
+     * Get unit
      *
-     * @param \AppBundle\Entity\Unit\Equipement $equipement
+     * @return \AppBundle\Entity\Unit\Unit
      */
-    public function removeEquipement(\AppBundle\Entity\Unit\Equipement $equipement)
+    public function getUnit()
     {
-        $this->points = $this->points - $equipement->getPoints();
-        $this->equipements->removeElement($equipement);
+        return $this->unit;
     }
 
     /**
-     * Get equipements.
+     * Set army
+     *
+     * @param \AppBundle\Entity\Army\Army $army
+     *
+     * @return UnitArmy
+     */
+    public function setArmy(\AppBundle\Entity\Army\Army $army)
+    {
+        $this->army = $army;
+
+        return $this;
+    }
+
+    /**
+     * Get army
+     *
+     * @return \AppBundle\Entity\Army\Army
+     */
+    public function getArmy()
+    {
+        return $this->army;
+    }
+
+    /**
+     * Add figurine
+     *
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     *
+     * @return UnitArmy
+     */
+    public function addFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    {
+        $this->figurines[] = $figurine;
+
+        return $this;
+    }
+
+    /**
+     * Remove figurine
+     *
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     */
+    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    {
+        $this->figurines->removeElement($figurine);
+    }
+
+    /**
+     * Get figurines
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getEquipements()
+    public function getFigurines()
     {
-        return $this->equipements;
+        return $this->figurines;
     }
 
     /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
+     * Add photo
+     *
+     * @param \AppBundle\Entity\Army\PhotoUnit $photo
+     *
+     * @return UnitArmy
      */
-    public function countPoints()
+    public function addPhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
     {
+        $this->photos[] = $photo;
 
-        // On créer une vartiable points valnt les points de la unit + les points d'équipements
-        $points = $this->unit->getPoints();
-        foreach ($this->equipements as $equipement) {
-            $points = $points + $equipement->getPoints();
-        }
-
-        // On calcule les nouveaux points de l'armée en lui ajoutant la difference des points - les points de la unitarmée
-        $armyPoints = $this->army->getPoints() + ($points - $this->points);
-        $this->army->setPoints($armyPoints);
-
-        $this->points = $points;
+        return $this;
     }
 
     /**
-     * @ORM\PreRemove
+     * Remove photo
+     *
+     * @param \AppBundle\Entity\Army\PhotoUnit $photo
      */
-    public function countArmy()
+    public function removePhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
     {
-        // On compte les points de l'armée sans ceux de la unit armé
-        $armyPoints = $this->army->getPoints() - $this->points;
+        $this->photos->removeElement($photo);
+    }
 
-        $this->army->setPoints($armyPoints);
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }
