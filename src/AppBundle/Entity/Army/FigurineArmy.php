@@ -21,17 +21,17 @@ class FigurineArmy
      * @ORM\GeneratedValue(strategy="UUID")
      */
     protected $id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Figurine")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $figurine;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement", cascade={"persist"})
-     */
-    protected $equipements;
+//
+//    /**
+//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Figurine")
+//     * @ORM\JoinColumn(nullable=false)
+//     */
+//    protected $figurine;
+//
+//    /**
+//     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement", cascade={"persist"})
+//     */
+//    protected $equipements;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\UnitArmy", inversedBy="figurines")
@@ -171,5 +171,29 @@ class FigurineArmy
     public function getQuantity()
     {
         return $this->quantity;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param \AppBundle\Entity\Army\UnitArmy $unit
+     *
+     * @return FigurineArmy
+     */
+    public function setUnit(\AppBundle\Entity\Army\UnitArmy $unit = null)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return \AppBundle\Entity\Army\UnitArmy
+     */
+    public function getUnit()
+    {
+        return $this->unit;
     }
 }

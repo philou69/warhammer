@@ -25,11 +25,6 @@ class Unit
     private $name;
 
     /**
-     * @ORM\Column(name="points", type="integer")
-     */
-    private $points;
-
-    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Race", inversedBy="units")
      */
     private $race;
@@ -40,7 +35,7 @@ class Unit
     private $groupe;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Figurine", mappedBy="units")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Figurine", mappedBy="unit", cascade={"all"})
      */
     private $figurines;
 
@@ -92,29 +87,6 @@ class Unit
         return $this->name;
     }
 
-    /**
-     * Set points.
-     *
-     * @param int $points
-     *
-     * @return Unit
-     */
-    public function setPoints($points)
-    {
-        $this->points = $points;
-
-        return $this;
-    }
-
-    /**
-     * Get points.
-     *
-     * @return int
-     */
-    public function getPoints()
-    {
-        return $this->points;
-    }
 
     /**
      * Set race.
@@ -181,7 +153,7 @@ class Unit
     public function addFigurine(\AppBundle\Entity\Unit\Figurine $figurine)
     {
         $this->figurines[] = $figurine;
-        $figurine->addUnit($this);
+        $figurine->setUnit($this);
         return $this;
     }
 
@@ -193,7 +165,6 @@ class Unit
     public function removeFigurine(\AppBundle\Entity\Unit\Figurine $figurine)
     {
         $this->figurines->removeElement($figurine);
-        $figurine->addUnit($this);
     }
 
     /**
@@ -206,4 +177,3 @@ class Unit
         return $this->figurines;
     }
 }
-

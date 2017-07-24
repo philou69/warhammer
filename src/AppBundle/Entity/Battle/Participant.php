@@ -15,9 +15,9 @@ use AppBundle\Validator\Constraints as AppAssert;
 class Participant
 {
     /**
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 

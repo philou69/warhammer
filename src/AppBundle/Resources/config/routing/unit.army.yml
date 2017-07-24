@@ -3,6 +3,11 @@ unit_army_create:
     defaults:
        _controller: "AppBundle:UnitArmy:create"
 
+unit_army_adding_figurines:
+    path: /{id}/adding-figurines
+    defaults:
+        _controller: AppBundle:UnitArmy:addingFigurines
+
 unit_army_edit:
     path: /{id}/edit
     defaults:

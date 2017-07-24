@@ -111,5 +111,28 @@ class Equipement
         return $this->name.' '.$this->points;
     }
 
-}
 
+    /**
+     * Set figurine
+     *
+     * @param \AppBundle\Entity\Unit\Figurine $figurine
+     *
+     * @return Equipement
+     */
+    public function setFigurine(\AppBundle\Entity\Unit\Figurine $figurine)
+    {
+        $this->figurine = $figurine;
+
+        return $this;
+    }
+
+    /**
+     * Get figurine
+     *
+     * @return \AppBundle\Entity\Unit\Figurine
+     */
+    public function getFigurine()
+    {
+        return $this->figurine;
+    }
+}

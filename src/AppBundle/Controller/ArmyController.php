@@ -3,10 +3,9 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
-use AppBundle\Form\Army\ArmyType;
+use AppBundle\Form\Type\Army\ArmyType;
 
 class ArmyController extends Controller
 {
@@ -33,7 +32,7 @@ class ArmyController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $army = new Army();
-        $army->setUser($this->get('security.token_storage')->getToken()->getUser());
+        $army->setUser($this->getUser());
 
         $form = $this->createForm(ArmyType::class, $army);
 
