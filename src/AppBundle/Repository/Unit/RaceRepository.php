@@ -10,4 +10,11 @@ namespace AppBundle\Repository\Unit;
  */
 class RaceRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOrdering()
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+        $queryBuilder->orderBy("r.name", 'ASC');
+
+        return $queryBuilder;
+    }
 }

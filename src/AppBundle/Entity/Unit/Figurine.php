@@ -98,7 +98,7 @@ class Figurine
     protected $unit;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"persist", "remove"})
      */
     protected $equipements;
     /**

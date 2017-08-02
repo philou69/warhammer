@@ -6,6 +6,7 @@ namespace AppBundle\Controller\Administration;
 use AppBundle\Entity\Unit\Figurine;
 use AppBundle\Entity\Unit\Unit;
 use AppBundle\Form\Type\Unit\UnitType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,8 +23,6 @@ class UnitController extends Controller
     public function createAction(Request $request)
     {
         $unit = new Unit();
-        $figurine = new Figurine();
-        $unit->addFigurine($figurine);
         $form = $this->createForm(UnitType::class, $unit);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -39,6 +38,12 @@ class UnitController extends Controller
 
     public function editAction(Unit $unit, Request $request)
     {
+        // On recupere la liste des figurines dans un arrayCollection
+        $originalFigurines = new ArrayCollection();
+        foreach ($unit->getFigurines() as $figurine)
+        {
+            $originalFigurines->add($figurine);
+        }
         $form = $this->createForm(UnitType::class, $unit);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){

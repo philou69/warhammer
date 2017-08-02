@@ -10,4 +10,11 @@ namespace AppBundle\Repository\Unit;
  */
 class GroupeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOrdering()
+    {
+        $queryBuilder = $this->createQueryBuilder('g');
+        $queryBuilder->orderBy('g.name', 'ASC');
+
+        return $queryBuilder;
+    }
 }

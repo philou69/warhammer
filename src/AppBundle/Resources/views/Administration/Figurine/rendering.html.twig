@@ -1,0 +1,15 @@
+{% for figurine in figurines %}
+    <div class="figurine row">
+        <div class="col-sm-3">{{ figurine.name }}</div>
+        <div class="col-sm-3">{{ figurine.unit.name }}</div>
+        <div class="col-sm-3"><a href="{{ path('admin_figurine_edit', {'id': figurine.id}) }}">Modifier</a> <a href="#figurine-{{ figurine.id }}-delete" data-toggle="modal">Supprimer</a></div>
+    </div>
+{% else %}
+    <div>
+        Il n'y a pas de figurines.
+    </div>
+{% endfor %}
+
+{% for figurine in figurines %}
+    {% include '@App/Administration/Figurine/modal.delete.html.twig' with{'figurine': figurine} %}
+{% endfor %}

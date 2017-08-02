@@ -37,4 +37,11 @@ class UnitRepository extends \Doctrine\ORM\EntityRepository
 
         return $query;
     }
+    public function getOrdering()
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+        $queryBuilder->orderBy('u.name', 'ASC');
+
+        return $queryBuilder;
+    }
 }

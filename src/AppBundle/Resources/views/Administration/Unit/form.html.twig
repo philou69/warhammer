@@ -11,17 +11,4 @@
         {{ form_row(form.groupe) }}
     </div>
 </div>
-{# Insertion du bloc  des figurines#}
-<div id="figurines"
-     data-prototype="{% filter escape %}{{ include('@App/Administration/Figurine/form.prototype.html.twig', {'form': form.figurines.vars.prototype }) }}{% endfilter %}">
-    {% for figurine in form.figurines %}
-        <div id="figurine-{{ loop.index }}" class="figurine" data-equipements="#equipements-figurine-{{ loop.index }}">
-            <h5>Figurine {{ loop.index }}</h5>
-            {{ include('@App/Administration/Figurine/form.prototype.html.twig', {'form': figurine, 'index': form.vars.name + 1 }) }}
-            <a href="#" class="delete-figurine btn btn-danger" data-id="#figurine-{{ loop.index }}">Retirer cette
-                figurine</a>
-        </div>
-    {% endfor %}
-</div>
-<a href="#" id="add-figurine" class="btn btn-info">Ajouté une figurine</a>
 {{ form_end(form) }}

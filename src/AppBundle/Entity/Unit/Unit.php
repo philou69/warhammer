@@ -35,7 +35,7 @@ class Unit
     private $groupe;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Figurine", mappedBy="unit", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Figurine", mappedBy="unit", cascade={"persist", "remove"})
      */
     private $figurines;
 

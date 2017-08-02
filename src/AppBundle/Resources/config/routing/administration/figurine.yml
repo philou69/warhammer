@@ -1,0 +1,19 @@
+admin_figurine_create:
+    path: /create
+    defaults:
+        _controller: AppBundle:Administration/Figurine:create
+
+admin_figurine_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: AppBundle:Administration/Figurine:edit
+
+admin_figurine_delete:
+    path: /{id}/delete
+    defaults:
+        _controller:  AppBundle:Administration/Figurine:delete
+
+admin_figurine_index:
+    path: /
+    defaults:
+        _controller: AppBundle:Administration/Figurine:index

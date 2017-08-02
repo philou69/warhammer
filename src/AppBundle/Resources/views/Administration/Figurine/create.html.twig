@@ -1,0 +1,14 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Création d'une figurine{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Revenir à l'acueil de l'admin</a> <a href="{{ path('admin_figurine_index') }}">< Revenir à la liste des figurines</a>
+    <h1>Création d'une figurine</h1>
+    {% include 'AppBundle:Administration/Figurine:form.prototype.html.twig' with {'form': form} %}
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/app/js/gestion.equipements.js') }}"></script>
+{% endblock %}

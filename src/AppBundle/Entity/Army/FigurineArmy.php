@@ -21,17 +21,17 @@ class FigurineArmy
      * @ORM\GeneratedValue(strategy="UUID")
      */
     protected $id;
-//
-//    /**
-//     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Figurine")
-//     * @ORM\JoinColumn(nullable=false)
-//     */
-//    protected $figurine;
-//
-//    /**
-//     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement", cascade={"persist"})
-//     */
-//    protected $equipements;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Figurine")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    protected $figurine;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Unit\Equipement", cascade={"persist"})
+     */
+    protected $equipements;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\UnitArmy", inversedBy="figurines")

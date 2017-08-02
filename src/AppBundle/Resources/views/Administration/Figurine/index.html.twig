@@ -1,0 +1,12 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %} Administration figurines{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('admin_index') }}">< Retour administration</a>
+    <a href="{{ path('admin_figurine_create') }}" class="pull-right">Créer une figurine</a>
+    <div id="figurines">
+        {% include '@App/Administration/Figurine/rendering.html.twig' with {'figurines': figurines} %}
+    </div>
+{% endblock %}
