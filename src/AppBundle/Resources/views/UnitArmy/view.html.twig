@@ -1,0 +1,30 @@
+{# Vue d'une unité dans la liste d'armée #}
+<div class="well">
+    <div class="row">
+        <div class="col-sm-2">
+            {% if unit.picture is not null %}
+                <a href="#" class="thumbnail" data-image-id="" data-toggle="modal" data-title="{{ unit.unit.name }}" data-image="{{ asset(unit.picture.webPath) }}" data-target="#image-gallery"><img src="{{ asset(unit.picture.webPath) }}" alt="avatar de l'unité {{ unit.unit.name }}" class="avatar"></a>
+
+            {% else %}
+                <p>Pas de photos pour cette unité.</p>
+            {% endif %}
+        </div>
+        <ul class="list-unstyled {{ army.user == app.user ? 'col-sm-4' : 'col-sm-5' }} text-center">
+            <li><h5>{{ unit.unit.name }}</h5></li>
+            <li>{{ unit.points }}</li>
+        </ul>
+        <ul class="list-unstyled {{ army.user == app.user ? 'col-sm-4' : 'col-sm-5' }} text-center">
+            {% for figurine in unit.figurines if figurine.quantity > 0 %}
+                {% include '@App/FigurineArmy/view.html.twig' with {'figurine': figurine} %}
+            {% else %}
+                <li> Aucunes figurines dans cette unité</li>
+            {% endfor %}
+        </ul>
+        {% if app.user == army.user %}
+            <div class="col-sm-2">
+                <a class="btn btn-primary btn-xs" href="{{ path('unit_army_edit', {'id': unit.id}) }}"><i class="glyphicon glyphicon-edit"></i></a>
+                <a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ unit.id }}_delete"><i class="glyphicon glyphicon-trash"></i></a>
+            </div>
+        {% endif %}
+    </div>
+</div>

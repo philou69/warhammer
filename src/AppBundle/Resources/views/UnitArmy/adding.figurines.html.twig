@@ -1,0 +1,28 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Séléction des equipements{% endblock %}
+
+{% block body %}
+    {{ unitArmy.unit.name }}
+
+    {% include '@App/UnitArmy/form.html.twig' with {'form': form} %}
+
+{% endblock %}
+{% block javascript %}
+
+{{ parent() }}
+<script>
+    $(document).ready(function () {
+        $('[type=range]').each(function () {
+            var forElt = "[data-for=" + $(this).attr('id') + "]";
+            $(forElt).val($(this).val())
+        })
+        $('input[type=range]').on('input', function (event) {
+            console.log($(this).val())
+            var id = "[data-for=" + $(this).attr('id') + "]";
+            console.log(id)
+            $(id).val($(this).val());
+        })
+    })
+</script>
+{% endblock %}

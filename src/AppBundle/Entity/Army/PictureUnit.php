@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * PhotoUnit.
  *
- * @ORM\Table(name="photo_unit")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\PhotoUnitRepository")
+ * @ORM\Table(name="picture_unit")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\PictureUnitRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class PhotoUnit
+class PictureUnit
 {
     /**
      * @ORM\Column(type="guid")
@@ -33,7 +33,7 @@ class PhotoUnit
     private $alt;
 
   /**
-   * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\UnitArmy", inversedBy="photos")
+   * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\UnitArmy", inversedBy="picture")
    * @ORM\JoinColumn(nullable=false)
    */
   private $unit;

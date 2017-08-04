@@ -30,17 +30,8 @@ class UnitArmyType extends AbstractType
                     'group_by' => 'groupe.name',
                     'placeholder' => 'Choisisez une unit',
                     ))
-//                ->add('files', FileType::class, array(
-//                    'label' => 'Photos de la unit',
-//                'multiple' => "multiple",
-//                    'attr' => array(
-//                        'accept' => 'image/*',
-//                    ),
-//                    'mapped' => false,
-//                    'required' => false
-//            ))
             ->add('save', SubmitType::class, array(
-                    'label' => 'Enregistrer',
+                    'label' => 'Passer aux figurines',
             ));
     }
 
@@ -52,7 +43,6 @@ class UnitArmyType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Army\UnitArmy',
         ));
-
         $resolver->setRequired('race');
         $resolver->setAllowedTypes('race', Race::class);
     }

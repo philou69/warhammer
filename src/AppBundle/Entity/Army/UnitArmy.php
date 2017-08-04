@@ -38,23 +38,14 @@ class UnitArmy
     protected $figurines;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoUnit", mappedBy="unit", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\PictureUnit", mappedBy="unit", cascade={"all"})
      */
-    private $photos;
+    private $picture;
 
     /**
      * @ORM\Column(name="points", type="integer", nullable = true)
      */
     private $points;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     public function __toString()
     {
@@ -70,9 +61,6 @@ class UnitArmy
 
         // On créer une vartiable points valnt les points de la unit + les points d'équipements
         $points = 0;
-        foreach ($this->equipements as $equipement) {
-            $points = $points + $equipement->getPoints();
-        }
 
         // On calcule les nouveaux points de l'armée en lui ajoutant la difference des points - les points de la unitarmée
 
@@ -119,6 +107,11 @@ class UnitArmy
      */
     public function getPoints()
     {
+        $this->points = 0;
+        foreach ($this->getFigurines() as $figurine)
+        {
+            $this->points += $figurine->getPoints();
+        }
         return $this->points;
     }
 
@@ -180,7 +173,7 @@ class UnitArmy
     public function addFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
     {
         $this->figurines[] = $figurine;
-
+        $figurine->setUnit($this);
         return $this;
     }
 
@@ -205,36 +198,34 @@ class UnitArmy
     }
 
     /**
-     * Add photo
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set picture
      *
-     * @param \AppBundle\Entity\Army\PhotoUnit $photo
+     * @param \AppBundle\Entity\Army\PictureUnit $picture
      *
      * @return UnitArmy
      */
-    public function addPhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
+    public function setPicture(\AppBundle\Entity\Army\PictureUnit $picture = null)
     {
-        $this->photos[] = $photo;
+        $this->picture = $picture;
 
         return $this;
     }
 
     /**
-     * Remove photo
+     * Get picture
      *
-     * @param \AppBundle\Entity\Army\PhotoUnit $photo
+     * @return \AppBundle\Entity\Army\PictureUnit
      */
-    public function removePhoto(\AppBundle\Entity\Army\PhotoUnit $photo)
+    public function getPicture()
     {
-        $this->photos->removeElement($photo);
-    }
-
-    /**
-     * Get photos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
+        return $this->picture;
     }
 }

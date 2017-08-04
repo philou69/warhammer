@@ -6,6 +6,7 @@ namespace AppBundle\Form\Type\Army;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +27,15 @@ class EquipementUnitArmytype extends AbstractType
             'allow_add' => false,
             'allow_delete' => false
         ])
+            ->add('file', FileType::class, array(
+                    'label' => 'Photo de l\'unité',
+                    'attr' => array(
+                        'accept' => 'image/*',
+                    ),
+                    'mapped' => false,
+                    'required' => false,
+                )
+            )
             ->add('save', SubmitType::class);
     }
 }

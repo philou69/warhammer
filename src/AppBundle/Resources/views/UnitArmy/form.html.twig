@@ -1,0 +1,46 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{% for figurine in form.figurines.children %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>
+                {{ figurine.vars.data.figurine.name }}
+            </h3>
+        </div>
+        <div class="col-xs-12 row">
+            {{ form_label(figurine.quantity, figurine.quantity.vars.label, {'label_attr': {'class': 'col-xs-3'}}) }}
+            <div class="col-xs-4">
+                {{ form_widget(figurine.quantity) }}
+            </div>
+            <div class="col-xs-4">
+                <output data-for="{{ figurine.quantity.vars.id }}"></output>
+            </div>
+        </div>
+        <div class="col-xs-12 row">
+            {{ form_label(figurine.equipements, figurine.equipements.vars.label, {'label_attr': {'class': 'col-sm-3'}}) }}
+            <div class="col-sm-7 row">
+                {% for equipement in figurine.equipements.children %}
+                    <div class="col-sm-6">
+                        {{ form_widget(equipement) }}
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_errors(figurine.equipements) }}
+        </div>
+    </div>
+{% endfor %}
+<div class="row">
+    <div class="col-xs-3">
+        {{ form_label(form.file) }}<br>
+        <small>Si l'unité pocède déjà une photo, celle ci sera supprimé</small>
+    </div>
+    <div class="col-xs-4">
+        {{ form_widget(form.file) }}
+    </div>
+    {{ form_errors(form.file) }}
+</div>
+<div class="text-center">
+    {{ form_widget(form.save) }}
+</div>
+{{ form_widget(form._token) }}
+{{ form_end(form, {'render_rest': false}) }}

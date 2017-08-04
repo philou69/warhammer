@@ -38,23 +38,14 @@ class UnitArmy
     protected $figurines;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\PhotoUnit", mappedBy="unit", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Army\PhotoUnit", mappedBy="unit", cascade={"all"})
      */
-    private $photos;
+    private $photo;
 
     /**
      * @ORM\Column(name="points", type="integer", nullable = true)
      */
     private $points;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     public function __toString()
     {
@@ -70,9 +61,6 @@ class UnitArmy
 
         // On créer une vartiable points valnt les points de la unit + les points d'équipements
         $points = 0;
-        foreach ($this->equipements as $equipement) {
-            $points = $points + $equipement->getPoints();
-        }
 
         // On calcule les nouveaux points de l'armée en lui ajoutant la difference des points - les points de la unitarmée
 
@@ -85,6 +73,123 @@ class UnitArmy
     public function countArmy()
     {
         // On compte les points de l'armée sans ceux de la unit armé
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return guid
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set points
+     *
+     * @param integer $points
+     *
+     * @return UnitArmy
+     */
+    public function setPoints($points)
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    /**
+     * Get points
+     *
+     * @return integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
+     * Set unit
+     *
+     * @param \AppBundle\Entity\Unit\Unit $unit
+     *
+     * @return UnitArmy
+     */
+    public function setUnit(\AppBundle\Entity\Unit\Unit $unit)
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * Get unit
+     *
+     * @return \AppBundle\Entity\Unit\Unit
+     */
+    public function getUnit()
+    {
+        return $this->unit;
+    }
+
+    /**
+     * Set army
+     *
+     * @param \AppBundle\Entity\Army\Army $army
+     *
+     * @return UnitArmy
+     */
+    public function setArmy(\AppBundle\Entity\Army\Army $army)
+    {
+        $this->army = $army;
+
+        return $this;
+    }
+
+    /**
+     * Get army
+     *
+     * @return \AppBundle\Entity\Army\Army
+     */
+    public function getArmy()
+    {
+        return $this->army;
+    }
+
+    /**
+     * Add figurine
+     *
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     *
+     * @return UnitArmy
+     */
+    public function addFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    {
+        $this->figurines[] = $figurine;
+        $figurine->setUnit($this);
+        return $this;
+    }
+
+    /**
+     * Remove figurine
+     *
+     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     */
+    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    {
+        $this->figurines->removeElement($figurine);
+    }
+
+    /**
+     * Get figurines
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFigurines()
+    {
+        return $this->figurines;
     }
 
 }

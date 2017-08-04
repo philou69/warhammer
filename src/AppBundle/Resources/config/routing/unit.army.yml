@@ -1,23 +1,23 @@
 unit_army_create:
     path: /{slug}/create
     defaults:
-       _controller: "AppBundle:UnitArmy:create"
+       _controller: AppBundle:UnitArmy:selectUnit
+    methods: [ GET, POST]
 
 unit_army_adding_figurines:
-    path: /{id}/adding-figurines
+    path: /{slug}/{id}/adding-figurines
     defaults:
         _controller: AppBundle:UnitArmy:addingFigurines
+    methods: [ GET, POST]
 
 unit_army_edit:
     path: /{id}/edit
     defaults:
-        _controller: "AppBundle:UnitArmy:edit"
-    requirements:
-      id: \d+
+        _controller: AppBundle:UnitArmy:edit
+    methods: [ GET, POST]
 
 unit_army_delete:
     path: /{id}/delete
     defaults:
-        _controller: "AppBundle:UnitArmy:delete"
-    requirements:
-      id: \d+
+        _controller: AppBundle:UnitArmy:delete
+    methods: [ GET, POST]

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Army;
 
+use AppBundle\Entity\Unit\Groupe;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -249,4 +250,19 @@ class Army
         return $this->groupes;
     }
 
+    public function countForGroup($groupe)
+    {
+        if(in_array($groupe, $this->groupes)){
+            $number =0;
+            foreach ($this->units as $unit)
+            {
+                if($unit->getUnit()->getGroupe()->getName() === $groupe){
+                    $number ++;
+                }
+            }
+
+            return $number;
+        }
+
+    }
 }

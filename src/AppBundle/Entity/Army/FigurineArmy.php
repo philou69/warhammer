@@ -44,7 +44,7 @@ class FigurineArmy
     protected $quantity;
 
     /**
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $points;
 
@@ -88,6 +88,11 @@ class FigurineArmy
      */
     public function getPoints()
     {
+        $this->points = $this->figurine->getPoints() * $this->quantity;
+        foreach ($this->getEquipements() as $equipement)
+        {
+            $this->points += ($equipement->getPoints() * $this->quantity);
+        }
         return $this->points;
     }
 

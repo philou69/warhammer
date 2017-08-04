@@ -45,7 +45,7 @@ class Equipement
 
     public function __toString()
     {
-        return $this->name.' '.$this->points;
+        return $this->name.' '.$this->points .' pts';
     }
 
     /**

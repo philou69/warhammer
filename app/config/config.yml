@@ -145,8 +145,6 @@ easy_admin:
           - equipements
     Groupes:
       class: AppBundle\Entity\Unit\Groupe
-    PhotosUnit:
-      class: AppBundle\Entity\Army\PhotoUnit
     Races:
       class: AppBundle\Entity\Unit\Race
       form:
@@ -156,8 +154,6 @@ easy_admin:
       class: AppBundle\Entity\Battle\Battle
     Participants:
       class: AppBundle\Entity\Battle\Participant
-    PhotosBattle:
-      class: AppBundle\Entity\Battle\PhotoBattle
     Presences:
       class: AppBundle\Entity\Battle\Presence
     Resumes:
