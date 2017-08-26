@@ -53,7 +53,7 @@
 					{% include '@App/UnitArmy/view.html.twig' with {'unit': unit } %}
                 {% else %}
 					<p class="well text-center">
-						Cette armée ne possède pas de {{ groupe }}.
+						Cette armée ne possède pas de {{ groupe }}. <a href="{{ path('unit_army_create', {'slug': army.slug}) }}">Ajouté</a> une figurine
 					</p>
                 {% endfor %}
 			</div>
