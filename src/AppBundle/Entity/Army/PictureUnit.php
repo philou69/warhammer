@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * PhotoUnit.
+ * PictureUnit.
  *
  * @ORM\Table(name="picture_unit")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Army\PictureUnitRepository")
@@ -137,7 +137,6 @@ class PictureUnit
         // On supprime le fichier
       unlink($this->tempFilename);
     }
-      $this->unit->removePhoto($this);
   }
 
     public function getUploadDir()
@@ -172,7 +171,7 @@ class PictureUnit
      *
      * @param string $url
      *
-     * @return PhotoUnit
+     * @return PictureUnit
      */
     public function setUrl($url)
     {
@@ -196,7 +195,7 @@ class PictureUnit
      *
      * @param string $alt
      *
-     * @return PhotoUnit
+     * @return PictureUnit
      */
     public function setAlt($alt)
     {
@@ -220,7 +219,7 @@ class PictureUnit
      *
      * @param \AppBundle\Entity\Army\UnitArmy $unit
      *
-     * @return PhotoUnit
+     * @return PictureUnit
      */
     public function setUnit(\AppBundle\Entity\Army\UnitArmy $unit)
     {

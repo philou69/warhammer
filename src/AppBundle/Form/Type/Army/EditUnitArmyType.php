@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form\Type\Army;
 
-use AppBundle\Repository\Army\PhotoUnitRepository;
+use AppBundle\Repository\Army\PictureUnitRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,7 +44,7 @@ class EditUnitArmyType extends AbstractType
                     ))
             ->add('photos', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Army\PhotoUnit',
-                'query_builder' =>function (PhotoUnitRepository $er) use ($unit) {
+                'query_builder' =>function (PictureUnitRepository $er) use ($unit) {
                     return $er->findForUnit($unit);
                 },
                 'label' => 'photos de la unit',

@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Army\FigurineArmy;
 use AppBundle\Entity\Army\PictureUnit;
 use AppBundle\Entity\Unit\Unit;
-use AppBundle\Form\Type\Army\EquipementUnitArmytype;
+use AppBundle\Form\Type\Army\EquipementUnitArmyType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
 use AppBundle\Entity\Army\UnitArmy;
 use AppBundle\Form\Type\Army\UnitArmyType;
-use AppBundle\Form\Type\Army\EditUnitArmyType;
 
 class UnitArmyController extends Controller
 {
@@ -68,7 +67,7 @@ class UnitArmyController extends Controller
             $figurineArmy->setFigurine($figurine);
             $unitArmy->addFigurine($figurineArmy);
         }
-        $form = $this->createForm(EquipementUnitArmytype::class, $unitArmy);
+        $form = $this->createForm(EquipementUnitArmyType::class, $unitArmy);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -102,7 +101,7 @@ class UnitArmyController extends Controller
         }
         $oldUnit = clone $unitArmy;
         $em = $this->getDoctrine()->getManager();
-        $form = $this->createForm(EquipementUnitArmytype::class, $unitArmy);
+        $form = $this->createForm(EquipementUnitArmyType::class, $unitArmy);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Recuperation de la photo et ajout à l'unité.

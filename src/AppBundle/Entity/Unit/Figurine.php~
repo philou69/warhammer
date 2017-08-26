@@ -16,9 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Figurine
 {
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     protected $id;
 
@@ -98,16 +98,9 @@ class Figurine
     protected $unit;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"persist", "remove"})
      */
     protected $equipements;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id

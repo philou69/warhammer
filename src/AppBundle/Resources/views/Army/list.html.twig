@@ -70,7 +70,7 @@
 	{% endfor %}
 
     {% for army in armies if army.user == app.user %}
-		{% include 'AppBundle:Modal:army.delete.modal.html.twig' with{'army': army} %}
+		{% include '@App/Army/modal.delete.html.twig' with{'army': army} %}
     {% endfor %}
 
 {% endblock %}

@@ -101,13 +101,6 @@ class Figurine
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Unit\Equipement", mappedBy="figurine", cascade={"persist", "remove"})
      */
     protected $equipements;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -520,4 +513,12 @@ class Figurine
     {
         return $this->points;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
 }

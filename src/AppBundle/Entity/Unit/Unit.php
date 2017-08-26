@@ -44,8 +44,7 @@ class Unit
      */
     public function __construct()
     {
-        $this->armies = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->equipements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -143,6 +142,8 @@ class Unit
         return $this->name.' '.$this->points.' pts';
     }
 
+
+
     /**
      * Add figurine
      *
@@ -153,6 +154,7 @@ class Unit
     public function addFigurine(\AppBundle\Entity\Unit\Figurine $figurine)
     {
         $this->figurines[] = $figurine;
+
         $figurine->setUnit($this);
         return $this;
     }

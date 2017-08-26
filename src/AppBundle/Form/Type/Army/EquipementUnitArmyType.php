@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EquipementUnitArmytype extends AbstractType
+class EquipementUnitArmyType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -23,7 +23,7 @@ class EquipementUnitArmytype extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('figurines', CollectionType::class, [
-            'entry_type' => FiguirineArmyType::class,
+            'entry_type' => FigurineArmyType::class,
             'allow_add' => false,
             'allow_delete' => false
         ])

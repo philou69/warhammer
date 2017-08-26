@@ -6,7 +6,7 @@
         {% for equipement in figurine.equipements %}
             <li>{{ equipement.name }} {{ equipement.points }} pts</li>
         {% else %}
-            <li>Cette figurine n'a besoin d'aucunes améliorations.</li>
+            <li>{{ figurine.quantity == 1 ? "Cette figurine n'a" : "Ces figurines n'ont" }} besoin d'aucunes améliorations.</li>
         {% endfor %}
     </ul>
     <hr>

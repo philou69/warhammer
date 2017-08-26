@@ -35,14 +35,6 @@ class Equipement
      */
     private $figurine;
 
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
     public function __toString()
     {
         return $this->name.' '.$this->points .' pts';
@@ -63,7 +55,7 @@ class Equipement
      *
      * @param string $name
      *
-     * @return Options
+     * @return Equipement
      */
     public function setName($name)
     {
@@ -87,7 +79,7 @@ class Equipement
      *
      * @param int $points
      *
-     * @return Options
+     * @return Equipement
      */
     public function setPoints($points)
     {

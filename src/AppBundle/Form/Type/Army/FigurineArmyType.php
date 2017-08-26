@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FiguirineArmyType extends AbstractType
+class FigurineArmyType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
