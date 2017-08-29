@@ -26,4 +26,5 @@ var/bootstrap.php.cache
 /web/uploads/
 /web/media/
 
+config.php
 todolist
