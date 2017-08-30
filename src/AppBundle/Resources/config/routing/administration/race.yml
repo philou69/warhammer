@@ -14,6 +14,6 @@ admin_race_delete:
         _controller: AppBundle:Administration/Race:delete
 
 admin_race_index:
-    path: /
+    path: /index
     defaults:
         _controller: AppBundle:Administration/Race:index

@@ -14,6 +14,6 @@ admin_groupe_delete:
         _controller: AppBundle:Administration/Groupe:delete
 
 admin_groupe_index:
-    path: /
+    path: /index
     defaults:
         _controller: AppBundle:Administration/Groupe:index

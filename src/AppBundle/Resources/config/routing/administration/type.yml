@@ -14,6 +14,6 @@ admin_type_delete:
         _controller: AppBundle:Administration/Type:delete
 
 admin_type_index:
-    path: /
+    path: /index
     defaults:
         _controller: AppBundle:Administration/Type:index

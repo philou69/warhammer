@@ -18,6 +18,11 @@ admin_figurine:
   prefix: /figurine
   resource: administration/figurine.yml
 
+admin_help:
+  path: /help
+  defaults:
+    _controller: AppBundle:Administration\Administration:help
+
 admin_index:
   path: /
   defaults:

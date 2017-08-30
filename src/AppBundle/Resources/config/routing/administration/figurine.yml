@@ -14,6 +14,6 @@ admin_figurine_delete:
         _controller:  AppBundle:Administration/Figurine:delete
 
 admin_figurine_index:
-    path: /
+    path: /index
     defaults:
         _controller: AppBundle:Administration/Figurine:index

@@ -12,4 +12,9 @@ class AdministrationController extends Controller
     {
         return $this->render('@App/Administration/Admin/index.html.twig');
     }
+
+    public function helpAction()
+    {
+        return $this->render('@App/Administration/Admin/help.html.twig');
+    }
 }
