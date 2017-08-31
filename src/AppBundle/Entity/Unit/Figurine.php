@@ -441,7 +441,6 @@ class Figurine
     public function setUnit(\AppBundle\Entity\Unit\Unit $unit)
     {
         $this->unit = $unit;
-//        $unit->addFigurine($this);
         return $this;
     }
 

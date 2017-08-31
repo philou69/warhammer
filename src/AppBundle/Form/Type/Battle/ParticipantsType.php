@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type\Battle;
 
+use AppBundle\Entity\Army\Army;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -32,7 +33,7 @@ class ParticipantsType extends AbstractType
                 'label' => 'Armée utilisée :',
                 'placeholder' => 'Choisissez l\'armée utilisée',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
-                'choice_attr' => function ($choice) {
+                'choice_attr' => function (Army $choice) {
                     $datas = array();
                     $datas['data-participant'] = $choice->getUser()->getId();
                     $datas['class'] = 'armee';

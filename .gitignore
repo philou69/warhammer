@@ -6,7 +6,6 @@
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
 !var/.gitkeep
-.idea
 var/bootstrap.php.cache
 
 # Parameters
@@ -25,6 +24,7 @@ var/bootstrap.php.cache
 /web/bundles/
 /web/uploads/
 /web/media/
-
+/web/config.php
 config.php
 todolist
+

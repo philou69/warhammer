@@ -23,7 +23,6 @@ class PhotoBattleController extends Controller
         $form = $this->createForm(PhotoBattleType::class);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-            $data = $form->getData();
             $files = $form->get('files')->getData();
 
             foreach ($files as $file) {

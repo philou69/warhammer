@@ -5,7 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\Resume;
-use AppBundle\Form\Battle\ResumeType;
+use AppBundle\Form\Type\Battle\ResumeType;
 
 class ResumeController extends Controller
 {
@@ -26,8 +26,9 @@ class ResumeController extends Controller
         $photos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($battle->getCreateur());
 
         $form = $this->createForm(ResumeType::class, $resume);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid());
+        if ($form->isSubmitted() && $form->isValid())
         {
             if ($resume->getResume() === null) {
                 return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' =>$battle));

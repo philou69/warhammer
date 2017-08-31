@@ -25,15 +25,3 @@ class ParticipantValidator extends ConstraintValidator
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

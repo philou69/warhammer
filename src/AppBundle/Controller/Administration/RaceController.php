@@ -57,3 +57,4 @@ class RaceController extends Controller
         return $this->redirectToRoute('admin_race_index');
     }
 }
+

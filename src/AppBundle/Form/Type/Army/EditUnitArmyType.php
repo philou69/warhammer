@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form\Type\Army;
 
+use AppBundle\Entity\Unit\Equipement;
 use AppBundle\Repository\Army\PictureUnitRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -27,7 +28,7 @@ class EditUnitArmyType extends AbstractType
                         return $er->findByUnit($unit->getUnit());
                     },
                     'choice_label' => 'NameAndPoints',
-                    'choice_attr' => function ($choice) {
+                    'choice_attr' => function (Equipement $choice) {
                         $datas = array();
                         foreach ($choice->getUnits() as $unit) {
                             $datas['data-'.$unit->getId()] = 1;

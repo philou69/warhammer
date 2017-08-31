@@ -29,15 +29,3 @@ class BattleValidator extends ConstraintValidator
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-

@@ -32,7 +32,7 @@ class FigurineArmyType extends AbstractType
         // Plus d'infos, https://stackoverflow.com/questions/9723713/symfony-form-access-entity-inside-child-entry-type-in-a-collectiontype
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($builder) {
+            function (FormEvent $event) {
                 // On recupere le formulaire et l'entité figurine qui est contenue dans l'event
                 $form = $event->getForm();
                 $figurineArmy = $event->getData();
@@ -60,11 +60,6 @@ class FigurineArmyType extends AbstractType
                 }
             }
         );
-
-        // On récupere l'entité figurineArmy du form
-//        $figurineArmy = $builder->getData();
-//        var_dump($builder);
-//        exit;
 
 
     }
