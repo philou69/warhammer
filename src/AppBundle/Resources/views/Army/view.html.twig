@@ -39,25 +39,7 @@
 		{% endif %}
 	</div>
 	<div id="figs" class="panel-group">
-        {% for groupe in army.groupes %}
-
-			<div id="{{ groupe | replace({' ': '' }) }}" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#{{ groupe | replace({' ': '' }) }}" data-cible="units_{{ groupe | replace({' ': '' }) }}" href="#units_{{ groupe | replace({' ': '' }) }}" class="menu-drop collapsed">
-						<h4 class="text-center">{{ groupe }} ({{ army.countForGroup(groupe) }}) <span class="glyphicon glyphicon-chevron-down"></span></h4>
-					</a>
-				</div>
-			</div>
-			<div id="units_{{ groupe | replace({' ': '' }) }}" class="panel panel-collapse collapse" >
-                {% for unit in army.units if unit.unit.groupe.name == groupe %}
-					{% include '@App/UnitArmy/view.html.twig' with {'unit': unit } %}
-                {% else %}
-					<p class="well text-center">
-						Cette armée ne possède pas de {{ groupe }}. <a href="{{ path('unit_army_create', {'slug': army.slug}) }}">Ajouté</a> une figurine
-					</p>
-                {% endfor %}
-			</div>
-        {% endfor %}
+        {% include '@App/Army/view.group.html.twig' with {'army': army } %}
 	</div>
 
 	{% include '@App/Army/modal.photos.unit.html.twig' %}

@@ -1,4 +1,5 @@
 {
+    "description": "Site pour figurines Warhammer 40K",
     "name": "philippe/warhantmille-battle",
     "license": "proprietary",
     "type": "project",

@@ -17,7 +17,7 @@ class ArmyController extends Controller
         $armies = $em->getRepository("AppBundle:Army\Army")->findAll();
         $users = $em->getRepository("AppBundle:User\User")->findAllOrder();
 
-        return $this->render('AppBundle:Army:list.html.twig', array('armies' => $armies, 'users' => $users));
+        return $this->render('AppBundle:Army:list.html.twig', array('users' => $users));
     }
 
     // Page de vue d'une armée

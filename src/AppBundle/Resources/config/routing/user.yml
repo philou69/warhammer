@@ -10,9 +10,3 @@ user_edit:
     requirements:
       id: \d+
 
-user_role:
-    path:  /{id}
-    defaults:
-        _controller: "AppBundle:User:addRole"
-    requirements:
-      id: \d+
