@@ -14,7 +14,6 @@ class ArmyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $armies = $em->getRepository("AppBundle:Army\Army")->findAll();
         $users = $em->getRepository("AppBundle:User\User")->findAllOrder();
 
         return $this->render('AppBundle:Army:list.html.twig', array('users' => $users));

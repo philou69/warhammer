@@ -1,6 +1,7 @@
 app_home:
     path: /
     defaults: { _controller: "AppBundle:App:index"}
+    methods: ['GET']
 
 app_battle:
     resource: 'routing/battle.yml'

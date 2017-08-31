@@ -2,10 +2,12 @@ resume_create:
     path: /{slug}/create
     defaults:
         _controller: "AppBundle:Resume:create"
+    methods: [ GET, POST ]
 
 resume_edit:
     path: /{id}/edit
     defaults:
         _controller: "AppBundle:Resume:edit"
+    methods: [ GET, POST ]
     requirements:
       id: \d+

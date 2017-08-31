@@ -22,8 +22,10 @@ admin_help:
   path: /help
   defaults:
     _controller: AppBundle:Administration\Administration:help
+    methods: [ GET ]
 
 admin_index:
   path: /
   defaults:
     _controller: AppBundle:Administration/Administration:index
+    methods: [ GET ]

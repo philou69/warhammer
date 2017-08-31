@@ -2,6 +2,7 @@ photo_user_add:
     path: /{id}/add
     defaults:
       _controller: "AppBundle:PhotoBattle:add"
+    methods: [ GET, POST ]
     requirements:
       id: \d+
 
@@ -9,6 +10,7 @@ photo_user_delete:
     path: /{id}/delete
     defaults:
       _controller : 'AppBundle:PhotoBattle:delete'
+    methods: [ GET ]
     requirements:
       id: \d+
 
@@ -16,6 +18,7 @@ photo_user_page:
     path: /{page}
     defaults:
       _controller: "AppBundle:PhotoBattle:index"
+    methods: [ GET ]
       page:   1
     requirements:
       page: \d+

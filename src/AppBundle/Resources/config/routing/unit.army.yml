@@ -20,4 +20,4 @@ unit_army_delete:
     path: /{id}/delete
     defaults:
         _controller: AppBundle:UnitArmy:delete
-    methods: [ GET, POST]
+    methods: [ GET ]

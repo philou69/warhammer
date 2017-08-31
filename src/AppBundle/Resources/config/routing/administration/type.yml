@@ -2,18 +2,22 @@ admin_type_create:
     path: /create
     defaults:
         _controller: AppBundle:Administration/Type:create
+    methods: ['GET', 'POST']
 
 admin_type_edit:
     path: /{id}/edit
     defaults:
         _controller: AppBundle:Administration/Type:edit
+    methods: ['GET', 'POST']
 
 admin_type_delete:
     path: /{id}/delete
     defaults:
         _controller: AppBundle:Administration/Type:delete
+    methods: ['GET']
 
 admin_type_index:
     path: /index
     defaults:
         _controller: AppBundle:Administration/Type:index
+    methods: ['GET']

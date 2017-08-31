@@ -2,18 +2,22 @@ admin_race_create:
     path: /create
     defaults:
         _controller: AppBundle:Administration/Race:create
+    methods: ['GET', 'POST']
 
 admin_race_edit:
     path: /{id}/edit
     defaults:
         _controller: AppBundle:Administration/Race:edit
+    methods: ['GET', 'POST']
 
 admin_race_delete:
     path: /{id}/delete
     defaults:
         _controller: AppBundle:Administration/Race:delete
+    methods: ['GET', 'POST']
 
 admin_race_index:
     path: /index
     defaults:
         _controller: AppBundle:Administration/Race:index
+    methods: ['GET', 'POST']

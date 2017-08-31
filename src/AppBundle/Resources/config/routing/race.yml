@@ -2,10 +2,12 @@ race_list:
   path: /list
   defaults:
     _controller: 'AppBundle:Race:list'
+    methods: [ GET ]
 
 race_view:
   path: /{id}
   defaults:
     _controller: 'AppBundle:Race:view'
+    methods: [ GET ]
   requirements:
     id: \d+

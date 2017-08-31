@@ -2,18 +2,22 @@ admin_groupe_create:
     path: /create
     defaults:
         _controller: AppBundle:Administration/Groupe:create
+    methods: ['GET', 'POST']
 
 admin_groupe_edit:
     path: /{id}/edit
     defaults:
         _controller: AppBundle:Administration/Groupe:edit
+    methods: ['GET', 'POST']
 
 admin_groupe_delete:
     path: /{id}/delete
     defaults:
         _controller: AppBundle:Administration/Groupe:delete
+    methods: ['GET']
 
 admin_groupe_index:
     path: /index
     defaults:
         _controller: AppBundle:Administration/Groupe:index
+    methods: ['GET']
