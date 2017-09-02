@@ -17,7 +17,8 @@ class PresenceRepository extends \Doctrine\ORM\EntityRepository
     {
         $qb = $this->createQueryBuilder('p');
 
-        $qb->where('p.id = 3');
+        $qb->where('p.presence = :presence')
+            ->setParameter('presence', 'participerez au combat');
 
         return $qb;
     }

@@ -24,7 +24,6 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
         name: WARHANTMILLEID
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
@@ -86,11 +85,3 @@ fos_user:
         address: "admin@warhantmille.fr"
         sender_name: Warhantmille
 
-ivory_ck_editor:
-  configs:
-    my_config_1:
-      toolbar: "my_toolboar_1"
-      language: fr
-  toolbars:
-    configs:
-      my_toolboar_1: [["Cut","-","Copy","-","Paste"],"/",["Bold","-","Italic","-","Underline","-","Strike","-","Subscript","-","Superscript"],"-",["Indent","-","JustifyLeft","-","JustifyCenter","-","JustifyRight"],"/",["Image"],"/",["Style","-","Format","-","Font","-","FontSize"],"/",["TextColor","-","BGColor"]]

@@ -2,15 +2,14 @@
 
 namespace AppBundle\Form\Type\Battle;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class EditBattleType extends AbstractType
+class EditBattleType extends BattleType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,20 +17,15 @@ class EditBattleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Nom de la bataille :',
-            ))
-            ->add('date', DateTimeType::class, array(
-                'input' => 'datetime',
-                'date_format' => 'dd/MM/yyyy',
-                'years' => range('2000', '2030'),
-                'label' => 'date :',
-            ))
-            ->add('lieu', TextType::class, array(
-                'label' => 'Lieu de la bataille',
-            ))
-            ->add('participants', CollectionType::class, array(
+        parent::buildForm($builder, $options);
+        $battle = $builder->getData();
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent  $event) use ($options){
+            $battle = $event->getData();
+            $form = $event->getForm();
+
+            $now = new \DateTime();
+            if($battle->getDate() < $now){
+                $form->add('participants', CollectionType::class, array(
                     'entry_type' => ParticipantsType::class,
                     'by_reference' => false,
                     'allow_add' => true,
@@ -39,9 +33,13 @@ class EditBattleType extends AbstractType
                     'required' => false,
                     'label_attr' => array('id' => 'photo', 'class' => 'col-sm-2'),
                     'label' => 'Participants :',
-            ))
-            ->add('save', SubmitType::class)
-        ;
+                ))
+                    ->add('date',DateTimeType::class, [
+                        'years' => range(2000, (int)$now->format('Y'))
+                    ]);
+            }
+        });
+
     }
 
     /**

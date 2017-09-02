@@ -18,7 +18,7 @@ photo_user_page:
     path: /{page}
     defaults:
       _controller: "AppBundle:PhotoBattle:index"
-    methods: [ GET ]
       page:   1
+    methods: [ GET ]
     requirements:
       page: \d+

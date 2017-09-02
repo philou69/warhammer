@@ -19,7 +19,7 @@ class ParticipantType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $options['user'];
+        $participant = $builder->getData();
         $builder
             ->add('presence', EntityType::class, array(
               'class' => 'AppBundle:Battle\Presence',
@@ -33,14 +33,17 @@ class ParticipantType extends AbstractType
             ))
             ->add('army', EntityType::class, array(
                 'class' => 'AppBundle:Army\Army',
-                'query_builder'=> function(ArmyRepository $er) use ($user){
-                    return $er->findArmiesOfUser($user);
+                'query_builder'=> function(ArmyRepository $er) use ($participant){
+                    return $er->findArmiesOfUser($participant->getParticipant());
                 },
                 'label' => 'Votre armée :',
                 'placeholder' => 'Choisissez une armée si vous combattez',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'choice_label' => 'name',
-                'required' => false
+                'required' => false,
+//                'attr' => [
+//                    'disabled' => $participant->getPresence()->getPresence() === "participerez au combat" ? 'false' : 'disabled'
+//                ]
             ))
             ->add('save', SubmitType::class, array(
                 'label' => 'Enregister'
@@ -56,8 +59,8 @@ class ParticipantType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Battle\Participant',
         ));
-        
-        $resolver->setRequired('user');
-        $resolver->setAllowedTypes('user', User::class);
+//
+//        $resolver->setRequired('user');
+//        $resolver->setAllowedTypes('user', User::class);
     }
 }

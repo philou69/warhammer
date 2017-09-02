@@ -3,17 +3,17 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Battle\PhotoBattle;
-use AppBundle\Form\Battle\EditBattleType;
-use AppBundle\Form\Battle\ParticipantType;
-use AppBundle\Form\Battle\PhotoBattleType;
+use AppBundle\Form\Type\Battle\EditBattleType;
+use AppBundle\Form\Type\Battle\ParticipantType;
+use AppBundle\Form\Type\Battle\PhotoBattleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\Participant;
 use AppBundle\Entity\Battle\Resume;
-use AppBundle\Form\Battle\BattleType;
-use AppBundle\Form\Battle\ResumeType;
+use AppBundle\Form\Type\Battle\BattleType;
+use AppBundle\Form\Type\Battle\ResumeType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BattleController extends Controller
@@ -22,61 +22,38 @@ class BattleController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        // On récupere la liste des battles futurs et des battles passées
-        $battlesPast = $em->getRepository('AppBundle:Battle\Battle')->findBattlesPast();
 
-        $battlesFuture = $em->getRepository('AppBundle:Battle\Battle')->findBattlesFuture();
+        $battles = $em->getRepository('AppBundle:Battle\Battle')->findBy([], ['date' => 'DESC']);
 
         return $this->render(
             'AppBundle:Battle:list.html.twig',
             array(
-                'battlesPast' => $battlesPast,
-                'battlesFuture' => $battlesFuture,
+                'battles' => $battles,
             )
         );
     }
 
     // Page de vue de la battle passé
-    public function viewAction(Battle $battle)
+    public function viewAction(Battle $battle, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $now = new \DateTime();
+        if ($battle->getDate() > $now) {
+            $participant = $battle->getOneParticipant($this->getUser());
+            $form = $this->createForm(ParticipantType::class, $participant);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($participant);
+                $em->flush();
+                $this->addFlash('info', 'Votre réponse à bien été pris en compte !');
 
-        $resumeBattle = $em->getRepository('AppBundle:Battle\Resume')->findOneBy(array('battle' => $battle));
-
-        return $this->render(
-            'AppBundle:Battle:view.html.twig',
-            array('battle' => $battle, 'resumeBattle' => $resumeBattle)
-        );
-    }
-
-    // Page de vue de la battle future
-    public function viewFutureAction(Request $request, Battle $battle)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        // On liste les gens sans le visiteur qu'on récupere à part
-        $participants = $em->getRepository('AppBundle:Battle\Participant')->findWithoutVisitor($battle, $user);
-        $participant = $em->getRepository('AppBundle:Battle\Participant')->findOneBy(
-            array('battle' => $battle, 'participant' => $user)
-        );
-        // on crée un fiormulaire de présence contenant les armées du visiteur
-        $form = $this->createForm(ParticipantType::class, $participant, array('user' => $user));
-
-        if ($request->isMethod("POST") && $form->handleRequest($request)->isValid()) {
-            $em->persist($participant);
-            $em->flush();
-            $this->addFlash('info', 'Votre réponse à bien été pris en compte !');
+                return $this->redirectToRoute('battle_view', ['slug' => $battle->getSlug()]);
+            }
         }
 
         return $this->render(
-            'AppBundle:Battle:view_futur.html.twig',
-            array(
-                'form' => $form->createView(),
-                'participants' => $participants,
-                'visiteur' => $participant,
-                'battle' => $battle,
-            )
+            'AppBundle:Battle:view.html.twig',
+            array('battle' => $battle, 'form' => isset($form) ? $form->createView() : null)
         );
     }
 
@@ -86,13 +63,13 @@ class BattleController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // On crée une nouvelle battle et on l'associe au visiteur
-        $visiteur = $this->get('security.token_storage')->getToken()->getUser();
         $battle = new Battle();
-        $battle->setCreateur($visiteur);
+        $battle->setCreateur($this->getUser());
 
         $form = $this->createForm(BattleType::class, $battle);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             // On appelle et utilise le service qui lie les gens à la battle
             $adder = $this->get('battle.add_participants');
@@ -108,12 +85,12 @@ class BattleController extends Controller
                 $mailer->sendMailBattle($battle);
                 $this->addFlash('info', 'La bataille a bien été créée et les invitations ont bien été envoyées.');
 
-                return $this->redirectToRoute('battle_list');
             } else {
                 $this->addFlash('info', 'Votre battle a bien été enregistrer.');
 
-                return $this->redirectToRoute('battles');
             }
+
+            return $this->redirectToRoute('battle_list');
         }
 
         return $this->render('AppBundle:Battle:create.html.twig', array('form' => $form->createView()));
@@ -122,8 +99,8 @@ class BattleController extends Controller
     public function editAction(Request $request, Battle $battle)
     {
         // On vérifie si le visiteur est le créateur de la battle
-        if ($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()) {
-            throw new NotFoundHttpException('Vous n\'avez pas les droits sur cette battle !');
+        if ($battle->getCreateur() !== $this->getUser()) {
+            throw $this->createAccessDeniedException("Vous ne pouvez pas accedez à cette espace !");
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -132,31 +109,6 @@ class BattleController extends Controller
 
         $now = new \DateTime();
 
-        // On vérifie la date de labattle
-        if ($battle->getDate() < $now) {
-            // s'il s'agit d'une battle future, on compte le nombre de participant et on garde uniquement les combattants
-            if ($battle->getParticipants()->count() > 0) {
-                foreach ($battle->getParticipants() as $participant) {
-                    if ($participant->getPresence()->getId() !== 3) {
-                        $battle->removeParticipant($participant);
-                        $em->remove($participant);
-                    }
-                }
-                $em->flush();
-
-            }
-            // S'il n'y a pas de participant, on en ajoute un
-            if ($battle->getParticipants()->count() === 0) {
-                $participant = new Participant();
-
-                $battle->addParticipant($participant);
-            }
-            // Puis on retire le champ date
-            $form->remove('date');
-        } else {
-            // S'il s'agit d'une battle futur on retire le champs participant
-            $form->remove('participants');
-        }
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 
             $em->persist($battle);
@@ -180,19 +132,15 @@ class BattleController extends Controller
     public function canceledAction(Battle $battle)
     {
         // On vérifie si le visiteur est le créateur de la battle
-        if ($this->get('security.token_storage')->getToken()->getUser() != $battle->getCreateur()) {
-            $this->addFlash(
-                'danger',
-                'Vous n\'avez pas le droit d\'annuler cette bataille !'
-            );
-            return $this->redirectToRoute('battle_list');
+        if ($this->getUser() != $battle->getCreateur()) {
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
 
         $em = $this->getDoctrine()->getManager();
 
         $battle->setCanceled(true);
         $em->flush();
-        if($battle->getDate() < new \DateTime()){
+        if ($battle->getDate() < new \DateTime()) {
             $mailer = $this->get('battle.send_mail');
             $mailer->sendCancelBattle($battle);
         }
@@ -202,10 +150,11 @@ class BattleController extends Controller
     }
 
     // Page de suppresion accecible uniquement par l'admin
+
     /**
      * @Security("has_role('ROLE_ADMIN')")
      */
-    public function deleteAction(Battle $battle)
+    public function deleteAction(Battle $battle, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($battle);

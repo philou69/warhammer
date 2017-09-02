@@ -20,7 +20,7 @@ class BattleType extends AbstractType
         $builder
             ->add('name', TextType::class, array(
                     'label' => 'Nom de la bataille :',
-                    'required' => true,
+//                    'required' => true,
             ))
             ->add('date', DateTimeType::class, array(
               'input' => 'datetime',

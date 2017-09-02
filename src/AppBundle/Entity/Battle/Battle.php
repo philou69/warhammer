@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Battle;
 
+use AppBundle\Entity\User\User;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -306,5 +307,25 @@ class Battle
     public function setResume($resume)
     {
         $this->resume = $resume;
+    }
+
+    public function getCombattant()
+    {
+        $combattants = [];
+        foreach ($this->getParticipants() as $participant) {
+            if($participant->getPresence()->getPresence() === "participerez au combat"){
+                $combattants[] = $participant;
+            }
+        }
+
+        return $combattants;
+    }
+    public function getOneParticipant(User $user)
+    {
+        foreach ($this->participants as $participant){
+            if($participant->getParticipant() === $user){
+                return $participant;
+            }
+        }
     }
 }

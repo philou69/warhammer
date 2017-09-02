@@ -4,12 +4,6 @@ battle_list:
         _controller: "AppBundle:Battle:list"
     methods: [ GET ]
 
-battle_future_view:
-    path: /future/{slug}
-    defaults:
-        _controller: "AppBundle:Battle:viewFuture"
-    methods: [ GET ]
-
 battle_create:
     path: /create
     defaults:
@@ -20,7 +14,7 @@ battle_view:
     path: /{slug}
     defaults:
         _controller: "AppBundle:Battle:view"
-    methods: [ GET ]
+    methods: [ GET, POST ]
 
 battle_edit:
     path: /{slug}/edit

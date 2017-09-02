@@ -1,0 +1,3 @@
+{% for participant in battle.participants if participant.participant == app.user %}
+    {{ date(battle.date) > date() ? 'Vous avez ' ~ participant.presence.presence : 'Vous' ~ participant.presence.presence }}
+{% endfor %}

@@ -11,6 +11,7 @@ use AppBundle\Validator\Constraints as AppAssert;
  * @ORM\Table(name="participant")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\ParticipantRepository")
  * @AppAssert\Participant
+ * @ORM\HasLifecycleCallbacks()
  */
 class Participant
 {
@@ -35,7 +36,7 @@ class Participant
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Presence")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $presence;
 
@@ -154,5 +155,35 @@ class Participant
     public function getArmy()
     {
         return $this->army;
+    }
+
+
+    public function haveCombat(){
+        if($this->presence->getPresence() === "participera au combat"){
+            return $this->presence->getUsername() . ' a commandé l\'armée' . $this->army->getName();
+        }
+    }
+
+    public function getStatus()
+    {
+        if($this->presence->getPresence() === "serez présent"){
+            return 'assistera au massacre';
+        }elseif ($this->presence->getPresence() === "ne serez pas présent"){
+            return "ne sera pas là";
+        }elseif ($this->presence->getPresence() === " participera au combat"){
+            return "Commandera l'armée " . $this->army->getName();
+        }else{
+            return "n'a pas répondu";
+        }
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function verifyArmy(){
+        if($this->presence->getPresence() !== "participerez au combat" && $this->army !== null){
+            $this->army = null;
+        }
     }
 }

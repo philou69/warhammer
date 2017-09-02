@@ -50,7 +50,7 @@ class ParticipantsType extends AbstractType
                 },
                 'label_attr' => array('style' => 'display:none'),
                 'attr' => array('style' => 'display:none'),
-                'choice_label' => 'id'
+                'choice_label' => 'presence'
             ))
         ;
     }

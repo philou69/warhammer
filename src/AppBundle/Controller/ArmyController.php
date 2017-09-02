@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\Type\Army\EditArmyType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Army\Army;
@@ -34,8 +35,9 @@ class ArmyController extends Controller
         $army->setUser($this->getUser());
 
         $form = $this->createForm(ArmyType::class, $army);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($army);
             $em->flush();
 
@@ -49,18 +51,16 @@ class ArmyController extends Controller
     public function editAction(Request $request, Army $army)
     {
         // On s'assure que l'utilisateur est le propriétaire de l'armée
-        if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('army_list');
+        if( $army->getUser() !== $this->getUser()){
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
         $em = $this->getDoctrine()->getManager();
 
         // On utilise le même formulaire que pour la création d'une armée mais on enleve le champ race qui ne peut être modifier
-        $form = $this->createForm(ArmyType::class, $army);
+        $form = $this->createForm(EditArmyType::class, $army);
+        $form->handleRequest($request);
 
-        $form->remove('race');
-
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
             $this->addFlash('info', 'Votre armée a bien été modifier');
 
@@ -74,9 +74,8 @@ class ArmyController extends Controller
     public function deleteAction(Request $request, Army $army)
     {
         // On s'assure que l'utilisateur est le propriétaire de l'armée
-        if( $army->getUser() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $this->addFlash('danger', 'Vous ne pouvez pas supprimer cette armée !');
-            return $this->redirectToRoute('army_list');
+        if( $army->getUser() !== $this->getUser()){
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
         // On appelle l'entityManager et on supprime l'armée
         $em = $this->getDoctrine()->getManager();

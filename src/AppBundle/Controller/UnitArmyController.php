@@ -20,7 +20,7 @@ class UnitArmyController extends Controller
     public function selectUnitAction(Request $request, Army $army)
     {
         if ($army->getUser() !== $this->getUser()) {
-            $this->createAccessDeniedException('Vous ne pouvez modifier une armée ne vous apartenant pas');
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
         // On crée une instance de Unit et l'associe à l'armée
         $unitArmy = new UnitArmy();
@@ -54,9 +54,7 @@ class UnitArmyController extends Controller
     public function addingFigurinesAction(Unit $unit, Army $army, Request $request)
     {
         if ($army->getUser() !== $this->getUser()) {
-            $this->createAccessDeniedException(
-                "Vous ne poceder pas les droits pour ajouter une unité à cette armée !"
-            );
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
         // On va créer l'unité army souhaité par le visiteur et lui passé les figurines possibles
         $unitArmy = new  UnitArmy();
@@ -77,7 +75,7 @@ class UnitArmyController extends Controller
                 $photo = new PictureUnit();
                 $photo->setFile($file)
                     ->setUnit($unitArmy);
-                $unitArmy->setPhoto($photo);
+                $unitArmy->setPicture($photo);
             }
             $em->persist($unitArmy);
             $em->flush();
@@ -97,7 +95,7 @@ class UnitArmyController extends Controller
     {
         // On vérifie si le visiteur possède l'armée de la unit
         if ($unitArmy->getArmy()->getUser() !== $this->getUser()) {
-            $this->createAccessDeniedException("Vous ne poceder pas les droits pour modifier cette unité!");
+            throw $this->createAccessDeniedException("Vous ne pouvez pas acceder à cette espace !");
         }
         $oldUnit = clone $unitArmy;
         $em = $this->getDoctrine()->getManager();
@@ -145,7 +143,7 @@ class UnitArmyController extends Controller
     {
         // On vérifie si le visiteur possède l'armée de la unit
         if ($unitArmy->getArmy()->getUser() !== $this->getUser()) {
-            $this->createAccessDeniedException('Vous ne disposer pas des droits sur cette armée !');
+            throw $this->createAccessDeniedException('Vous ne pouvez pas acceder à cette espace !');
         }
 
         $em = $this->getDoctrine()->getManager();

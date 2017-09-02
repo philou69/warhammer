@@ -30,8 +30,7 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "stof/doctrine-extensions-bundle": "^1.2.2",
-        "friendsofsymfony/user-bundle": "2.0.x-dev",
-        "egeloen/ckeditor-bundle": "^4.0"
+        "friendsofsymfony/user-bundle": "2.0.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

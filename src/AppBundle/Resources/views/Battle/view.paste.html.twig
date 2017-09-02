@@ -1,0 +1,4 @@
+{{ battle.resume is empty ? "Il n'y a pas encore de résumé pour cet affrontement." : battle.resume|raw }}
+{% if app.user == battle.createur %}
+   <a href="{{battle.resume is empty ?  path( 'resume_create', {'slug': battle.slug}) : path('resume_edit', {'id': battle.resume.id}) }}">{{ battle.resume is empty ? 'Ecrivez' : 'Modifiez' }}</a> le résumé.
+{% endif %}

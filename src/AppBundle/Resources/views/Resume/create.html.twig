@@ -1,26 +1,25 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-  Créer un résume de bataille
+  Créer un résume de la bataille {{ form.vars.data.battle.name }}
 {% endblock %}
 
 {% block body %}
-  <div class="well">
+  <div>
+    <h1>Réume de la bataille {{ form.vars.data.battle.name }}</h1>
     {{ form(form) }}
     <small>
-      Pour inserer une image dans le texte, copier l'addresse dans la liste ci-dessous de l'image vous interressant. Puis cliquer sur le bouton image dans l'editeur de texte. <br>
-      Dans la fenêtre qui s'ouvre, copier  l'adresse dans le champ URL. <br>
-      Si l'image est trop grande ou trop petite adapté la largeur ou la hauteur. <br>
+      Vous pouvez inserez une image et retoucher la taile.<br>
       <i class="glyphicon glyphicon-warning-sign"></i> Ne modifier qu'une seule donnée pour ne pas modifier le ratio de l'image
     </small>
-  </div>
-  <a href="{{ path('photo_user_add',{'id': battle.id}) }}">Ajouter une photo</a>
-  <div id="contenu">
-    {{ render(controller("AppBundle:PhotoBattle:index", {'page':1})) }}
   </div>
 {% endblock %}
 
 {% block javascript %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ asset('/public/js/pagination.js') }}"></script>
+  <script>
+    $("#resume_resume").summernote({
+        height: 600
+    });
+  </script>
 {% endblock %}

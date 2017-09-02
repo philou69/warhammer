@@ -9,5 +9,3 @@ resume_edit:
     defaults:
         _controller: "AppBundle:Resume:edit"
     methods: [ GET, POST ]
-    requirements:
-      id: \d+
