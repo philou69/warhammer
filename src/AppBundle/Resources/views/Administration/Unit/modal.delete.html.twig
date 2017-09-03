@@ -1,0 +1,14 @@
+<div class="modal fade" id="unit-{{ unit.id }}-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                Vous allez supprimer l'unité {{ unit.name }} de la race des {{ unit.race.name }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <a href="{{ path('admin_unit_delete', {'id': unit.id}) }}" class="btn btn-primary">Supprimer</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

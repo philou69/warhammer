@@ -1,0 +1,30 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title%}Liste des races{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour à l'accueil de l'administration</a>
+    <a href="{{ path('admin_race_create') }}" class="pull-right">Créer une race</a>
+    <h1>Les races</h1>
+    <div id="races">
+        {% for race in races %}
+            <div class="row">
+                <div class="col-sm-6">
+                    {{ race.name }}
+                </div>
+                <div class="col-sm-3">
+                    contient {{ race.units | length }} unité(s)
+                </div>
+                <div class="col-sm-3">
+                    <a href="{{ path('admin_race_edit', {'id': race.id}) }}">Modifier</a>
+                    <a href="#race-{{ race.id }}-delete" data-toggle="modal">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% for race in  races %}
+            {% include 'AppBundle:Administration/Race:modal.delete.html.twig' with {'race': race } %}
+        {% endfor %}
+    </div>
+{% endblock %}
+

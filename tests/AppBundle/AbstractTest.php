@@ -24,22 +24,16 @@ abstract class AbstractTest extends WebTestCase
     protected function createAuthorizedClient()
     {
         $client = static::createClient();
-        $container = $client->getContainer();
 
-        $session = $container->get('session');
-        /** @var $userManager \FOS\UserBundle\Doctrine\UserManager */
-        $userManager = $container->get('fos_user.user_manager');
-        /** @var  $loginlName \FOS\UserBundle\Security\LoginManager */
-        $loginManager = $container->get('fos_user.security.login_manager');
-        $firewallName = $container->getParameter('fos_user.firewall_name');
+        $crawler = $client->request('GET', '/login');
 
-        $user = $userManager->findUserBy(array('username' => 'user1'));
-        $loginManager->loginUser($firewallName, $user);
+        $form = $crawler->selectButton('Connexion')->form();
 
-        // save the login token into the session and put it in a cookie
-        $container->get('session')->set('_security_'.$firewallName, serialize($container->get('security.token_storage')->getToken()));
-        $container->get('session')->save();
-        $client->getCookieJar()->set(new Cookie($session->getName(), $session->getId()));
+        $form['_username'] = 'philou';
+        $form['_password'] = 'test';
+
+        $client->submit($form);
+
         return $client;
     }
 }

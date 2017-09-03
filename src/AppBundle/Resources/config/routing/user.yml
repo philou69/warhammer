@@ -2,17 +2,13 @@ user:
     path: /view
     defaults:
         _controller: "AppBundle:User:view"
+    methods: [ GET ]
 
 user_edit:
     path: /{id}/edit
     defaults:
         _controller: "AppBundle:User:edit"
+    methods: [ GET, POST ]
     requirements:
       id: \d+
 
-user_role:
-    path:  /{id}
-    defaults:
-        _controller: "AppBundle:User:addRole"
-    requirements:
-      id: \d+

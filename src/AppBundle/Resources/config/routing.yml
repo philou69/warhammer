@@ -1,6 +1,7 @@
 app_home:
     path: /
     defaults: { _controller: "AppBundle:App:index"}
+    methods: ['GET']
 
 app_battle:
     resource: 'routing/battle.yml'
@@ -14,6 +15,9 @@ app_unit_army:
     resource: 'routing/unit.army.yml'
     prefix: /unitarmy
 
+app_figurine_army:
+    prefix: /figurine-army
+    resource: routing/figurine.army.yml
 app_photo_user:
     resource: 'routing/photo.user.yml'
     prefix: /photo/user
@@ -33,3 +37,4 @@ app_race:
 app_unit:
     resource: 'routing/unit.yml'
     prefix: /unit
+

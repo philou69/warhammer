@@ -1,0 +1,27 @@
+<div class="modal" id="{{ army.slug }}_delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                <h4 class="modal-title">Suppression de l'armée {{ army.name }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <ul class="list-unstyled col-sm-9 col-md-offset-1 ">
+                        <li>Nom : {{ army.name }}</li>
+                        <li>Race : {{ army.race.name }}</li>
+                        <li>Points : {{ army.points }}</li>
+                        <li>Nb de unités : {{ army.units | length }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                Etes vous sur de vouloir la supprimer ?
+                <div class="group-button pull-right">
+                    <a class="btn btn-default btn-xs" data-dismiss="modal">NON</a>
+                    <a href="{{ path('army_delete', {'slug': army.slug}) }}" class="btn btn-xs btn-danger">OUI</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

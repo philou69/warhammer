@@ -2,24 +2,29 @@ army_list:
     path: /list
     defaults:
         _controller: "AppBundle:Army:list"
+    methods: [ GET ]
 
 
 army_create:
     path: /create
     defaults:
         _controller: "AppBundle:Army:create"
+    methods: [ GET, POST ]
 
 army_edit:
     path: /{slug}/edit
     defaults:
         _controller: "AppBundle:Army:edit"
+    methods: [ GET, POST ]
 
 army_delete:
     path: /{slug}/delete
     defaults:
         _controller: "AppBundle:Army:delete"
+    methods: ['GET']
 
 army_view:
     path: /{slug}
     defaults:
         _controller: "AppBundle:Army:view"
+    methods: [ GET ]

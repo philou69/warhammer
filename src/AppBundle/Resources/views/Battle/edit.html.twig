@@ -43,8 +43,8 @@
             {{ form_widget(form.save,{'attr':{'class':'btn btn-default btn-xs'}})}}
 
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
+        {{ form_widget(form._token) }}
+        {{ form_end(form, {'render_rest': false}) }}
 
     </div>
 
@@ -53,9 +53,7 @@
 {% block javascript %}
     {{ parent() }}
     {% if form.participants is defined %}
-        <script type="text/javascript" src="{{ asset('/public/js/ajoutParticipant.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/app/js/Battle/add.participants.js') }}"></script>
     {% endif %}
-    {% if form.date is defined %}
         <script type="text/javascript" src="{{ asset('/public/js/dateBattle.js') }}"></script>
-    {% endif %}
 {% endblock %}

@@ -24,8 +24,8 @@ framework:
         engines: ['twig']
     default_locale:  "%locale%"
     trusted_hosts:   ~
-    trusted_proxies: ~
     session:
+        name: WARHANTMILLEID
         # http://symfony.com/doc/current/reference/configuration/framework.html#handler-id
         handler_id:  session.handler.native_file
         save_path:   "%kernel.root_dir%/../var/sessions"
@@ -82,87 +82,6 @@ fos_user:
     firewall_name: main
     user_class: AppBundle\Entity\User\User
     from_email:
-        address: "admin@warhantmillebattle.fr"
-        sender_name: You
+        address: "admin@warhantmille.fr"
+        sender_name: Warhantmille
 
-ivory_ck_editor:
-  configs:
-    my_config_1:
-      toolbar: "my_toolboar_1"
-      language: fr
-  toolbars:
-    configs:
-      my_toolboar_1: [["Cut","-","Copy","-","Paste"],"/",["Bold","-","Italic","-","Underline","-","Strike","-","Subscript","-","Superscript"],"-",["Indent","-","JustifyLeft","-","JustifyCenter","-","JustifyRight"],"/",["Image"],"/",["Style","-","Format","-","Font","-","FontSize"],"/",["TextColor","-","BGColor"]]
-
-liip_imagine:
-  resolvers:
-    default:
-      web_path: ~
-
-  filter_sets:
-    cache: ~
-    thumb:
-      quality: 50
-      filters:
-        thumbnail: { size: [200, 200], mode: outbound }
-
-easy_admin:
-  list:
-      max_results: 100
-  entities:
-    Armies:
-      class: AppBundle\Entity\Army\Army
-      form:
-        fields:
-          - name
-          - points
-          - race
-          - user
-    Equipements:
-      class: AppBundle\Entity\Army\Equipement
-      form:
-        fields:
-          - name
-          - points
-          - { property: 'units', type_options: { by_reference: false }}
-    Units:
-      class: AppBundle\Entity\Army\Unit
-      form:
-        fields:
-          - name
-          - points
-          - race
-          - groupe
-          - equipements
-          - { property: 'figurines', type_options: { by_reference: false } }
-    UnitsArmy:
-      class: AppBundle\Entity\Army\UnitArmy
-      form:
-        fields:
-          - points
-          - unit
-          - army
-          - equipements
-    Groupes:
-      class: AppBundle\Entity\Army\Groupe
-    PhotosUnit:
-      class: AppBundle\Entity\Army\PhotoUnit
-    Races:
-      class: AppBundle\Entity\Army\Race
-      form:
-          fields:
-            - name
-    Battles:
-      class: AppBundle\Entity\Battle\Battle
-    Participants:
-      class: AppBundle\Entity\Battle\Participant
-    PhotosBattle:
-      class: AppBundle\Entity\Battle\PhotoBattle
-    Presences:
-      class: AppBundle\Entity\Battle\Presence
-    Resumes:
-      class: AppBundle\Entity\Battle\Resume
-    Figurine:
-      class: AppBundle\Entity\Army\Figurine
-    Type:
-      class: AppBundle\Entity\Army\Type

@@ -8,7 +8,7 @@ class DefaultControllerTest extends AbstractTest
 {
     public function testIndex()
     {
-        $crawler = $this->client->request('GET', '/battle/future/battle-futur');
+        $crawler = $this->client->request('GET', '/');
 
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }

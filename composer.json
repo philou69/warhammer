@@ -1,10 +1,11 @@
 {
+    "description": "Site pour figurines Warhammer 40K",
     "name": "philippe/warhantmille-battle",
     "license": "proprietary",
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "AppBundle\\": "src/AppBundle/"
         },
         "classmap": [
             "app/AppKernel.php",
@@ -29,15 +30,13 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "stof/doctrine-extensions-bundle": "^1.2.2",
-        "friendsofsymfony/user-bundle": "2.0.x-dev",
-        "egeloen/ckeditor-bundle": "^4.0",
-        "liip/imagine-bundle": "^1.6",
-        "javiereguiluz/easyadmin-bundle": "^1.16"
+        "friendsofsymfony/user-bundle": "2.0.x-dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": ">=3.2.0",
-        "doctrine/doctrine-fixtures-bundle": "^2.3"
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "phpunit/phpunit": "^6.3"
     },
     "scripts": {
         "post-install-cmd": [

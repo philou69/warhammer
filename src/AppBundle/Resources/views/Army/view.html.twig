@@ -7,8 +7,10 @@
 {% block stylesheets %}
 	{{ parent() }}
 	<style>
-		.thumbnail img{
-			max-height: 80px;
+		img.avatar{
+			width: 100%;
+			max-height: 100;
+			max-width: 100%;
 		}
 	</style>
 {% endblock %}
@@ -37,81 +39,21 @@
 		{% endif %}
 	</div>
 	<div id="figs" class="panel-group">
-        {% for groupe in army.groupes %}
-
-			<div id="{{ groupe | replace({' ': '' }) }}" class="panel panel-default">
-				<div class="well panel-heading">
-					<a data-toggle="collapse" data-parent="#{{ groupe | replace({' ': '' }) }}" data-cible="units_{{ groupe | replace({' ': '' }) }}" href="#units_{{ groupe | replace({' ': '' }) }}" class="menu-drop collapsed">
-						<h4 class="text-center">{{ groupe }} <span class="glyphicon glyphicon-chevron-down"></span></h4>
-					</a>
-				</div>
-			</div>
-			<div id="units_{{ groupe | replace({' ': '' }) }}" class="panel panel-collapse collapse" >
-                {% for unit in army.units if unit.unit.groupe.name == groupe %}
-					<div class="well">
-						<div class="row">
-							<ul class="list-unstyled  {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-								<li><h5>{{ unit.unit.name }}</h5></li>
-								<li>{{ unit.points }}</li>
-							</ul>
-                            {% for equipement in unit.equipements %}
-                                {% if loop.first %}
-									<ul class="list-unstyled {% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-                                {% endif %}
-										<li>{{ equipement.name }} : {{ equipement.points }} points</li>
-								{% if loop.last %}
-									</ul>
-								{% endif %}
-
-								{% else %}
-								<p class="{% if army.user == app.user%}col-sm-5{% else %}col-sm-6{% endif %} text-center">
-									{{ unit.unit.name }} n'a pas d'equipements supplémentaire
-								</p>
-                            {% endfor %}
-                            {% if app.user == army.user %}
-								<div class="col-sm-2">
-                                    {% if unit.unit.equipements|length > 0 %}
-										<a class="btn btn-primary btn-xs" href="{{ path('unit_army_edit', {'id': unit.id}) }}"><i class="glyphicon glyphicon-edit"></i></a>
-                                    {% endif %}
-									<a  class="btn btn-danger btn-xs" data-toggle="modal" href="#{{ unit.id }}_delete"><i class="glyphicon glyphicon-trash"></i></a>
-								</div>
-                            {% endif %}
-						</div>
-						<div class="row">
-                            {% for photo in unit.photos %}
-								<div class="col-sm-2">
-									<a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="{{ unit.unit.name }}" data-image="{{ asset(photo.webPath) }}" data-target="#image-gallery">
-										<img class="img-responsive" src="{{ asset(photo.webPath) }}" alt="{{ photo.alt }}">
-									</a>
-								</div>
-                            {% else %}
-								<p class="text-center">
-                                    {{ unit.unit.name }} ne possède pas de photos.
-								</p>
-                            {% endfor %}
-						</div>
-					</div>
-                {% else %}
-					<p class="well text-center">
-						Cette armée ne possède pas de {{ groupe }}.
-					</p>
-                {% endfor %}
-			</div>
-        {% endfor %}
+        {% include '@App/Army/view.group.html.twig' with {'army': army } %}
 	</div>
 
-	{% include '@App/Modal/photos.army.html.twig' %}
+	{% include '@App/Army/modal.photos.unit.html.twig' %}
 
     {% if app.user == army.user %}
         {% for unit in army.units %}
-			{% include 'AppBundle:Modal:unit.delete.html.twig' with {'unit': unit} %}
+			{% include '@App/UnitArmy/modal.delete.html.twig' with {'unit': unit} %}
         {% endfor %}
-        {% include 'AppBundle:Modal:army.delete.modal.html.twig' with {'army': army} %}
+        {% include '@App/Army/modal.delete.html.twig' with {'army': army} %}
     {% endif %}
 {% endblock %}
 
 {% block javascript %}
 	{{ parent() }}
-	<script type="application/javascript" src="{{ asset('/public/js/photo_modal.js') }}"></script>
-	<script type="application/javascript" src="{{ asset('/public/js/chevron.js') }}"></script>
+	<script type="application/javascript" src="{{ asset('bundles/app/js/army.photos.js') }}"></script>
+	<script type="application/javascript" src="{{ asset('bundles/app/js/army.chevron.js') }}"></script>
 {% endblock %}

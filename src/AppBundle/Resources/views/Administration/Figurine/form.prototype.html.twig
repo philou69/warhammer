@@ -1,0 +1,65 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-sm-3">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.unit) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.type) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.points) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.minQuantity) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.maxQuantity) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.move) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.weaponSkill) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.balisticSkill) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.strength) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.toughness) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.wounds) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.attacks) }}
+    </div>
+    <div class="col-sm-3">
+        {{ form_row(form.leaderShip) }}
+    </div>
+</div>
+<div id="equipements" data-prototype="{% filter escape %}{{ include('@App/Administration/Equipement/form.prototype.html.twig', {'form': form.equipements.vars.prototype }) }}{% endfilter %}">
+    {% for equipement in form.equipements %}
+        <div id="equipement-{{ loop.index }}" class="equipement">
+            <h5>Equipement {{ loop.index }} </h5>
+            {{ include('@App/Administration/Equipement/form.prototype.html.twig', {'form': equipement}) }}
+            <a href="#" class="delete-equipement btn btn-danger" data-id="#equipement-{{ loop.index }}">Retirer cet equipement</a>
+        </div>
+    {% endfor %}
+</div>
+<div class="row">
+    <a href="#" id="add-equipement" class="btn btn-info">Ajouter un equipement</a>
+</div>
+<div class="row">
+    {{ form_widget(form.save) }}
+</div>
+<div class="row">
+    {{ form_widget(form._token) }}
+</div>
+{{ form_end(form, {'render_rest': false}) }}

@@ -1,55 +1,50 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity\Battle;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use AppBundle\Entity\Battle\Battle;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
-* PhotoBattle
-*
-* @ORM\Table(name="photo_battle")
-* @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PhotoBattleRepository")
-* @ORM\HasLifecycleCallbacks
-*/
-
+ * PhotoBattle.
+ *
+ * @ORM\Table(name="photo_battle")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\PhotoBattleRepository")
+ * @ORM\HasLifecycleCallbacks
+ */
 class PhotoBattle
 {
-	/**
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
-
-	/**
-	 * @ORM\Column(name="url", type="string", length=255, unique=true)
-	 */
-	private $url;
-
-	/**
-	 * @ORM\Column(name="alt", type="string", length=255)
-	 */
-	private $alt;
-
-
-	/**
-	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Battle\Battle", inversedBy="photos")
-	 * @ORM\JoinColumn(nullable=false)
-	 */
-	private $battle;
-
-    
+    /**
+     * @ORM\Column(type="guid")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Battle\LegendPhoto", cascade={"persist","remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
-    private $legends;
+    private $url;
 
+    /**
+     * @ORM\Column(name="alt", type="string", length=255)
+     */
+    private $alt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(name="date_upload" , type="datetime", nullable=true)
+     */
+    private $date_upload;
+
+    /**
+     * @Assert\File(maxSize="8M")
+     */
     private $file;
 
     private $tempFilename;
@@ -63,8 +58,7 @@ class PhotoBattle
     {
         $this->file = $file;
 
-        if(null !== $this->url)
-        {
+        if (null !== $this->url) {
             $this->tempFilename = $this->url;
 
             $this->url = null;
@@ -78,8 +72,7 @@ class PhotoBattle
      */
     public function preUpload()
     {
-        if(null === $this->file)
-        {
+        if (null === $this->file) {
             return;
         }
 
@@ -94,23 +87,20 @@ class PhotoBattle
      */
     public function upload()
     {
-        if(null === $this->file)
-        {
+        if (null === $this->file) {
             return;
         }
 
-        if(null !== $this->tempFilename)
-        {
+        if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
-            if(file_exists($oldFile))
-            {
+            if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
         $this->file->move(
             $this->getUploadRootDir(),
             $this->url);
-    }    
+    }
 
     /**
      * @ORM\PreRemove()
@@ -118,7 +108,6 @@ class PhotoBattle
     public function preRemoveUpload()
     {
         $this->tempFilename = $this->getUploadRootDir().'/'.$this->url;
-
     }
 
     /**
@@ -126,15 +115,14 @@ class PhotoBattle
      */
     public function removeUpload()
     {
-        if(file_exists($this->tempFilename))
-        {
+        if (file_exists($this->tempFilename)) {
             unlink($this->tempFilename);
         }
     }
 
     public function getUploadDir()
     {
-        return 'uploads/img';
+        return 'uploads/images';
     }
 
     public function getUploadRootDir()
@@ -142,16 +130,15 @@ class PhotoBattle
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
-     public function getWebPath()
+    public function getWebPath()
     {
         return $this->getUploadDir().'/'.$this->getUrl();
     }
-   
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -159,7 +146,7 @@ class PhotoBattle
     }
 
     /**
-     * Set url
+     * Set url.
      *
      * @param string $url
      *
@@ -173,7 +160,7 @@ class PhotoBattle
     }
 
     /**
-     * Get url
+     * Get url.
      *
      * @return string
      */
@@ -183,7 +170,7 @@ class PhotoBattle
     }
 
     /**
-     * Set alt
+     * Set alt.
      *
      * @param string $alt
      *
@@ -197,7 +184,7 @@ class PhotoBattle
     }
 
     /**
-     * Get alt
+     * Get alt.
      *
      * @return string
      */
@@ -207,50 +194,40 @@ class PhotoBattle
     }
 
     /**
-     * Set battle
-     *
-     * @param \AppBundle\Entity\Battle\Battle $battle
-     *
-     * @return PhotoBattle
+     * @return mixed
      */
-    public function setBattle(\AppBundle\Entity\Battle\Battle $battle)
+    public function getUser()
     {
-        $this->battle = $battle;
-
-        return $this;
+        return $this->user;
+    }/**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     /**
-     * Get battle
+     * Get date.
      *
-     * @return \AppBundle\Entity\Battle\Battle
+     * @return \DateTime
      */
-    public function getBattle()
+    public function getDateUpload()
     {
-        return $this->battle;
+        return $this->date_upload;
     }
 
     /**
-     * Set legends
+     * Set date.
      *
-     * @param \AppBundle\Entity\Battle\LegendPhoto $legends
+     * @param \DateTime $date
      *
-     * @return PhotoBattle
+     * @return Battle
      */
-    public function setLegends(\AppBundle\Entity\Battle\LegendPhoto $legends)
+    public function setDateUpload($date_upload)
     {
-        $this->legends = $legends;
-
-        return $this;
+        $this->date_upload = $date_upload;
     }
 
-    /**
-     * Get legends
-     *
-     * @return \AppBundle\Entity\Battle\LegendPhoto
-     */
-    public function getLegends()
-    {
-        return $this->legends;
-    }
+
 }

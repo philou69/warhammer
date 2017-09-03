@@ -1,0 +1,26 @@
+{% for army in user.armies %}
+    <div class="well row">
+        <div class="imageArmy col-sm-2">
+            Image de l'armée. <br>
+            (option à venir)
+        </div>
+        <div id="army" class={{ app.user == army.user ? "col-sm-7" : "col-sm-10" }}>
+            <h4 class="text-center"><a href="{{ path('army_view',{'slug': army.slug}) }}">{{ army.name }}</a></h4>
+            <ul class="list-unstyled">
+                <li>{{ army.points }} points</li>
+                <li>{{ army.race.name }}</li>
+            </ul>
+        </div>
+        {% if app.user == army.user %}
+            <div class="col-sm-3">
+                <a href="{{ path('army_edit', {'slug': army.slug}) }}" class="btn btn-primary btn-xs">Réformer cette armée</a>
+                <a data-toggle="modal" href="#{{ army.slug }}_delete" class="btn btn-danger btn-xs">Dissoudre cette armée</a>
+            </div>
+
+        {% endif %}
+    </div>
+{% else %}
+    <p class="well text-center">
+        {{ user.username }} n'a pas encore enregistré d'armées.
+    </p>
+{% endfor %}

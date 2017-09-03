@@ -1,0 +1,13 @@
+{# Vue de description d'une figurine d'une unité d'armée #}
+<li>
+    {{ figurine.figurine.name }} {{ figurine.figurine.points }} pts <br>
+    au nombre de {{ figurine.quantity }}
+    <ul class="list-unstyled">
+        {% for equipement in figurine.equipements %}
+            <li>{{ equipement.name }} {{ equipement.points }} pts</li>
+        {% else %}
+            <li>{{ figurine.quantity == 1 ? "Cette figurine n'a" : "Ces figurines n'ont" }} besoin d'aucunes améliorations.</li>
+        {% endfor %}
+    </ul>
+    <hr>
+</li>

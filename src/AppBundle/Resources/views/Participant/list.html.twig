@@ -1,0 +1,16 @@
+{% for participant in battle.participants %}
+    <li>
+        {% if participant.presence.presence == 'serez présent' %}
+            {{ participant.participant == app.user ? 'Vous ' ~ participant.presence.presence : participant.participant.username ~ ' seras présent' }}
+        {% elseif participant.presence.presence == 'ne serez pas présent' %}
+            {{ participant.participant == app.user ? 'Vous ' ~ participant.presence.presence : participant.participant.username ~ ' ne seras pas présent' }}
+        {% elseif participant.presence.presence== 'participerez au combat' %}
+            {{ participant.participant == app.user ? 'Vous ' ~ participant.presence.presence : participant.participant.username ~ ' participera au combat ' }}  {{ participant.army is not null ? "au commande de l'armée <a href=\"" ~ path('army_view', {'slug': participant.army.slug}) ~ "\">" ~ participant.army.name ~ "</a>" :  "" }}
+        {% elseif participant.presence.presence == "n'avez pas répondu" %}
+            {{ participant.participant == app.user ? 'Vous ' ~ participant.presence.presence : participant.participant.username ~ " n'a pas encore répondu" }}
+        {% endif %}
+        {% if participant.participant == app.user %}
+            <small><a id="show-form" href="#" {{ form.vars.valid? 'disabled' : '' }}>Modifier votre réponse</a></small>
+        {% endif %}
+    </li>
+{% endfor %}

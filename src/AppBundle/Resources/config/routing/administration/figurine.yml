@@ -1,0 +1,23 @@
+admin_figurine_create:
+    path: /create
+    defaults:
+        _controller: AppBundle:Administration/Figurine:create
+    methods: ['GET', 'POST']
+
+admin_figurine_edit:
+    path: /{id}/edit
+    defaults:
+        _controller: AppBundle:Administration/Figurine:edit
+    methods: ['GET', 'POST']
+
+admin_figurine_delete:
+    path: /{id}/delete
+    defaults:
+        _controller:  AppBundle:Administration/Figurine:delete
+    methods: ['GET']
+
+admin_figurine_index:
+    path: /index
+    defaults:
+        _controller: AppBundle:Administration/Figurine:index
+    methods: ['GET']

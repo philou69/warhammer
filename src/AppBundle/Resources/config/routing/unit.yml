@@ -2,5 +2,6 @@ unit_view:
   path: /{id}
   defaults:
     _controller: 'AppBundle:Unit:view'
+    methods: [GET]
   requirements:
     id: \d+

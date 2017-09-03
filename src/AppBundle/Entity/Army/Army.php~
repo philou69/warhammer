@@ -17,9 +17,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Army
 {
     /**
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
@@ -41,7 +41,7 @@ class Army
     private $slug;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Army\Race")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Unit\Race", inversedBy="armies")
      * @ORM\JoinColumn(nullable=false)
      */
     private $race;
@@ -53,17 +53,18 @@ class Army
     private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\FigurineArmy", mappedBy="army", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Army\UnitArmy", mappedBy="army", cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
-    private $figurines;
+    private $units;
 
+    private $groupes = ['QG', 'Elite', 'Troupe', 'Transport', 'Attaque Rapide', 'Soutien', 'Seigneur de Guerre'];
     /**
      * Constructor.
      */
     public function __construct()
     {
-        $this->figurines = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->units = new \Doctrine\Common\Collections\ArrayCollection();
         $this->points = 0;
     }
 
@@ -128,8 +129,8 @@ class Army
     public function getPoints()
     {
         $points = 0;
-        foreach ($this->figurines as $figurine) {
-            $points += $figurine->getPoints();
+        foreach ($this->units as $unit) {
+            $points += $unit->getPoints();
         }
         $this->points = $points;
         return $points;
@@ -162,11 +163,11 @@ class Army
     /**
      * Set race.
      *
-     * @param \AppBundle\Entity\Army\Race $race
+     * @param \AppBundle\Entity\Unit\Race $race
      *
      * @return Army
      */
-    public function setRace(\AppBundle\Entity\Army\Race $race)
+    public function setRace(\AppBundle\Entity\Unit\Race $race)
     {
         $this->race = $race;
 
@@ -176,7 +177,7 @@ class Army
     /**
      * Get race.
      *
-     * @return \AppBundle\Entity\Army\Race
+     * @return \AppBundle\Entity\Unit\Race
      */
     public function getRace()
     {
@@ -208,40 +209,44 @@ class Army
     }
 
     /**
-     * Add figurine.
+     * Add unit.
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     * @param \AppBundle\Entity\Army\UnitArmy $unit
      *
      * @return Army
      */
-    public function addFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function addUnit(\AppBundle\Entity\Army\UnitArmy $unit)
     {
-        $this->figurines[] = $figurine;
-        $this->points += $figurine->getPoints();
-
+        $this->units[] = $unit;
+        $this->points += $unit->getPoints();
+        $unit->setArmy($this);
         return $this;
     }
 
     /**
-     * Remove figurine.
+     * Remove unit.
      *
-     * @param \AppBundle\Entity\Army\FigurineArmy $figurine
+     * @param \AppBundle\Entity\Army\UnitArmy $unit
      */
-    public function removeFigurine(\AppBundle\Entity\Army\FigurineArmy $figurine)
+    public function removeUnit(\AppBundle\Entity\Army\UnitArmy $unit)
     {
-        $this->points -= $figurine->getPoints();
-        $this->figurines->removeElement($figurine);
+        $this->points -= $unit->getPoints();
+        $this->units->removeElement($unit);
     }
 
     /**
-     * Get figurines.
+     * Get units.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFigurines()
+    public function getUnits()
     {
-        return $this->figurines;
+        return $this->units;
     }
 
+    public function getGroupes()
+    {
+        return $this->groupes;
+    }
 
 }

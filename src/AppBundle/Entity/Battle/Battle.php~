@@ -5,28 +5,33 @@ namespace AppBundle\Entity\Battle;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Validator\Constraints as AppAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
- * Battle
+ * Battle.
  *
  * @ORM\Table(name="battle")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Battle\BattleRepository")
- * @UniqueEntity("name")
+ * @UniqueEntity(fields="name", message="une bataille porte déjà ce nom")
+ * @AppAssert\Battle
  */
 class Battle
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="guid")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     private $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false, unique=true)
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -34,36 +39,32 @@ class Battle
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
+     * @Assert\DateTime()
      */
     private $date;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lieu", type="string", length=255)
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=false )
+     * @Assert\NotBlank()
      */
     private $lieu;
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(name="slug_battle", length=128, unique=true)
+     * @ORM\Column(name="slug", length=128, unique=true)
      */
-    private $slugBattle;
+    private $slug;
 
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\PhotoBattle", mappedBy="battle", cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $photos;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
+     /**
+      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
+      * @ORM\JoinColumn(nullable=false)
+      */
      private $createur;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\Participant", mappedBy="battle", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Battle\Participant", mappedBy="battle", cascade={"persist","refresh","remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $participants;
@@ -79,7 +80,7 @@ class Battle
     private $resume;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -87,11 +88,15 @@ class Battle
         $this->participants = new \Doctrine\Common\Collections\ArrayCollection();
         $this->canceled = false;
     }
+    public function __toString()
+    {
+        return $this->name;
+    }
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -99,7 +104,7 @@ class Battle
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -113,7 +118,7 @@ class Battle
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -123,7 +128,7 @@ class Battle
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param \DateTime $date
      *
@@ -137,7 +142,7 @@ class Battle
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return \DateTime
      */
@@ -147,7 +152,7 @@ class Battle
     }
 
     /**
-     * Set lieu
+     * Set lieu.
      *
      * @param string $lieu
      *
@@ -161,7 +166,7 @@ class Battle
     }
 
     /**
-     * Get lieu
+     * Get lieu.
      *
      * @return string
      */
@@ -171,65 +176,33 @@ class Battle
     }
 
     /**
-     * Set slugBattle
+     * Set slug.
      *
-     * @param string $slugBattle
+     * @param string $slug
      *
      * @return Battle
      */
-    public function setSlugBattle($slugBattle)
+    public function setSlug($slug)
     {
-        $this->slugBattle = $slugBattle;
+        $this->slug = $slug;
 
         return $this;
     }
 
     /**
-     * Get slugBattle
+     * Get slug.
      *
      * @return string
      */
-    public function getSlugBattle()
+    public function getSlug()
     {
-        return $this->slugBattle;
+        return $this->slug;
     }
 
-    /**
-     * Add photo
-     *
-     * @param \AppBundle\Entity\Battle\PhotoBattle $photo
-     *
-     * @return Battle
-     */
-    public function addPhoto(\AppBundle\Entity\Battle\PhotoBattle $photo)
-    {
-        $this->photos[] = $photo;
-
-        return $this;
-    }
+    
 
     /**
-     * Remove photo
-     *
-     * @param \AppBundle\Entity\Battle\PhotoBattle $photo
-     */
-    public function removePhoto(\AppBundle\Entity\Battle\PhotoBattle $photo)
-    {
-        $this->photos->removeElement($photo);
-    }
-
-    /**
-     * Get photos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
-     * Set createur
+     * Set createur.
      *
      * @param \AppBundle\Entity\User\User $createur
      *
@@ -243,7 +216,7 @@ class Battle
     }
 
     /**
-     * Get createur
+     * Get createur.
      *
      * @return \AppBundle\Entity\User\User
      */
@@ -253,7 +226,7 @@ class Battle
     }
 
     /**
-     * Add participant
+     * Add participant.
      *
      * @param \AppBundle\Entity\Battle\Participant $participant
      *
@@ -268,7 +241,7 @@ class Battle
     }
 
     /**
-     * Remove participant
+     * Remove participant.
      *
      * @param \AppBundle\Entity\Battle\Participant $participant
      */
@@ -279,14 +252,14 @@ class Battle
 
     public function setParticipants()
     {
-      foreach ($this->participants as $participant) {
-        $this->add($participant);
-      }
+        foreach ($this->participants as $participant) {
+            $this->add($participant);
+        }
 
-      return $this;
+        return $this;
     }
     /**
-     * Get participants
+     * Get participants.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -296,9 +269,9 @@ class Battle
     }
 
     /**
-     * Set canceld
+     * Set canceld.
      *
-     * @param boolean $canceled
+     * @param bool $canceled
      *
      * @return Battle
      */
@@ -310,9 +283,9 @@ class Battle
     }
 
     /**
-     * Get canceled
+     * Get canceled.
      *
-     * @return boolean
+     * @return bool
      */
     public function getCanceled()
     {
@@ -334,6 +307,4 @@ class Battle
     {
         $this->resume = $resume;
     }
-
-
 }

@@ -1,0 +1,76 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %} Aide de l'administration{% endblock %}
+{% block link %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/Administration/help.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="full-screen">
+        <h1>Page d'aide pour la zone d'administration</h1>
+        <p>
+            La page aide vous aidera à savoir comment ajouté des unités, figurines sur le site.
+        </p>
+
+        <h2>Index</h2>
+        <ul>
+            <li><a href="#definition" class="link-scrolling">Définition</a></li>
+            <li><a href="#add-unit" class="link-scrolling">Ajouter une unité</a></li>
+            <li><a href="#add-figurine" class="link-scrolling">Ajouter une figurine</a></li>
+            <li><a href="#edit-unit" class="link-scrolling">Modifier une unité</a></li>
+            <li><a href="#edit-figurine" class="link-scrolling">Modifier une figurine</a></li>
+        </ul>
+    </div>
+
+
+    <div id="definition" class="full-screen">
+        <h2>Définition des termes</h2>
+        <p>Pour le site, differents termes ont été utilisé. Voici la liste des éléments:</p>
+        <ul>
+            <li>Armé: ensemble d'unité séléctionner par un joueur pour affronter un ou plusieurs adversaire(s)</li>
+            <li>Race: Ensemble d'unité dépendant su même codex. Ex : Space Marine</li>
+            <li>Unité: Ensemble de figurine definis par une entré du codex. Ex : Escouade tactique</li>
+            <li>Figurine: Profil séléctionner pour constitué une ou plusieurs unité(s). Ex : Sergent space marine</li>
+        </ul>
+    </div>
+    <div id="add-unit" class="full-screen">
+        <h2>Ajouté une unité</h2>
+        <p> Apres avoir sélectionner dans l'ordre les liens Unités et Créer une unité, Vous vous retrouvé sur le formulaire suivant</p>
+        <img src="{{ asset('bundles/app/images/help/add-unite-form.png') }}" alt="Formulaire créer unite">
+        <p>
+            Vous pouvez alors le remplir en vous servant du codex(voir image ci dessous). Le champ 2 dépends de la race du codex. A l'exception des particule (de, la, ...), les non doivent commencer en MAJUSCULE. Ex : Bande de Boys
+        </p>
+        <img src="{{ asset('bundles/app/images/help/add-unite.png') }}" alt="image codex unit">
+    </div>
+    <div id="add-figurine" class="full-screen">
+        <h2>Ajouté une figurine</h2>
+        <p> Apres avoir sélectionner dans l'ordre les liens Figurines et Créer une figurine, Vous vous retrouvé sur le formulaire suivant</p>
+        <img src="{{ asset('bundles/app/images/help/add-figurine-form.png') }}" alt="Formulaire créer figurine">
+        <p>
+            Vous pouvez alors le remplir en vous servant du codex(voir image ci dessous). <br>
+            La zone A correspond aux caracteristique de la figurine( cc, ct, a ...). La zone b correspond à un equipement que la figurine peut choisir.
+            Le bouton D vous permet d'ajouter un equipement. Vous devrez l'utiliser autant que nécessaire. Si un équipement peut être attribuer plusieurs fois à la figurine, ajouté leurs autant que nécessaire en terminant par *xx. Ex : Pour les spaces marines Space Marine puis Spaces Marines * 02 Spaces Marines * 03 ....  n'oublier pas de calculer les points en fonction.
+            N'oublier pas que les equipements peuvent s'appliquer à plusieurs figurines de l'unité.
+            <br>
+            Si vous ajoutez un equipement de trop, vous pouvez le retiré en utilisant le bouton C.
+        </p>
+        <img src="{{ asset('bundles/app/images/help/add-figurine.png') }}" alt="image codex unit">
+    </div>
+    <div id="edit-unit" class="full-screen">
+        <h2>Modifier une unité</h2>
+        <p>
+            En vous rendant sur la page les Unités, vous acceder à la liste de toutes les unités enregistrés. Vous pouvez choisir votre unité en utilisant le lien Modifier.
+            <br>
+            Vous vous retrouverer sur le même formulaire que "Créer une unité" à la difference qu'il seras rempli. Modifier le contenu de votre choix.
+        </p>
+    </div>
+    <div id="edit-figurine" class="full-screen">
+
+        <h2>Modifier une figurine</h2>
+        <p>
+            En vous rendant sur la page les Unités, vous acceder à la liste de toutes les figurines enregistrés. Vous pouvez choisir votre figurine en utilisant le lien Modifier.
+            <br>
+            Vous vous retrouverer sur le même formulaire que "Créer une figurine" à la difference qu'il seras rempli. Modifier le contenu de votre choix.
+        </p>
+    </div>
+{% endblock %}

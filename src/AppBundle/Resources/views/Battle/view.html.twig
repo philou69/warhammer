@@ -1,32 +1,33 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-  Bataille {{ battle.name }}
+    Bataille {{ battle.name }}
 {% endblock %}
 
 {% block body %}
-  <div class="jumbotron">
-      {% if app.user == battle.createur and battle.canceled == false %}
-          <div class="pull-right">
-            <a href="{{ path('battle_edit', {'slug': battle.slug}) }}" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit"></span></a>
-            <a href="#{{ battle.slug }}_canceled" data-toggle="modal" class="btn btn-xs btn-danger">Annuler la bataille</a>
-          </div>
-      {% endif %}
-    <h2 class="text-center">{{ battle.name }} du {{ battle.date|date('d/m/y')}}</h2>
-    {% if resumeBattle is empty %}
-      Il n'y a pas encore de résumé de cette bataille.
-      {% if app.user == battle.createur %}
-        Vous pouvez créer un résumé <a href="{{ path('resume_create', {'slug': battle.slug})}}">ici</a>
-      {% endif %}
-    {% else %}
-        {{ resumeBattle.resume|raw  }}
-      {% if app.user == battle.createur %}
-        Vous pouvez Modifier un résumé <a href="{{ path('resume_edit', {'id': battle.resume.id})}}">ici</a>
-      {% endif %}
-    {% endif %}
-
-  </div>
+    <div>
+        {% if app.user == battle.createur and battle.canceled == false %}
+            <div class="pull-right">
+                <a href="{{ path('battle_edit', {'slug': battle.slug}) }}" class="btn btn-xs btn-default"><span
+                            class="glyphicon glyphicon-edit"></span></a>
+                <a href="#{{ battle.slug }}_canceled" data-toggle="modal" class="btn btn-xs btn-danger">Annuler la
+                    bataille</a>
+            </div>
+        {% endif %}
+        <h2 class="text-center">{{ battle.name }} du {{ battle.date|date('d/m/y') }}</h2>
+        {% if date(battle.date) > date() %}
+            {% include '@App/Battle/view.futur.html.twig' %}
+        {% else %}
+            {% include 'AppBundle:Battle:view.paste.html.twig' %}
+        {% endif %}
+    </div>
     {% if app.user == battle.createur %}
         {% include 'AppBundle:Modal:battle.canceled.html.twig' with {'battle': battle} %}
+    {% endif %}
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    {% if date(battle.date) > date() %}
+        <script src="{{ asset('bundles/app/js/Battle/form.js') }}"></script>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,14 @@
+<div class="modal fade" id="race-{{ race.id }}-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                Vous allez supprimer la race {{ race.name }}.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <a href="{{ path('admin_race_delete', {'id': race.id}) }}" class="btn btn-primary">Supprimer</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

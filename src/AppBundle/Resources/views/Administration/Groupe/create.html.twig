@@ -1,0 +1,9 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Création d'un groupe{% endblock %}
+
+{% block body %}
+    <a href="{{ path('admin_index') }}">< Retour à l'accueil de l'administration</a><a href="{{ path('admin_groupe_index') }}">< Retour à la liste des groupes</a>
+    <h1>Création d'un groupe</h1>
+    {{ form(form) }}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block title %}Accueil de l'administration{% endblock %}
+
+{% block body %}
+    <h1>Accéder à la liste des :</h1>
+    <ul>
+        <li>
+            <a href="{{ path('admin_race_index') }}">Races</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_groupe_index') }}">Groupes</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_type_index') }}">Types de Figurine</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_unit_index') }}">Unités</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_figurine_index') }}">Figurines</a>
+        </li>
+        <li><a href="{{ path('admin_help') }}">Aide</a></li>
+    </ul>
+    
+{% endblock %}

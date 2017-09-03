@@ -1,0 +1,9 @@
+.full-screen{
+    min-height: calc(100vh - 60px);
+    padding-top: 60px;
+}
+.full-screen img{
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}

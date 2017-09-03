@@ -7,3 +7,7 @@ services:
        class: AppBundle\Battle\ParticipantsBattle
        arguments: ['@doctrine.orm.entity_manager']
 
+#   participant.form:
+#       class: AppBundle\Form\Type\Battle\CombattantType
+#       arguments: ['@doctrine.orm.entity_manager']
+

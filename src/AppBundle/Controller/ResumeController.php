@@ -5,7 +5,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Battle\Battle;
 use AppBundle\Entity\Battle\Resume;
-use AppBundle\Form\Battle\ResumeType;
+use AppBundle\Form\Type\Battle\ResumeType;
 
 class ResumeController extends Controller
 {
@@ -13,8 +13,8 @@ class ResumeController extends Controller
     public function createAction(Request $request, Battle $battle)
     {
         // On vérifie si le visiteur est le créateur
-        if($battle->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour ajouter unrésumé à cette bataille !');
+        if($battle->getCreateur() !== $this->getUser()){
+            throw $this->createAccessDeniedException("Vous ne pouvez acceder à cette espace !");
         }
         $em = $this->getDoctrine()->getManager();
 
@@ -22,41 +22,36 @@ class ResumeController extends Controller
         $resume = new Resume();
         $resume->setBattle($battle);
 
-        // On liste les photos de battle
-        $photos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($battle->getCreateur());
-
         $form = $this->createForm(ResumeType::class, $resume);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid());
+        if ($form->isSubmitted() && $form->isValid())
         {
-            if ($resume->getResume() === null) {
-                return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' =>$battle));
-            }
             $em->persist($resume);
             $em->flush();
 
             return $this->redirectToRoute('battle_view', array('slug' => $battle->getSlug()));
         }
-        return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(),'photos' => $photos,'battle' => $battle));
+        return $this->render('AppBundle:Resume:create.html.twig', array('form' => $form->createView(),'battle' => $battle));
     }
 
     // gestion de modification de résumé de battle
     public function editAction(Request $request, Resume $resume)
     {
         // On vérifie si le visiteur est le créateur
-        if($resume->getBattle()->getCreateur() !== $this->get('security.token_storage')->getToken()->getUser()){
-            $request->getSession()->getFlashBag()->add('danger', 'Vous n\'avez pas les droits suffisants pour modifier le résumé de cette bataille !');
+        if($resume->getBattle()->getCreateur() !== $this->getUser()){
+            throw $this->createAccessDeniedException("Vous ne pouvez acceder à cette espace !");
         }
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(ResumeType::class, $resume);
-        $photos = $em->getRepository('AppBundle:Battle\PhotoBattle')->findByDesc($resume->getBattle()->getCreateur());
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($resume);
             $em->flush();
             return $this->redirectToRoute('battle_view', array('slug' => $resume->getBattle()->getSlug()));
         }
 
-        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'photos' => $photos, 'battle' => $resume->getBattle()));
+        return $this->render('AppBundle:Resume:edit.html.twig', array('form' => $form->createView(), 'battle' => $resume->getBattle()));
     }
 }
