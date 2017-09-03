@@ -18,9 +18,6 @@ app_unit_army:
 app_figurine_army:
     prefix: /figurine-army
     resource: routing/figurine.army.yml
-app_photo_user:
-    resource: 'routing/photo.user.yml'
-    prefix: /photo/user
 
 app_resume:
     resource: 'routing/resume.yml'
