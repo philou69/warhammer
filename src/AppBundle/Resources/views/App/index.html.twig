@@ -1,27 +1,56 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block title %}
-	Acceuil
+    Acceuil
 {% endblock %}
 
-{% block body %}
-	{# Zone d'affichage des messages flash#}
-	{% for label,flashes in app.session.flashbag.all %}
-		{% for flash in flashes %}
-			<div class="alert alert-{{ label }}">
-				{{ flash }}
-			</div>
-		{% endfor %}
-	{% endfor %}
-	<div id="presentation" class="jumbotron">
-		<h2 class="text-center">Bienvenue sur WarhantmilleBattle</h2>
-		<p> Sur le site, tu as la possibilité de créer des armées, voir les armées de tes amis ou proposer des battles.</p>
-	</div>
-	<div id="battles" class="jumbotron">
-		<p>bloc des battles ou vous pouvez créer des battles
-		bientot modifier</p>
-	</div>
-	<div id="armies" class="jumbotron">
-		<p>bloc des armées ou vous pouvez créer des armées</p>
-	</div>
+{% block link %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset("/bundles/app/css/index.css") }}">
+{% endblock %}
+
+{% block content %}
+    <div id="presentation" class="full-screen">
+        <div class="left">
+            <h2>Bienvenue sur Warhantmille</h2>
+            <p class="text-center">
+                Warhantmille est dédier au monde des warhammers 40000.
+                Le site vous aide à jouer aux warhammer à l'aide de 2 sections:
+                <a class="scroll" href="#battles">Les battles</a>
+                <a href="#armies" class="scroll">Les armées</a>
+            </p>
+        </div>
+    </div>
+    <div id="battles" class="full-screen">
+        <div class="left">
+            <h2><a href="{{ path('battle_list') }}">Les battles</a></h2>
+            <p class="text-center">
+                La section des battles vous permet de proposé une bataille à vos amis ou de créer un résumé sur une ancienne bataille.
+                Si un ami vous à invité à une bataille à venir vous pourrez signaler si vous pourrez venir et si vous prendrez par au massacre.
+            </p>
+        </div>
+    </div>
+    <div id="armies" class="full-screen">
+        <div class="left">
+            <h2><a href="{{ path('army_list') }}">Les armées</a></h2>
+            <p class="text-center">
+                La section des armées vous permettra de constituer vos armées pour affronter vos adversaires mais aussi de consulter les armées visible de vos collègues.
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.scroll').on('click', function (e) {
+                e.preventDefault();
+
+                $('html body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top
+                }, 1000)
+            })
+        })
+    </script>
 {% endblock %}

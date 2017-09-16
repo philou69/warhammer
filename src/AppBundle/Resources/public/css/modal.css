@@ -1,0 +1,16 @@
+
+.modal-content {
+    min-height: 25vh;
+}
+.modal-header{
+    height: 20%;
+}
+.modal-body{
+    height: 60%;
+}
+.modal-footer {
+    height: 20%;
+}
+.semi-page {
+    min-height: 75vh;
+}

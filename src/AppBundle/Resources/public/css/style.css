@@ -1,0 +1,21 @@
+
+/* Margin haute au body pour descendre le contenu de la page sous la barre de navigation */
+body{
+    padding-top: 60px;
+    min-height: 100vh;
+}
+.required:after{
+    content: ' *';
+    color: red;
+}
+
+/* Style for smartphone */
+@media screen and (max-width: 767px) {
+    /* Style for menu button */
+    .navbar .navbar-toggle{
+        padding: 0;
+        height: 30px;
+        width: 30px;
+    }
+
+}

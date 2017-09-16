@@ -2,7 +2,7 @@
 
 {% block title %}Edition d'une figurine{% endblock %}
 
-{% block body %}
+{% block content %}
     <a href="{{ path('admin_index') }}">< Revenir à l'acueil de l'admin</a> <a href="{{ path('admin_figurine_index') }}">< Revenir à la liste des figurines</a>
     <h1>Edition d'une figurine</h1>
     {% include 'AppBundle:Administration/Figurine:form.prototype.html.twig' with {'form': form} %}

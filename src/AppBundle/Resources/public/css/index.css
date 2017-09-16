@@ -1,0 +1,99 @@
+.full-screen{
+    height: calc(100vh - 60px);
+    width: 100%;
+}
+.scroll{
+    display: block;
+}
+#presentation{
+    background: url('/bundles/app/images/index/presentation.jpg')no-repeat;
+}
+#battles{
+    background: url('/bundles/app/images/index/battles.png')  no-repeat;
+}
+#armies{
+    background: url('/bundles/app/images/index/armies.jpg') no-repeat;
+}
+
+/* Style for screen of computer */
+@media screen and (min-width: 992px) {
+    #presentation, #battles, #armies{
+        background-size: 50% auto;
+        background-position: center right;
+    }
+    .full-screen .left{
+        height: 100%;
+        width:50%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/* Style for tablette */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+    #presentation, #battles, #armies{
+        background-size: auto 50%;
+        background-position: top center;
+    }
+    .full-screen{
+        position: relative;
+    }
+    .full-screen>.left{
+        position: absolute;
+        bottom:0;
+        height: 50%;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .full-screen>.left>p{
+        width: 60%;
+        margin: 10px auto;
+    }
+}
+
+/* Style for smartphone */
+@media screen and (max-width: 767px) {
+
+    #presentation, #battles, #armies{
+        background-size: auto 40%;
+        background-position: 60px center;
+    }
+    #battles, #armies{
+        background-position: center 60px;
+    }
+    #presentation{
+        background-position: center top;
+    }
+    .full-screen{
+        height: 100vh;
+        position: relative;
+    }
+    .full-screen>.left{
+        position: absolute;
+        bottom:0;
+        height: 60%;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .full-screen>.left>p{
+        width: 80%;
+        margin: 10px auto;
+    }
+    .full-screen h2{
+        margin-top: 10px;
+        font-size: 20px;
+    }
+}
+
