@@ -4,7 +4,7 @@
 modification d'une unité
 {% endblock %}
 
-{% block body %}
+{% block content %}
 	<div class="well">
 		<h2 class="text-center">Modification des options de la unité {{ unitArmy.unit.name}}</h2>
 		{% include '@App/UnitArmy/form.html.twig' with {'form': form} %}

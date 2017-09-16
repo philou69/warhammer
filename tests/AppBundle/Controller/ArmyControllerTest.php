@@ -70,7 +70,7 @@ class ArmyControllerTest extends AbstractTest
 
         $form = $crawler->selectButton('Enregistrer')->form();
 
-        $form['army[name]'] = 'test2';
+        $form['edit_army[name]'] = 'test2';
 
         $this->client->submit($form);
         $crawler = $this->client->followRedirect();
@@ -81,7 +81,7 @@ class ArmyControllerTest extends AbstractTest
     }
     public function testDelete()
     {
-        $crawler = $this->client->request('GET', $this->client->getContainer()->get('router')->generate('army_view', ['slug' => 'test']));
+        $crawler = $this->client->request('GET', $this->client->getContainer()->get('router')->generate('army_view', ['slug' => 'test2']));
 
         $link = $crawler->selectLink('OUI')->link();
 

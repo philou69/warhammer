@@ -4,7 +4,7 @@
     Bataille {{ battle.name }}
 {% endblock %}
 
-{% block body %}
+{% block content %}
     <div>
         {% if app.user == battle.createur and battle.canceled == false %}
             <div class="pull-right">

@@ -2,7 +2,7 @@
 
 {% block title %}Modification du groupe {{ groupe.name }}{% endblock %}
 
-{% block body %}
+{% block content %}
     <a href="{{ path('admin_index') }}">< Retour à l'accueil de l'administration</a><a href="{{ path('admin_groupe_index') }}">< Retour à la liste des groupes</a>
     <h1>Modification du groupe {{ groupe.name }}</h1>
     {{ form(form) }}

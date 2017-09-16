@@ -18,7 +18,7 @@ class AppControllerTest extends AbstractTest
         $crawler = $this->client->request('GET', $this->client->getContainer()->get('router')->generate('app_home'));
 
         $this->assertEquals('AppBundle\Controller\AppController::indexAction', $this->client->getRequest()->attributes->get('_controller'));
-        $this->assertEquals('Bienvenue sur WarhantmilleBattle', $crawler->filter('h2')->text());
+        $this->assertEquals('Bienvenue sur Warhantmille', $crawler->filter('h2')->text());
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 }

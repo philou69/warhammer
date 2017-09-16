@@ -2,7 +2,7 @@
 
 {% block title %}{{ unit.name }}{% endblock %}
 
-{% block body %}
+{% block content %}
     <a href="{{ path('race_view', {'id': unit.race.id}) }}">Retour à la race</a>
     <h1 class="text-center">{{ unit.name }} de {{ unit.points }} pts</h1>
     <div class="figurines">
